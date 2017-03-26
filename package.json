@@ -1,0 +1,22 @@
+{
+  "name": "Spartan",
+  "version": "1.0.0",
+  "description": "Spartan Fitness",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "flickrapi": "^0.6.0",
+    "mongoose": "^4.4.15",
+    "multer": "^1.3.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": ["Xuliang Qin", "Kaibin Yin"],
+  "license": "ISC"
+}
