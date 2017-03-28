@@ -1,11 +1,9 @@
 module.exports = function () {
 
     var userModel = require("./user/user.model.server")();
-    var websiteModel = require("./website/website.model.server")();
-    var pageModel = require("./page/page.model.server")();
-    var widgetModel = require("./widget/widget.model.server")();
+    var adminModel = require("./admin/admin.model.server")();
 
-    var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+    var connectionString = 'mongodb://127.0.0.1:27017/spartan';
 
     if(process.env.MLAB_USERNAME) {
         connectionString = process.env.MLAB_USERNAME + ":" +
@@ -23,10 +21,7 @@ module.exports = function () {
 
     var model = {
         UserModel: userModel,
-        WebsiteModel: websiteModel,
-        PageModel: pageModel,
-        WidgetModel: widgetModel,
-        Promise: Promise
+        AdminModel: adminModel
     };
     return model;
 };

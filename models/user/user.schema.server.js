@@ -6,10 +6,15 @@ module.exports = function () {
         firstName: String,
         lastName: String,
         email: String,
-        phone:String,
-        websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'assignment.website'}],
-        dateCreates: {type: Date, default: Date.now()}
-    }, {collection: "assignment.user"});
+        phone: String,
+        gender: {
+            type: String,
+            enum: ['Male', 'Female', 'Other']
+        },
+        age: Number,
+        weight: Number,
+        height: Number
+    }, {collection: "user"});
 
     return UserSchema;
 };
