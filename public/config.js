@@ -6,6 +6,9 @@
 			$routeProvider
                 .when("/", {
                     redirectTo: '/index'
+                })
+                .when("/index", {
+                    templateUrl: "/index.view.client.html"
                 });
 
 
