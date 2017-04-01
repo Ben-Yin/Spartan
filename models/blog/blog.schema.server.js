@@ -4,23 +4,19 @@ module.exports = function () {
         _poster : {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
-        }
+        },
         content: String,
         postType: {
             type: String,
             enum: ['Public', 'Private', 'Group']
         },
-        like: [{
+        likes: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
         }],
-        comment: [{
-            _user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
-            },
-            content: String,
-            commentDate: {type: Date, default: Date.now()}
+        comments: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'comment'
         }],
         postDate: {type: Date, default: Date.now()}
     }, {collection: "post"});
