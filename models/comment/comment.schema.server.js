@@ -3,7 +3,7 @@
  */
 module.exports = function () {
     var mongoose = require('mongoose');
-    var commentSchema = mongoose.Schema({
+    return mongoose.Schema({
         _user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
@@ -15,4 +15,5 @@ module.exports = function () {
         content: String,
         commentDate: {type: Date, default: Date.now()}
     });
-}
+
+};

@@ -1,6 +1,6 @@
 module.exports = function () {
     var mongoose = require('mongoose');
-    var BlogSchema = mongoose.Schema({
+    return mongoose.Schema({
         _blogger : {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
@@ -18,6 +18,4 @@ module.exports = function () {
         }],
         blogDate: {type: Date, default: Date.now()}
     }, {collection: "blog"});
-
-    return BlogSchema;
 };

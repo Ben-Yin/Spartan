@@ -6,21 +6,15 @@
             $routeProvider
                 .when("/", {
                     redirectTo: '/index'
-<<<<<<< Updated upstream
                 })
                 .when("/index", {
                     templateUrl: "/index.view.client.html"
-                });
-||||||| merged common ancestors
-                });
-=======
                 })
                 .when("/blog", {
+                    templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogController",
                     controllerAs: "model"
-                })
->>>>>>> Stashed changes
-
+                });
 
         }
 
