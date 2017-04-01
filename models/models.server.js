@@ -1,7 +1,8 @@
 module.exports = function () {
-
     var userModel = require("./user/user.model.server")();
     var adminModel = require("./admin/admin.model.server")();
+    var blogModel = require("./blog/blog.model.server")();
+    var commentModel = require("./comment/comment.model.server")();
 
     var connectionString = 'mongodb://127.0.0.1:27017/spartan';
 
@@ -14,14 +15,17 @@ module.exports = function () {
     }
 
     var mongoose = require("mongoose");
-    var Promise = require('bluebird');
+    var Promise = require("bluebird");
 
     var options = { promiseLibrary: require('bluebird') };
     mongoose.createConnection(connectionString, options);
 
     var model = {
         UserModel: userModel,
-        AdminModel: adminModel
+        AdminModel: adminModel,
+        BlogModel: blogModel,
+        CommentModel: commentModel,
+        Promise: Promise
     };
     return model;
 };

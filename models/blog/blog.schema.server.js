@@ -1,15 +1,13 @@
 module.exports = function () {
     var mongoose = require('mongoose');
-    var PostSchema = mongoose.Schema({
-        _poster : {
+    var BlogSchema = mongoose.Schema({
+        _blogger : {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
         },
+        title: String,
         content: String,
-        postType: {
-            type: String,
-            enum: ['Public', 'Private', 'Group']
-        },
+        category: String,
         likes: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
@@ -18,8 +16,8 @@ module.exports = function () {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'comment'
         }],
-        postDate: {type: Date, default: Date.now()}
-    }, {collection: "post"});
+        blogDate: {type: Date, default: Date.now()}
+    }, {collection: "blog"});
 
-    return PostSchema;
+    return BlogSchema;
 };
