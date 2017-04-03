@@ -14,6 +14,11 @@
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogListController",
                     controllerAs: "model"
+                })
+                .when("/blog/:blogId", {
+                    templateUrl: "/views/blog/templates/blog-single.view.client.html",
+                    controller: "SingleBlogController",
+                    controllerAs: "model"
                 });
 
         }

@@ -9,13 +9,17 @@
         .controller("EditBlogController", EditBlogController)
         .controller("NewBlogController", NewBlogController);
 
-    function BlogListController($routeParams, $sce, BlogService) {
+    function BlogListController($routeParams, $location, BlogService) {
         var vm = this;
         vm.getBlogIntro = getBlogIntro;
         vm.getFormatedDate = getFormatedDate;
+        vm.getSingleBlogUrl = getSingleBlogUrl;
+        vm.sortByCategory = sortByCategory;
         vm.userId = $routeParams.userId;
 
         function init() {
+            vm.trendBlogNum = 20;
+            vm.defaultSorting = "trending";
             if (vm.userId) {
                 BlogService
                     .findBlogByUserId(vm.userId)
@@ -25,16 +29,9 @@
                         }
                     );
             } else {
-                var trendBlogsNum = 20;
-                BlogService
-                    .findBlogByConditions(trendBlogsNum, null, "trending")
-                    .success(
-                        function (blogs) {
-                            console.log(blogs);
-                            vm.blogs = blogs;
-                        }
-                    );
+                setBlogsByconditions(vm.trendBlogNum, null, vm.defaultSorting);
             }
+            vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
         }
         init();
 
@@ -50,6 +47,24 @@
             var date = new Date(dateStr);
             // return String(date.getMonth()+1)+" "+
             return date.toDateString();
+        }
+
+        function getSingleBlogUrl(blog) {
+            $location.url("/blog/"+blog._id);
+        }
+
+        function sortByCategory(category) {
+            setBlogsByconditions(vm.trendBlogNum, category, vm.defaultSorting);
+        }
+
+        function setBlogsByconditions(trendBlogNum, category, sorting) {
+            BlogService
+                .findBlogByConditions(trendBlogNum, category, "trending")
+                .success(
+                    function (blogs) {
+                        vm.blogs = blogs;
+                    }
+                );
         }
     }
 

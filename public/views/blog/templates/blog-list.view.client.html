@@ -82,12 +82,8 @@
                         <button class="fa fa-bars"></button>
                         <h4>CATEGORIES</h4>
                     </div>
-                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                        <li class="list-group-item"><a href="#">Training</a></li>
-                        <li class="list-group-item"><a href="#">Running</a></li>
-                        <li class="list-group-item"><a href="#">Diet</a></li>
-                        <li class="list-group-item"><a href="#">Sport</a></li>
-                        <li class="list-group-item"><a href="#">Health</a></li>
+                    <ul class="list-group list-group-bordered list-group-noicon uppercase" ng-repeat="category in model.categories">
+                        <li class="list-group-item"><a ng-click="model.sortByCategory(category)">{{category}}</a></li>
                     </ul>
                     <!-- /side navigation -->
 
@@ -109,7 +105,7 @@
 
                     <div class="blog-item-small-content">
 
-                        <h2><a ng-href="model.getSingleBlogUrl(blog)">{{blog.title}}</a></h2>
+                        <h2><a ng-click="model.getSingleBlogUrl(blog)">{{blog.title}}</a></h2>
 
                         <ul class="blog-post-info list-inline">
                             <li>
