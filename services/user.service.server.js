@@ -2,7 +2,7 @@
  * Created by BenYin on 3/28/17.
  */
 module.exports = function (app, model) {
-    app.post("/api/login",user);
+    app.post("/api/login",login);
     app.post("/api/user", createUser);
     app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserById);

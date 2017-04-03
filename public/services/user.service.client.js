@@ -9,9 +9,9 @@
         var api={
             "login":login
         }
-
+        return api;
         function login(user) {
             return $http.post("/api/login",user);
         }
     }
-})
+})();

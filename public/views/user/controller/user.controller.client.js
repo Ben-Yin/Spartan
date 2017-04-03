@@ -3,7 +3,7 @@
         .module("Spartan")
         .controller("LoginController", LoginController);
 
-    function loginController($location,$rootScope,UserService) {
+    function LoginController($location,$rootScope,UserService) {
         var vm=this;
         vm.login=login;
 
