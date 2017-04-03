@@ -31,7 +31,11 @@
         }
 
         function findBlogByConditions(blogNum, category, sorting) {
-            return $http.get("/api/blog?blogNum="+blogNum+"&category="+category+"&sorting="+sorting);
+            return $http.get("/api/blog", {params: {
+                "blogNum": blogNum,
+                "category": category,
+                "sorting": sorting
+            }});
         }
 
         function updateBlog(blogId, blog) {

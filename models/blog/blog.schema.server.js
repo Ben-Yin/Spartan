@@ -6,6 +6,7 @@ module.exports = function () {
             ref: 'user'
         },
         title: String,
+        titleImageUrl: String,
         content: String,
         category: String,
         likes: [{
