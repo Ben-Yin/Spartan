@@ -18,7 +18,7 @@ module.exports = function () {
     var Promise = require("bluebird");
 
     var options = { promiseLibrary: require('bluebird') };
-    mongoose.createConnection(connectionString, options);
+    mongoose.connect(connectionString, options);
 
     var model = {
         UserModel: userModel,

@@ -9,8 +9,10 @@
         .controller("EditBlogController", EditBlogController)
         .controller("NewBlogController", NewBlogController);
 
-    function BlogListController($routeParams, BlogService) {
+    function BlogListController($routeParams, $sce, BlogService) {
         var vm = this;
+        vm.getBlogIntro = getBlogIntro;
+        vm.getFormatedDate = getFormatedDate;
         vm.userId = $routeParams.userId;
 
         function init() {
@@ -28,12 +30,27 @@
                     .findBlogByConditions(trendBlogsNum, null, "trending")
                     .success(
                         function (blogs) {
+                            console.log(blogs);
                             vm.blogs = blogs;
                         }
                     );
             }
         }
         init();
+
+        function getBlogIntro(content) {
+            var intro = content.slice(0, content.lastIndexOf(" ", 200));
+            if (content.length > 200) {
+                intro += "...";
+            }
+            return intro;
+        }
+
+        function getFormatedDate(dateStr) {
+            var date = new Date(dateStr);
+            // return String(date.getMonth()+1)+" "+
+            return date.toDateString();
+        }
     }
 
     function SingleBlogController($routeParams, BlogService, CommentService) {

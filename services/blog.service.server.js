@@ -37,7 +37,7 @@ module.exports = function (app, model) {
                     res.json(blog);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             );
     }
@@ -52,14 +52,14 @@ module.exports = function (app, model) {
                     res.json(blog);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             );
     }
-    
+
 
     function findBlogByConditions(req, res) {
-        var blogNum = req.query.blogNum;
+        var blogNum = parseInt(req.query.blogNum);
         var category = req.query.category;
         var sorting = req.query.sorting;
         model
@@ -70,7 +70,8 @@ module.exports = function (app, model) {
                     res.json(blogs);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    console.log(err);
+                    res.sendStatus(500);
                 }
             );
     }
@@ -86,7 +87,7 @@ module.exports = function (app, model) {
                     res.sendStatus(200);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             );
     }
@@ -142,7 +143,7 @@ module.exports = function (app, model) {
                     res.sendStatus(200);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             );
     }

@@ -23,7 +23,7 @@
 
                 .when("/blog", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
-                    controller: "BlogController",
+                    controller: "BlogListController",
                     controllerAs: "model"
                 });
 
