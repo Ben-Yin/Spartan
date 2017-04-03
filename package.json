@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.1",
+    "connect-favicons": "git://github.com/theworkers/connect-favicons.git",
     "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "express-session": "^1.15.2",
