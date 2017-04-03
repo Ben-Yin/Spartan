@@ -2,6 +2,7 @@
  * Created by BenYin on 3/28/17.
  */
 module.exports = function (app, model) {
+    app.post("/api/login",user);
     app.post("/api/user", createUser);
     app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserById);
@@ -9,6 +10,51 @@ module.exports = function (app, model) {
     app.delete("/api/user/:userId", deleteUser);
 
     var md5 = require('md5');
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+    passport.use(new LocalStrategy(localStrategy));
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    function localStrategy(username, password, done) {
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(user) {
+                    if(user.username === username && user.password === password) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            );
+    }
+
+    function deserializeUser(user, done) {
+        developerModel
+            .findDeveloperById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
 
     function findUser(req, res) {
         var username = req.query.username;
