@@ -70,19 +70,27 @@
 
     function SingleBlogController($routeParams, BlogService, CommentService) {
         var vm = this;
+        vm.postComment = postComment;
+        vm.getFormatedDate = getFormatedDate;
+        vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
-
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
+                    console.log(blog);
                     vm.blog = blog;
                 });
+
             CommentService
                 .findCommentByBlogId(vm.blogId)
                 .success(function (comments) {
                     vm.comments = comments;
                 });
+            vm.thumbsUp = {
+                "like": false,
+                "icon": "icon-2x icon-thumbs-up-alt"
+            };
         }
         init();
 
@@ -92,6 +100,34 @@
                 .success(function (status) {
                     console.log("add comment success");
                 });
+        }
+
+        function likeBlog(userId, blog) {
+            if (vm.thumbsUp.like) {
+                var i = blog.likes.indexOf(userId);
+                blog.likes.splice(i, 1);
+                vm.thumbsUp = {
+                    "like": false,
+                    "icon": "icon-2x icon-thumbs-up-alt"
+                }
+            } else {
+                blog.likes.push(userId);
+                vm.thumbsUp = {
+                    "like": true,
+                    "icon": "icon-2x icon-thumbs-up"
+                }
+            }
+            BlogService
+                .updateBlog(blog._id, blog)
+                .success(function (status) {
+                    console.log("like blog success");
+                });
+        }
+
+        function getFormatedDate(dateStr) {
+            var date = new Date(dateStr);
+            // return String(date.getMonth()+1)+" "+
+            return date.toDateString();
         }
     }
 
@@ -122,6 +158,10 @@
                 .success(function (status) {
                     console.log("delete blog success");
                 });
+        }
+
+        function findUserById(userId) {
+
         }
     }
 

@@ -49,5 +49,6 @@
         function addCommentForBlog(blogId, comment) {
             return $http.post("/api/user/"+userId+"/blog/"+blogId+"/comment", comment);
         }
+
     }
 })();
