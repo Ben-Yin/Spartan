@@ -35,11 +35,24 @@
 
                 <div class="form-group">
                     <div class="row"></div>
-                    <label for="title">Title Photo</label>
+                    <label for="titleImageUrl">Title Photo</label>
                     <input ng-model="model.blog.titleImageUrl"
                            type="text"
                            class="form-control"
                            placeholder="The URL of title photo">
+                </div>
+
+                <div class="form-group">
+                    <div class="row"></div>
+                    <label for="category">Category</label>
+                    <select ng-model="model.blog.category"
+                            class="form-control">
+                        <option ng-selected="model.blog.category=='TRAINING'">TRAINING</option>
+                        <option ng-selected="model.blog.category=='RUNNING'">RUNNING</option>
+                        <option ng-selected="model.blog.category=='DIET'">DIET</option>
+                        <option ng-selected="model.blog.category=='SPORT'">SPORT</option>
+                        <option ng-selected="model.blog.category=='HEALTH'">HEALTH</option>
+                    </select>
                 </div>
 
                 <div class="form-group">

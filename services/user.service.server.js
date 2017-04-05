@@ -2,46 +2,60 @@
  * Created by BenYin on 3/28/17.
  */
 module.exports = function (app, model) {
-    app.post("/api/login",login);
-    app.post("/api/user", createUser);
-    app.get("/api/user", findUser);
-    app.get("/api/user/:userId", findUserById);
-    app.put("/api/user/:userId", updateUser);
-    app.delete("/api/user/:userId", deleteUser);
-
+    var passport= require('passport');
+    var auth = authorized;
+    app.post  ('/api/login',passport.authenticate('local'),login);
+    app.post  ('/api/logout',logout);
+    app.post  ('/api/register',register);
+    app.post  ('/api/user',auth, createUser);
+    app.get   ('/api/loggedin',loggedin);
+    app.get   ('/api/user',auth, findAllUsers);
+    app.put   ('/api/user/:id',auth, updateUser);
+    app.delete('/api/user/:id',auth, deleteUser);
     var md5 = require('md5');
-    var passport = require('passport');
-    var LocalStrategy = require('passport-local').Strategy;
 
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+
+
+    function authorized (req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    };
+
+
+    var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(localStrategy));
 
-    function login(req, res) {
-        var user = req.user;
-        res.json(user);
-    }
-
-    function localStrategy(username, password, done) {
-        userModel
-            .findUserByCredentials(username, password)
+    
+    function localStrategy(username,password,done) {
+        model.UserModel
+            .findUserByCredential(username,password)
             .then(
-                function(user) {
-                    if(user.username === username && user.password === password) {
-                        return done(null, user);
-                    } else {
-                        return done(null, false);
+                function (user) {
+                    if(!user){
+                        return done(null,false);
                     }
+                        return done(null,user);
+
                 },
-                function(err) {
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err){
+                        return done(err);
+                    }
                 }
             );
     }
 
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+
     function deserializeUser(user, done) {
-        developerModel
-            .findDeveloperById(user._id)
+        model
+            .AdminModel
+            .findAdminById(user._id)
             .then(
                 function(user){
                     done(null, user);
@@ -55,6 +69,60 @@ module.exports = function (app, model) {
     function serializeUser(user, done) {
         done(null, user);
     }
+
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
+
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function register(req, res) {
+        var user=req.body;
+        model
+            .UserModel
+            .createUser(user)
+            .then(
+                function (user) {
+                    if(user){
+                        req.login(user,function (err) {
+                            if (err){
+                                re.status(400).send(err);
+                            }else{
+                                res.json(user);
+                            }
+                        });
+                    }
+                }
+            );
+    }
+
+    function createUser(req, res) {
+
+        var user = req.body;
+        console.log(user)
+        user.password = md5(user.password);
+        model
+            .UserModel
+            .createUser(user)
+            .then(
+                function (newUser) {
+                    res.json(newUser);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                }
+            );
+    }
+
 
     function findUser(req, res) {
         var username = req.query.username;
@@ -132,21 +200,7 @@ module.exports = function (app, model) {
             );
     }
 
-    function createUser(req, res) {
-        var user = req.body;
-        user.password = md5(user.password);
-        model
-            .UserModel
-            .createUser(user)
-            .then(
-                function (newUser) {
-                    res.json(newUser);
-                },
-                function (err) {
-                    res.sendStatus(500).send(err);
-                }
-            );
-    }
+
 
     function deleteUser(req, res) {
         var userId = req.params.userId;
@@ -173,5 +227,8 @@ module.exports = function (app, model) {
                 console.log(err);
                 res.sendStatus(500).send(err);
             })
+    }
+    function findAllUsers() {
+        
     }
 };
