@@ -73,13 +73,11 @@
         vm.getFormatedDate = getFormatedDate;
         vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
-        vm.userId =
-            "58e2fe3a3e931c5dc3af6c41";
+        vm.userId = "58e2fe3a3e931c5dc3af6c41";
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
-                    console.log(blog);
                     vm.blog = blog;
                     if (vm.blog.likes.indexOf(vm.userId) == -1) {
                         vm.thumbsUp = {
@@ -139,7 +137,7 @@
         }
     }
 
-    function EditBlogController($routeParams, BlogService) {
+    function EditBlogController($routeParams, $location, BlogService) {
         var vm = this;
         vm.updateBlog = updateBlog;
         vm.blogId = $routeParams.blogId;
@@ -158,7 +156,7 @@
             BlogService
                 .updateBlog(vm.blogId, blog)
                 .success(function (status) {
-                    console.log("update blog success");
+                    $location.url("/blog/"+vm.blogId);
                 });
         }
 
@@ -166,7 +164,7 @@
             BlogService
                 .deleteBlog(blogId)
                 .success(function (status) {
-                    console.log("delete blog success");
+                    $location.url("/blog");
                 });
         }
 
