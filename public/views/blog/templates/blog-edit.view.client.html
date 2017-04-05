@@ -1,0 +1,68 @@
+
+<!-- wrapper -->
+<div id="wrapper">
+
+    <section class="page-header page-header-xs">
+        <div class="container">
+
+            <h1>Edit Blog</h1>
+
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a ng-href="#">Home</a></li>
+                <li><a ng-href="#/blog">Blog</a></li>
+                <li><a ng-href="#/blog/{{model.blog._id}}">{{model.title}}</a></li>
+                <li class="active">Edit</li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
+    <!-- /PAGE HEADER -->
+
+
+    <!-- -->
+    <section>
+        <div class="container">
+
+            <form class="form">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input ng-model="model.blog.title"
+                           type="text"
+                           class="form-control"
+                           placeholder="Blog Title">
+                </div>
+
+                <div class="form-group">
+                    <div class="row"></div>
+                    <label for="title">Title Photo</label>
+                    <input ng-model="model.blog.titleImageUrl"
+                           type="text"
+                           class="form-control"
+                           placeholder="The URL of title photo">
+                </div>
+
+                <div class="form-group">
+                    <div ng-model="model.blog.content"
+                         text-angular
+                         ta-toolbar>
+                    </div>
+
+                </div>
+
+            </form>
+            <a ng-click="model.updateBlog(model.blog)" class="btn btn-block btn-success btn-margin">Update Blog</a>
+        </div>
+
+    </section>
+    <!-- / -->
+
+
+</div>
+<!-- /wrapper -->
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>
+
+

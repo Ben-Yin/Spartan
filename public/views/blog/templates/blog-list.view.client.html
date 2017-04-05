@@ -1,155 +1,112 @@
-<!--
-		AVAILABLE BODY CLASSES:
-		
-		smoothscroll 			= create a browser smooth scroll
-		enable-animation		= enable WOW animations
 
-		bg-grey					= grey background
-		grain-grey				= grey grain background
-		grain-blue				= blue grain background
-		grain-green				= green grain background
-		grain-blue				= blue grain background
-		grain-orange			= orange grain background
-		grain-yellow			= yellow grain background
-		
-		boxed 					= boxed layout
-		pattern1 ... patern11	= pattern background
-		menu-vertical-hide		= hidden, open on click
-		
-		BACKGROUND IMAGE [together with .boxed class]
-		data-background="assets/images/boxed_background/1.jpg"
--->
+<!-- wrapper -->
+<div id="wrapper">
 
-<!--
-    PAGE HEADER
+    <section class="page-header dark page-header-xs">
+        <div class="container">
 
-    CLASSES:
-        .page-header-xs	= 20px margins
-        .page-header-md	= 50px margins
-        .page-header-lg	= 80px margins
-        .page-header-xlg= 130px margins
-        .dark			= dark page header
+            <h1>BLOG</h1>
 
-        .shadow-before-1 	= shadow 1 header top
-        .shadow-after-1 	= shadow 1 header bottom
-        .shadow-before-2 	= shadow 2 header top
-        .shadow-after-2 	= shadow 2 header bottom
-        .shadow-before-3 	= shadow 3 header top
-        .shadow-after-3 	= shadow 3 header bottom
--->
-<section class="page-header dark page-header-xs">
-    <div class="container">
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">Blog</a></li>
+            </ol><!-- /breadcrumbs -->
 
-        <h1>BLOG</h1>
+        </div>
+    </section>
+    <!-- /PAGE HEADER -->
 
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li class="active"><a href="#">Blog</a></li>
-        </ol><!-- /breadcrumbs -->
+    <!-- -->
+    <section>
+        <div class="container">
 
-    </div>
-</section>
-<!-- /PAGE HEADER -->
+            <div class="row">
 
+                <!-- LEFT -->
+                <div class="col-md-3 col-sm-3">
 
-<!-- -->
-<section>
-    <div class="container">
-
-        <div class="row">
-
-            <!-- LEFT -->
-            <div class="col-md-3 col-sm-3">
-
-                <!-- INLINE SEARCH -->
-                <div class="inline-search clearfix margin-bottom-30">
-                    <form action="" method="get" class="widget_search">
-                        <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
-                        <button type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
-                </div>
-                <!-- /INLINE SEARCH -->
-
-                <hr/>
-
-                <!-- side navigation -->
-                <div class="side-nav margin-bottom-60 margin-top-30">
-
-                    <div class="side-nav-head">
-                        <button class="fa fa-bars"></button>
-                        <h4>CATEGORIES</h4>
+                    <!-- INLINE SEARCH -->
+                    <div class="inline-search clearfix margin-bottom-30">
+                        <form action="" method="get" class="widget_search">
+                            <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
+                            <button type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
                     </div>
-                    <ul class="list-group list-group-bordered list-group-noicon uppercase" ng-repeat="category in model.categories">
-                        <li class="list-group-item"><a ng-click="model.sortByCategory(category)">{{category}}</a></li>
-                    </ul>
-                    <!-- /side navigation -->
+                    <!-- /INLINE SEARCH -->
 
+                    <hr/>
+
+                    <!-- side navigation -->
+                    <div class="side-nav margin-bottom-60 margin-top-30">
+
+                        <div class="side-nav-head">
+                            <button class="fa fa-bars"></button>
+                            <h4>CATEGORIES</h4>
+                        </div>
+                        <ul class="list-group list-group-bordered list-group-noicon uppercase"
+                            ng-repeat="category in model.categories">
+                            <li class="list-group-item"><a ng-click="model.sortByCategory(category)">{{category}}</a>
+                            </li>
+                        </ul>
+                        <!-- /side navigation -->
+
+                    </div>
 
                 </div>
 
-            </div>
+                <!-- RIGHT -->
+                <div class="col-md-9 col-sm-9">
 
-            <!-- RIGHT -->
-            <div class="col-md-9 col-sm-9">
+                    <!-- POST ITEM -->
+                    <div class="blog-post-item" ng-repeat="blog in model.blogs">
+                        <!-- .blog-post-item-inverse = image right side [left on RTL] -->
 
-                <!-- POST ITEM -->
-                <div class="blog-post-item" ng-repeat="blog in model.blogs"><!-- .blog-post-item-inverse = image right side [left on RTL] -->
+                        <!-- IMAGE -->
+                        <figure class="blog-item-small-image margin-bottom-20">
+                            <img class="img-responsive" ng-src="{{blog.titleImageUrl}}" alt="">
+                        </figure>
 
-                    <!-- IMAGE -->
-                    <figure class="blog-item-small-image margin-bottom-20">
-                        <img class="img-responsive" ng-src="{{blog.titleImageUrl}}" alt="">
-                    </figure>
+                        <div class="blog-item-small-content">
 
-                    <div class="blog-item-small-content">
+                            <h2><a ng-click="model.getSingleBlogUrl(blog)">{{blog.title}}</a></h2>
 
-                        <h2><a ng-click="model.getSingleBlogUrl(blog)">{{blog.title}}</a></h2>
-
-                        <ul class="blog-post-info list-inline">
-                            <li>
+                            <ul class="blog-post-info list-inline">
+                                <li>
                                     <i class="fa fa-clock-o"></i>
                                     <span class="font-lato">{{model.getFormatedDate(blog.blogDate)}}</span>
 
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-comment-o"></i>
-                                    <span class="font-lato">{{blog.comments.length}} Comments</span>
-                                </a>
-                            </li>
-                        </ul>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-comment-o"></i>
+                                        <span class="font-lato">{{blog.comments.length}} Comments</span>
+                                    </a>
+                                </li>
+                            </ul>
 
-                        <p>{{model.getBlogIntro(blog.content)}}</p>
+                            <p>{{model.getBlogIntro(blog.content)}}</p>
 
-                        <a ng-href="model.getSingleBlogUrl(blog)" class="btn btn-reveal btn-default">
-                            <i class="fa fa-plus"></i>
-                            <span>Read More</span>
-                        </a>
+                            <a ng-href="model.getSingleBlogUrl(blog)" class="btn btn-reveal btn-default">
+                                <i class="fa fa-plus"></i>
+                                <span>Read More</span>
+                            </a>
+
+                        </div>
 
                     </div>
+                    <!-- /POST ITEM -->
 
                 </div>
-                <!-- /POST ITEM -->
-
 
             </div>
 
         </div>
-
-
-    </div>
-</section>
-<!-- / -->
-
+    </section>
 </div>
 <!-- /wrapper -->
 
-
 <!-- SCROLL TO TOP -->
 <a href="#" id="toTop"></a>
-
-
-</body>
-</html>

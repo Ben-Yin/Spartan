@@ -30,6 +30,11 @@
                     templateUrl: "/views/blog/templates/blog-single.view.client.html",
                     controller: "SingleBlogController",
                     controllerAs: "model"
+                })
+                .when("/blog/:blogId/edit", {
+                    templateUrl: "/views/blog/templates/blog-edit.view.client.html",
+                    controller: "EditBlogController",
+                    controllerAs: "model"
                 });
 
         }

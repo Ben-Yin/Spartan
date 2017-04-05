@@ -45,7 +45,6 @@
 
         function getFormatedDate(dateStr) {
             var date = new Date(dateStr);
-            // return String(date.getMonth()+1)+" "+
             return date.toDateString();
         }
 
@@ -74,12 +73,25 @@
         vm.getFormatedDate = getFormatedDate;
         vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
+        vm.userId =
+            "58e2fe3a3e931c5dc3af6c41";
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
                     console.log(blog);
                     vm.blog = blog;
+                    if (vm.blog.likes.indexOf(vm.userId) == -1) {
+                        vm.thumbsUp = {
+                            "like": false,
+                            "icon": "icon-large icon-thumbs-up-alt"
+                        };
+                    } else {
+                        vm.thumbsUp = {
+                            "like": true,
+                            "icon": "icon-large icon-thumbs-up"
+                        }
+                    }
                 });
 
             CommentService
@@ -87,10 +99,7 @@
                 .success(function (comments) {
                     vm.comments = comments;
                 });
-            vm.thumbsUp = {
-                "like": false,
-                "icon": "icon-2x icon-thumbs-up-alt"
-            };
+
         }
         init();
 
@@ -108,13 +117,13 @@
                 blog.likes.splice(i, 1);
                 vm.thumbsUp = {
                     "like": false,
-                    "icon": "icon-2x icon-thumbs-up-alt"
+                    "icon": "icon-large icon-thumbs-up-alt"
                 }
             } else {
                 blog.likes.push(userId);
                 vm.thumbsUp = {
                     "like": true,
-                    "icon": "icon-2x icon-thumbs-up"
+                    "icon": "icon-large icon-thumbs-up"
                 }
             }
             BlogService
@@ -126,13 +135,13 @@
 
         function getFormatedDate(dateStr) {
             var date = new Date(dateStr);
-            // return String(date.getMonth()+1)+" "+
             return date.toDateString();
         }
     }
 
     function EditBlogController($routeParams, BlogService) {
         var vm = this;
+        vm.updateBlog = updateBlog;
         vm.blogId = $routeParams.blogId;
 
         function init() {
@@ -140,6 +149,7 @@
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
                     vm.blog = blog;
+                    vm.title = vm.blog.title;
                 });
         }
         init();
@@ -182,4 +192,6 @@
                 });
         }
     }
+
+
 })();
