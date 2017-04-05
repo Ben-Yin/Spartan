@@ -1,3 +1,3 @@
 (function () {
-    angular.module('Spartan', ['ngRoute', 'textAngular']);
+    angular.module('Spartan', ['ngRoute', 'textAngular', 'spartanDirective']);
 })();
