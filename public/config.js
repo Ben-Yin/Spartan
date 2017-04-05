@@ -35,8 +35,10 @@
                     templateUrl: "/views/blog/templates/blog-edit.view.client.html",
                     controller: "EditBlogController",
                     controllerAs: "model"
+                })
+                .otherwise({
+                    redirectTo: '/index'
                 });
-
         }
 
 })();
