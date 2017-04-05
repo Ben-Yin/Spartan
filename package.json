@@ -4,6 +4,7 @@
   "description": "Spartan Fitness",
   "main": "server.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
     "connect-favicons": "git://github.com/theworkers/connect-favicons.git",
     "cookie-parser": "^1.4.3",

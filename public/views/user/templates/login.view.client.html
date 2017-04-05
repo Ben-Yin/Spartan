@@ -157,14 +157,14 @@
                         <fieldset class="nomargin">
 
                             <label class="input margin-bottom-10">
-                                <i class="ico-append fa fa-envelope"></i>
-                                <input required type="email" placeholder="Email address">
+                                <i class="ico-append fa fa-user"></i>
+                                <input ng-model="model.user.username"required type="text" placeholder="Username">
                                 <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
                             </label>
 
                             <label class="input margin-bottom-10">
                                 <i class="ico-append fa fa-lock"></i>
-                                <input required type="password" placeholder="Password">
+                                <input ng-model="model.user.password" required type="password" placeholder="Password">
                                 <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
                             </label>
 
@@ -180,15 +180,15 @@
                         </fieldset>
 
                         <footer>
-                            <button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> OK, LOG IN</button>
+                            <a  class="btn btn-primary noradius pull-right" ng-click="model.login(model.user)"><i class="fa fa-check"></i> OK, LOG IN</a>
                         </footer>
 
                     </form>
                     <!-- /login form -->
 
                     <!-- ALERT -->
-                    <div class="alert alert-mini alert-danger margin-bottom-30">
-                        <strong>Oh snap!</strong> Login Incorrect!
+                    <div class="alert alert-mini alert-danger margin-bottom-30" ng-show="model.error">
+                        {{model.error}}
                     </div><!-- /ALERT -->
 
                 </div>

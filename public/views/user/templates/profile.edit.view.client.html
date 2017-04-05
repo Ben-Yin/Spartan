@@ -1,0 +1,523 @@
+
+<!-- wrapper -->
+<div id="wrapper">
+
+
+    <div id="header" class="sticky header-md clearfix">
+
+        <!-- TOP NAV -->
+        <header id="topNav">
+            <div class="container">
+
+                <!-- Mobile Menu Button -->
+                <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- BUTTONS -->
+                <ul class="pull-right nav nav-pills nav-second-main">
+
+                    <li class="dropdown active"><a ng-href="#/user">LOGIN</a></li>
+                    <li class="dropdown active"><a ng-href="#/register">REGISTER</a></li>
+                </ul>
+                <!-- /BUTTONS -->
+
+
+                <!-- Logo -->
+                <a class="logo pull-left" href="index.html">
+                    <img src="./images/logo_light.png" alt="" />
+                </a>
+
+                <!--
+                    Top Nav
+
+                    AVAILABLE CLASSES:
+                    submenu-dark = dark sub menu
+                -->
+                <div class="navbar-collapse pull-right nav-main-collapse collapse">
+                    <nav class="nav-main">
+
+                        <!--
+                            NOTE
+
+                            For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
+                            Direct Link Example:
+
+                            <li>
+                                <a href="#">HOME</a>
+                            </li>
+                        -->
+                        <ul id="topMain" class="nav nav-pills nav-main">
+                            <li class="dropdown active"><!-- HOME -->
+                                <a  href="#/index">HOME</a>
+                            </li>
+                            <li class="dropdown"><!-- PAGES -->
+                                <a class="dropdown-toggle" href="#">
+                                    Training
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="#">
+                                            GYM EXERCISE
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">template</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><!-- FEATURES -->
+                                <a class="dropdown-toggle" href="#">
+                                    News
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="#">
+                                            template
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">template</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><!-- PORTFOLIO -->
+                                <a class="dropdown-toggle" href="#">
+                                    Show!
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="#">
+                                            template
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">template</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><!-- BLOG -->
+                                <a class="dropdown-toggle" href="#">
+                                    BLOG
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="#">
+                                            template
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">template</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><!-- SHOP -->
+                                <a class="dropdown-toggle" href="#">
+                                    SHOP
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="#">
+                                            template
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">template</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </nav>
+                </div>
+
+            </div>
+        </header>
+        <!-- /Top Nav -->
+
+    </div>
+    <!-- -->
+    <section>
+        <div class="container">
+
+            <!-- LEFT -->
+            <div class="col-lg-3 col-md-3 col-sm-4">
+
+                <div class="thumbnail text-center">
+                    <p>aaa</p>
+                    <img src={{model.user.avatar}} alt="" />
+                    <h2 class="size-18 margin-top-10 margin-bottom-0">{{model.user.username}}</h2>
+                    <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">{{model.user.usertype}}</h3>
+                </div>
+
+                <!-- completed -->
+                <div class="margin-bottom-30">
+                    <label>88% completed profile</label>
+                    <div class="progress progress-xxs">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;"></div>
+                    </div>
+                </div>
+                <!-- /completed -->
+
+                <!-- SIDE NAV -->
+                <ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
+                    <li class="list-group-item active"><a ng-href="#/profile"><i class="fa fa-eye"></i> PROFILE</a></li>
+                    <li class="list-group-item"><a ng-href="#/profile/comment"><i class="fa fa-comments-o"></i> COMMENTS</a></li>
+                    <li class="list-group-item"><a ng-href="#/profile/history"><i class="fa fa-history"></i> HISTORY</a></li>
+                    <li class="list-group-item"><a ng-href="#/profile/setting"><i class="fa fa-gears"></i> SETTINGS</a></li>
+                </ul>
+                <!-- /SIDE NAV -->
+
+
+                <!-- info -->
+                <div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">12</h2>
+                            <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">BLOGS</h3>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">34</h2>
+                            <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">POSTS</h3>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">32</h2>
+                            <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">COMMENTS</h3>
+                        </div>
+                    </div>
+                    <!-- /info -->
+
+                    <div class="text-muted">
+                        <h2 class="size-18 text-muted margin-bottom-6"><b>About</b> {{model.user.username}}</h2>
+                        <p>{{model.user.selfIntro}}</p>
+
+                        <ul class="list-unstyled nomargin">
+                            <li class="margin-bottom-10"><i class="fa fa-globe width-20 hidden-xs hidden-sm"></i> <a href={{model.github}}>Github</a></li>
+                            <li class="margin-bottom-10"><i class="fa fa-facebook width-20 hidden-xs hidden-sm"></i> <a href={{model.facebook}}>Facebook</a></li>
+                            <li class="margin-bottom-10"><i class="fa fa-twitter width-20 hidden-xs hidden-sm"></i> <a href={{model.twitter}}>Twitter</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div class="col-lg-9 col-md-9 col-sm-8 col-lg-push-3 col-md-push-3 col-sm-push-4 margin-bottom-80">
+
+                <ul class="nav nav-tabs nav-top-border">
+                    <li class="active"><a href="#info" data-toggle="tab">Personal Info</a></li>
+                    <li><a href="#avatar" data-toggle="tab">Avatar</a></li>
+                    <li><a href="#password" data-toggle="tab">Password</a></li>
+                    <li><a href="#privacy" data-toggle="tab">Privacy</a></li>
+                </ul>
+
+                <div class="tab-content margin-top-20">
+
+                    <!-- PERSONAL INFO TAB -->
+                    <div class="tab-pane fade in active" id="info">
+                        <form role="form" action="#" method="post">
+                            <div class="form-group">
+                                <label class="control-label">First Name</label>
+                                <input type="text" placeholder="Felicia" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Last Name</label>
+                                <input type="text" placeholder="Doe" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Mobile Number</label>
+                                <input type="text" placeholder="+1800-1234-657" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Interests</label>
+                                <input type="text" placeholder="Development, C++, etc." class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Occupation</label>
+                                <input type="text" placeholder="Webdeveloper" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">About</label>
+                                <textarea class="form-control" rows="3" placeholder="About Me..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Website Url</label>
+                                <input type="text" placeholder="http://www.yourwebsite.com" class="form-control">
+                            </div>
+                            <div class="margiv-top10">
+                                <a href="#" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                                <a href="#" class="btn btn-default">Cancel </a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /PERSONAL INFO TAB -->
+
+                    <!-- AVATAR TAB -->
+                    <div class="tab-pane fade" id="avatar">
+
+                        <form class="clearfix" action="#" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+
+                                <div class="row">
+
+                                    <div class="col-md-3 col-sm-4">
+
+                                        <div class="thumbnail">
+                                            <img class="img-responsive" src="assets/images/demo/people/460x700/8-min.jpg" alt="" />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-9 col-sm-8">
+
+                                        <div class="sky-form nomargin">
+                                            <label class="label">Select File</label>
+                                            <label for="file" class="input input-file">
+                                                <div class="button">
+                                                    <input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse
+                                                </div><input type="text" readonly>
+                                            </label>
+                                        </div>
+
+                                        <a href="#" class="btn btn-danger btn-xs noradius"><i class="fa fa-times"></i> Remove Avatar</a>
+
+                                        <div class="clearfix margin-top-20">
+                                            <span class="label label-warning">NOTE! </span>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt laoreet!
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="margiv-top10">
+                                <a href="#" class="btn btn-primary">Save Changes </a>
+                                <a href="#" class="btn btn-default">Cancel </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <!-- /AVATAR TAB -->
+
+                    <!-- PASSWORD TAB -->
+                    <div class="tab-pane fade" id="password">
+
+                        <form action="#" method="post">
+
+                            <div class="form-group">
+                                <label class="control-label">Current Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">New Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Re-type New Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+
+                            <div class="margiv-top10">
+                                <a href="#" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
+                                <a href="#" class="btn btn-default">Cancel </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <!-- /PASSWORD TAB -->
+
+                    <!-- PRIVACY TAB -->
+                    <div class="tab-pane fade" id="privacy">
+
+                        <form action="#" method="post">
+                            <div class="sky-form">
+
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam.</td>
+                                        <td>
+                                            <div class="inline-group">
+                                                <label class="radio nomargin-top nomargin-bottom">
+                                                    <input type="radio" name="radioOption" checked=""><i></i> Yes
+                                                </label>
+
+                                                <label class="radio nomargin-top nomargin-bottom">
+                                                    <input type="radio" name="radioOption" checked=""><i></i> No
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam.</td>
+                                        <td>
+                                            <label class="checkbox nomargin">
+                                                <input type="checkbox" name="checkbox" checked=""><i></i> Yes
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam.</td>
+                                        <td>
+                                            <label class="checkbox nomargin">
+                                                <input type="checkbox" name="checkbox" checked=""><i></i> Yes
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam.</td>
+                                        <td>
+                                            <label class="checkbox nomargin">
+                                                <input type="checkbox" name="checkbox" checked=""><i></i> Yes
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="margin-top-10">
+                                <a href="#" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                                <a href="#" class="btn btn-default">Cancel </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <!-- /PRIVACY TAB -->
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- / -->
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <!-- Footer Logo -->
+                    <img class="footer-logo" src="../../../images/logo_light_foot.png" alt="" />
+
+                    <!-- Small Description -->
+                    <p><strong>Fit is not a destination.</strong><br><strong>It is a way of life!</strong></p>
+
+
+                    <!-- Contact Address -->
+                    <address>
+                        <ul class="list-unstyled">
+                            <li class="footer-sprite address">
+                                360 Huntington Ave.<br>
+                                Boston, Massachusetts<br>
+                                02115 United States<br>
+                            </li>
+                            <li class="footer-sprite phone">
+                                Phone: 1.617.373.2000
+                            </li>
+                            <li class="footer-sprite email">
+                                <a href="mailto:ccis@neu.com">ccis@neu.com</a>
+                            </li>
+                        </ul>
+                    </address>
+                    <!-- /Contact Address -->
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <!-- Links -->
+                    <h4 class="letter-spacing-1">EXPLORE SMARTY</h4>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                    <!-- /Links -->
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <!-- Newsletter Form -->
+                    <h4 class="letter-spacing-1">KEEP IN TOUCH</h4>
+                    <p>Subscribe to Our Newsletter to get Important News &amp; Offers</p>
+
+                    <form class="validate" action="php/newsletter.php" method="post" data-success="Subscribed! Thank you!" data-toastr-position="bottom-right">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" id="email" name="email" class="form-control required" placeholder="Enter your Email">
+                            <span class="input-group-btn">
+										<button class="btn btn-success" type="submit">Subscribe</button>
+									</span>
+                        </div>
+                    </form>
+                    <!-- /Newsletter Form -->
+
+                    <!-- Social Icons -->
+                    <div class="margin-top-20">
+                        <a href="https://www.facebook.com/" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
+
+                        <a href="https://twitter.com/" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                            <i class="icon-twitter"></i>
+                            <i class="icon-twitter"></i>
+                        </a>
+
+                        <a href="https://www.google.com/" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                            <i class="icon-gplus"></i>
+                            <i class="icon-gplus"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com/" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                            <i class="icon-linkedin"></i>
+                            <i class="icon-linkedin"></i>
+                        </a>
+
+
+                    </div>
+                    <!-- /Social Icons -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            <div class="container">
+                <ul class="pull-right nomargin list-inline mobile-block">
+                    <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li>&bull;</li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+                &copy; All Rights Reserved, NEU Xuliang Qin & Yinkai Bin
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+</div>
+<!-- /wrapper -->
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>

@@ -1,0 +1,363 @@
+<!-- wrapper -->
+<div id="wrapper">
+
+    <div id="header" class="sticky header-md clearfix">
+
+    <!-- TOP NAV -->
+    <header id="topNav">
+        <div class="container">
+
+            <!-- Mobile Menu Button -->
+            <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- BUTTONS -->
+            <ul class="pull-right nav nav-pills nav-second-main">
+
+                <li class="dropdown active"><a ng-href="#/user">LOGIN</a></li>
+                <li class="dropdown active"><a ng-href="#/register">REGISTER</a></li>
+            </ul>
+            <!-- /BUTTONS -->
+
+
+            <!-- Logo -->
+            <a class="logo pull-left" href="index.html">
+                <img src="./images/logo_light.png" alt="" />
+            </a>
+
+            <!--
+                Top Nav
+
+                AVAILABLE CLASSES:
+                submenu-dark = dark sub menu
+            -->
+            <div class="navbar-collapse pull-right nav-main-collapse collapse">
+                <nav class="nav-main">
+
+                    <!--
+                        NOTE
+
+                        For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
+                        Direct Link Example:
+
+                        <li>
+                            <a href="#">HOME</a>
+                        </li>
+                    -->
+                    <ul id="topMain" class="nav nav-pills nav-main">
+                        <li class="dropdown active"><!-- HOME -->
+                            <a  href="#/index">HOME</a>
+                        </li>
+                        <li class="dropdown"><!-- PAGES -->
+                            <a class="dropdown-toggle" href="#">
+                                Training
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#">
+                                        GYM EXERCISE
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">template</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><!-- FEATURES -->
+                            <a class="dropdown-toggle" href="#">
+                                News
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#">
+                                        template
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">template</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><!-- PORTFOLIO -->
+                            <a class="dropdown-toggle" href="#">
+                                Show!
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#">
+                                        template
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">template</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><!-- BLOG -->
+                            <a class="dropdown-toggle" href="#">
+                                BLOG
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#">
+                                        template
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">template</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><!-- SHOP -->
+                            <a class="dropdown-toggle" href="#">
+                                SHOP
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#">
+                                        template
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">template</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
+        </div>
+    </header>
+    <!-- /Top Nav -->
+
+</div>
+
+
+
+    <!-- -->
+    <section>
+        <div class="container">
+
+            <div class="row">
+
+                <!-- LOGIN -->
+                <div class="col-md-6 col-sm-6">
+
+                    <!-- ALERT -->
+                    <!--
+                    <div class="alert alert-mini alert-danger margin-bottom-30">
+                        <strong>Oh snap!</strong> Login Incorrect!
+                    </div>
+                    -->
+                    <!-- /ALERT -->
+
+                    <!-- register form -->
+                    <form class="nomargin sky-form boxed" action="#" method="post">
+                        <header>
+                            <i class="fa fa-users"></i> Register
+                        </header>
+
+                        <fieldset class="nomargin">
+                            <label class="input margin-bottom-10">
+                                <i class="ico-append fa fa-user"></i>
+                                <input ng-model="model.user.username" type="text" placeholder="Username">
+                                <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+                            </label>
+
+                            <label class="input margin-bottom-10">
+                                <i class="ico-append fa fa-lock"></i>
+                                <input ng-model="model.user.password"type="password" placeholder="Password">
+                                <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+                            </label>
+
+                            <label class="input margin-bottom-10">
+                                <i class="ico-append fa fa-lock"></i>
+                                <input ng-model="model.user.passwordCheck" type="password" placeholder="Confirm password">
+                                <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+                            </label>
+
+                            <div class="margin-top-30">
+                                <label class="checkbox nomargin"><input id="service"ng-model="model.user.service"  type="checkbox" name="checkbox"><i></i>I agree to the <a>Terms of Service</a></label>
+                                <label class="checkbox nomargin"><input id="news" ng-model="model.user.news" type="checkbox" name="checkbox"><i></i>I want to receive news and  special offers</label>
+                            </div>
+                        </fieldset>
+
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-12">
+                                <a  class="btn btn-primary" ng-click="model.register(model.user)"><i class="fa fa-check"></i> REGISTER</a>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- /register form -->
+                    <!-- ALERT -->
+                    <div class="alert alert-mini alert-danger margin-bottom-30" ng-show="model.error">
+                        {{model.error}}
+                    </div><!-- /ALERT -->
+                </div>
+                <!-- /LOGIN -->
+
+                <!-- SOCIAL LOGIN -->
+                <div class="col-md-6 col-sm-6">
+                    <form action="#" method="post" class="sky-form boxed">
+
+                        <header class="size-18 margin-bottom-20">
+                            Register using your favourite social network
+                        </header>
+
+                        <fieldset class="nomargin">
+
+                            <div class="row">
+
+                                <div class="col-md-8 col-md-offset-2">
+
+                                    <a class="btn btn-block btn-social btn-facebook margin-bottom-10">
+                                        <i class="fa fa-facebook"></i> Sign up with Facebook
+                                    </a>
+
+                                    <a class="btn btn-block btn-social btn-twitter margin-bottom-10">
+                                        <i class="fa fa-twitter"></i> Sign up with Twitter
+                                    </a>
+
+                                    <a class="btn btn-block btn-social btn-google margin-bottom-10">
+                                        <i class="fa fa-google-plus"></i> Sign up with Google
+                                    </a>
+
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <footer>
+                            Already have an account? <a ng-href="#/login"><strong>Back to login!</strong></a>
+                        </footer>
+
+                    </form>
+
+                </div>
+                <!-- /SOCIAL LOGIN -->
+
+            </div>
+
+
+        </div>
+    </section>
+    <!-- / -->
+
+
+
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <!-- Footer Logo -->
+                <img class="footer-logo" src="../../../images/logo_light_foot.png" alt="" />
+
+                <!-- Small Description -->
+                <p><strong>Fit is not a destination.</strong><br><strong>It is a way of life!</strong></p>
+
+
+                <!-- Contact Address -->
+                <address>
+                    <ul class="list-unstyled">
+                        <li class="footer-sprite address">
+                            360 Huntington Ave.<br>
+                            Boston, Massachusetts<br>
+                            02115 United States<br>
+                        </li>
+                        <li class="footer-sprite phone">
+                            Phone: 1.617.373.2000
+                        </li>
+                        <li class="footer-sprite email">
+                            <a href="mailto:ccis@neu.com">ccis@neu.com</a>
+                        </li>
+                    </ul>
+                </address>
+                <!-- /Contact Address -->
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!-- Links -->
+                <h4 class="letter-spacing-1">EXPLORE SMARTY</h4>
+                <ul class="footer-links list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+                <!-- /Links -->
+
+            </div>
+
+            <div class="col-md-4">
+
+                <!-- Newsletter Form -->
+                <h4 class="letter-spacing-1">KEEP IN TOUCH</h4>
+                <p>Subscribe to Our Newsletter to get Important News &amp; Offers</p>
+
+                <form class="validate" action="php/newsletter.php" method="post" data-success="Subscribed! Thank you!" data-toastr-position="bottom-right">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <input type="email" id="email" name="email" class="form-control required" placeholder="Enter your Email">
+                        <span class="input-group-btn">
+										<button class="btn btn-success" type="submit">Subscribe</button>
+									</span>
+                    </div>
+                </form>
+                <!-- /Newsletter Form -->
+
+                <!-- Social Icons -->
+                <div class="margin-top-20">
+                    <a href="https://www.facebook.com/" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="https://twitter.com/" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="https://www.google.com/" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                        <i class="icon-gplus"></i>
+                        <i class="icon-gplus"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                        <i class="icon-linkedin"></i>
+                        <i class="icon-linkedin"></i>
+                    </a>
+
+
+                </div>
+                <!-- /Social Icons -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        <div class="container">
+            <ul class="pull-right nomargin list-inline mobile-block">
+                <li><a href="#">Terms &amp; Conditions</a></li>
+                <li>&bull;</li>
+                <li><a href="#">Privacy</a></li>
+            </ul>
+            &copy; All Rights Reserved, NEU Xuliang Qin & Yinkai Bin
+        </div>
+    </div>
+</footer>
+<!-- /FOOTER -->
+
+</div>
+<!-- /wrapper -->
