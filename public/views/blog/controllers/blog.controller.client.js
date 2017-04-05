@@ -9,13 +9,17 @@
         .controller("EditBlogController", EditBlogController)
         .controller("NewBlogController", NewBlogController);
 
-    function BlogListController($routeParams, $sce, BlogService) {
+    function BlogListController($routeParams, $location, BlogService) {
         var vm = this;
         vm.getBlogIntro = getBlogIntro;
         vm.getFormatedDate = getFormatedDate;
+        vm.getSingleBlogUrl = getSingleBlogUrl;
+        vm.sortByCategory = sortByCategory;
         vm.userId = $routeParams.userId;
 
         function init() {
+            vm.trendBlogNum = 20;
+            vm.defaultSorting = "trending";
             if (vm.userId) {
                 BlogService
                     .findBlogByUserId(vm.userId)
@@ -25,16 +29,9 @@
                         }
                     );
             } else {
-                var trendBlogsNum = 20;
-                BlogService
-                    .findBlogByConditions(trendBlogsNum, null, "trending")
-                    .success(
-                        function (blogs) {
-                            console.log(blogs);
-                            vm.blogs = blogs;
-                        }
-                    );
+                setBlogsByconditions(vm.trendBlogNum, null, vm.defaultSorting);
             }
+            vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
         }
         init();
 
@@ -48,26 +45,61 @@
 
         function getFormatedDate(dateStr) {
             var date = new Date(dateStr);
-            // return String(date.getMonth()+1)+" "+
             return date.toDateString();
+        }
+
+        function getSingleBlogUrl(blog) {
+            $location.url("/blog/"+blog._id);
+        }
+
+        function sortByCategory(category) {
+            setBlogsByconditions(vm.trendBlogNum, category, vm.defaultSorting);
+        }
+
+        function setBlogsByconditions(trendBlogNum, category, sorting) {
+            BlogService
+                .findBlogByConditions(trendBlogNum, category, "trending")
+                .success(
+                    function (blogs) {
+                        vm.blogs = blogs;
+                    }
+                );
         }
     }
 
     function SingleBlogController($routeParams, BlogService, CommentService) {
         var vm = this;
+        vm.postComment = postComment;
+        vm.getFormatedDate = getFormatedDate;
+        vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
-
+        vm.userId =
+            "58e2fe3a3e931c5dc3af6c41";
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
+                    console.log(blog);
                     vm.blog = blog;
+                    if (vm.blog.likes.indexOf(vm.userId) == -1) {
+                        vm.thumbsUp = {
+                            "like": false,
+                            "icon": "icon-large icon-thumbs-up-alt"
+                        };
+                    } else {
+                        vm.thumbsUp = {
+                            "like": true,
+                            "icon": "icon-large icon-thumbs-up"
+                        }
+                    }
                 });
+
             CommentService
                 .findCommentByBlogId(vm.blogId)
                 .success(function (comments) {
                     vm.comments = comments;
                 });
+
         }
         init();
 
@@ -78,10 +110,38 @@
                     console.log("add comment success");
                 });
         }
+
+        function likeBlog(userId, blog) {
+            if (vm.thumbsUp.like) {
+                var i = blog.likes.indexOf(userId);
+                blog.likes.splice(i, 1);
+                vm.thumbsUp = {
+                    "like": false,
+                    "icon": "icon-large icon-thumbs-up-alt"
+                }
+            } else {
+                blog.likes.push(userId);
+                vm.thumbsUp = {
+                    "like": true,
+                    "icon": "icon-large icon-thumbs-up"
+                }
+            }
+            BlogService
+                .updateBlog(blog._id, blog)
+                .success(function (status) {
+                    console.log("like blog success");
+                });
+        }
+
+        function getFormatedDate(dateStr) {
+            var date = new Date(dateStr);
+            return date.toDateString();
+        }
     }
 
     function EditBlogController($routeParams, BlogService) {
         var vm = this;
+        vm.updateBlog = updateBlog;
         vm.blogId = $routeParams.blogId;
 
         function init() {
@@ -89,6 +149,7 @@
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
                     vm.blog = blog;
+                    vm.title = vm.blog.title;
                 });
         }
         init();
@@ -107,6 +168,10 @@
                 .success(function (status) {
                     console.log("delete blog success");
                 });
+        }
+
+        function findUserById(userId) {
+
         }
     }
 
@@ -127,4 +192,6 @@
                 });
         }
     }
+
+
 })();

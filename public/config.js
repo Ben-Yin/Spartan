@@ -35,6 +35,16 @@
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogListController",
                     controllerAs: "model"
+                })
+                .when("/blog/:blogId", {
+                    templateUrl: "/views/blog/templates/blog-single.view.client.html",
+                    controller: "SingleBlogController",
+                    controllerAs: "model"
+                })
+                .when("/blog/:blogId/edit", {
+                    templateUrl: "/views/blog/templates/blog-edit.view.client.html",
+                    controller: "EditBlogController",
+                    controllerAs: "model"
                 });
 
             var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
