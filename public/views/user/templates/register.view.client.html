@@ -180,14 +180,14 @@
                             </label>
 
                             <div class="margin-top-30">
-                                <label class="checkbox nomargin"><input ng-model="model.user.service" class="checked-agree" type="checkbox" name="checkbox"><i></i>I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">Terms of Service</a></label>
-                                <label class="checkbox nomargin"><input ng-model="model.user.news" type="checkbox" name="checkbox"><i></i>I want to receive news and  special offers</label>
+                                <label class="checkbox nomargin"><input id="service"ng-model="model.user.service"  type="checkbox" name="checkbox"><i></i>I agree to the <a>Terms of Service</a></label>
+                                <label class="checkbox nomargin"><input id="news" ng-model="model.user.news" type="checkbox" name="checkbox"><i></i>I want to receive news and  special offers</label>
                             </div>
                         </fieldset>
 
                         <div class="row margin-bottom-20">
                             <div class="col-md-12">
-                                <button ng-click="model.register(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> REGISTER</button>
+                                <a  class="btn btn-primary" ng-click="model.register(model.user)"><i class="fa fa-check"></i> REGISTER</a>
                             </div>
                         </div>
 

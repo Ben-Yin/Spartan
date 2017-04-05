@@ -7,20 +7,35 @@
         var vm=this;
         vm.register=register;
 
+        vm.user=[
+            {
+                label: "service",
+                val:false
+            },{
+                label: "news",
+                val:false
+            }
+        ]
 
         function register(user) {
-            if(user.service==null){
-                $location.url("#/user/"+user._id)
+            if(vm.user.service){
+                if (user.password ==user.passwordCheck){
+                    UserService
+                        .createUser(user)
+                        .then(function (res) {
+                            var user=res.data;
+                            $rootScope.currentUser=user;
+                            $location.url("#/user/"+user._id)
+                        })
+                }
+                else{
+                    vm.error="Password doesn't match!"
+                }
+
+        }
+        else{
                 vm.error="Please agree to Terms of Service!"
             }
-            console.log(user)
-            UserService
-                .createUser(user)
-                .then(function (res) {
-                    var user=res.data;
-                    $rootScope.currentUser=user;
-                    $location.url("#/user/"+user._id)
-                })
         }
     }
     function LoginController($location,$rootScope,UserService) {

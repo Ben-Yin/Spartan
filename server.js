@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 var favicons = require('connect-favicons')
 // configure a public directory to host static content
 app.use(favicons(__dirname + '/public/images/icons'));
@@ -26,7 +27,7 @@ var models = require("./models/models.server")();
 require("./services/user.service.server")(app, models);
 require("./services/blog.service.server")(app, models);
 require("./services/comment.service.server")(app, models);
-
+console.log("Sever start!");
 
 var port = process.env.PORT || 3000;
 
