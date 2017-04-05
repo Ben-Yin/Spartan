@@ -8,10 +8,12 @@
 
 
 
-    function UserService($http) {
+    function UserService($http,$rootScope, $q) {
         var api={
             "login":login,
-            "register":register
+            "register":register,
+            "setCurrentUser":setCurrentUser,
+            "getCurrentUser":getCurrentUser
         }
         return api;
 
@@ -23,6 +25,14 @@
             return $http.post("/api/register",user);
 
 
+        }
+        function setCurrentUser(user) {
+            $rootScope.user = user;
+        }
+
+        function getCurrentUser() {
+            console.log("calling loggedin function");
+            return $http.get("/api/assignment/users/loggedin");
         }
     }
 })();

@@ -7,36 +7,48 @@
         var vm=this;
         vm.register=register;
 
-        vm.user=[
-            {
-                label: "service",
-                val:false
-            },{
-                label: "news",
-                val:false
-            }
-        ]
+        function init(){
+
+            vm.user=[
+                {
+                    label: "service",
+                    val:false
+                },{
+                    label: "news",
+                    val:false
+                }
+            ]
+        }
+
+        init();
 
         function register(user) {
-            if(vm.user.service){
-                if (user.password ==user.passwordCheck){
-                    UserService
-                        .register(user)
-                        .then(function (res) {
-                            var user=res.data;
-                            console.log(user)
-                            $rootScope.currentUser=user;
-                            $location.path("/profile")
-                        })
+            if(user.username!=null){
+                if(vm.user.service){
+                    if (user.password ==user.passwordCheck){
+                        UserService
+                            .register(user)
+                            .then(function (res) {
+                                var user=res.data;
+                                console.log(user)
+                                $rootScope.currentUser=user;
+                                $location.path("/profile")
+                            })
+                    }
+                    else{
+                        vm.error="Password doesn't match!"
+                    }
+
                 }
                 else{
-                    vm.error="Password doesn't match!"
+                    vm.error="Please agree to Terms of Service!"
                 }
-
-        }
-        else{
-                vm.error="Please agree to Terms of Service!"
             }
+            else
+            {
+                vm.error="Please fill in Username!"
+            }
+
         }
     }
     function LoginController($location,$rootScope,UserService) {
