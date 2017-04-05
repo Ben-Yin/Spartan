@@ -8,7 +8,7 @@
                     redirectTo: '/index'
                 })
                 .when("/index", {
-                    templateUrl: "/index.view.client.html"
+                    templateUrl: "/views/home/templates/index.view.client.html"
                 })
                 .when("/user", {
                     templateUrl: "/views/user/templates/login.view.client.html",
@@ -23,6 +23,13 @@
                     controllerAs:"model"
                 })
 
+                .when("/profile", {
+                    templateUrl: "/views/user/templates/profile.home.view.client.html"
+                })
+
+                .when("/profile/edit", {
+                    templateUrl: "/views/user/templates/profile.edit.view.client.html"
+                })
 
                 .when("/blog", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",

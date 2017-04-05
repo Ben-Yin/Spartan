@@ -13,7 +13,10 @@ module.exports = function () {
         },
         age: Number,
         weight: Number,
-        height: Number
+        height: Number,
+        avatar:String,
+        usertype:String,
+        selfIntro:String
     }, {collection: "user"});
 
     return UserSchema;

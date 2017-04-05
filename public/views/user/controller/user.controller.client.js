@@ -24,8 +24,9 @@
                         .register(user)
                         .then(function (res) {
                             var user=res.data;
+                            console.log(user)
                             $rootScope.currentUser=user;
-                            $location.url("#/user/"+22)
+                            $location.path("/profile")
                         })
                 }
                 else{
