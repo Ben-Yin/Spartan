@@ -13,7 +13,8 @@
                 .when("/user", {
                     templateUrl: "/views/user/templates/login.view.client.html",
                     controller: "LoginController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {loggedin:checkLoggedin}
                 })
 
                 .when("/register", {
@@ -22,17 +23,28 @@
                     controllerAs:"model"
                 })
 
-                .when("/user/:uid", {
-                    templateUrl: "/views/user/templates/profile.view.client.html",
-                    controller: "ProfileController",
-                    controllerAs: "model"
-                })
 
                 .when("/blog", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogListController",
                     controllerAs: "model"
                 });
+
+            var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+                var deferred = $q.defer();
+                $http.get('/api/loggedin').success(function(user) {
+                    $rootScope.errorMessage = null;
+                    if (user !== '0') {
+                        $rootScope.currentUser = user;
+                        deferred.resolve();
+                    } else {
+                        deferred.reject();
+                        $location.url('/');
+                    }
+                });
+                return deferred.promise;
+            };
+
 
         }
 

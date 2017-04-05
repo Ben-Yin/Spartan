@@ -21,11 +21,11 @@
             if(vm.user.service){
                 if (user.password ==user.passwordCheck){
                     UserService
-                        .createUser(user)
+                        .register(user)
                         .then(function (res) {
                             var user=res.data;
                             $rootScope.currentUser=user;
-                            $location.url("#/user/"+user._id)
+                            $location.url("#/user/"+22)
                         })
                 }
                 else{
@@ -42,13 +42,18 @@
         var vm=this;
         vm.login=login;
 
-        function init() {
-
-        }
-
-        init();
-
         function login(user) {
+            console.log(user)
+            UserService
+                .login(user)
+                .then(
+                    function (res) {
+                        var user=res.data;
+                        console.log(user)
+                        $rootScope.currentUser=user;
+                        $location.url("/user/"+user._id);
+                    }
+                )
         }
 
     }
