@@ -4,12 +4,16 @@
 var passport= require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require("bcrypt-nodejs");
+var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
 
 module.exports = function (app, model) {
     var auth = authorized;
     app.post  ('/api/login',passport.authenticate('local'),login);
     app.post  ('/api/register',register);
     app.post  ('/api/logout',logout);
+    app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     // app.post  ('/api/user',auth, createUser);
     app.get   ('/api/loggedin',loggedin);
     // app.get   ('/api/user',auth, findAllUsers);
@@ -118,6 +122,152 @@ module.exports = function (app, model) {
             );
     }
 
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/#/profile',
+            failureRedirect: '/#/login'
+        }));
+
+    var facebookConfig = {
+        clientID     : process.env.FACEBOOK_CLIENT_ID,
+        clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL  : "http://localhost:3000/auth/facebook/callback"
+    };
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+    function facebookStrategy(token, refreshToken, profile, done) {
+        model.UserModel
+            .findUserByFacebookId(profile.id)
+                .then(
+                    function(user) {
+                        if(user) {
+                            return done(null, user);
+                        } else {
+                            var newFacebookUser = {
+                                username:  profile.displayName,
+                                firstname: profile.name.givenName,
+                                lastname:  profile.name.familyName,
+                                facebook: {
+                                    id:    profile.id,
+                                    token: token
+                                }
+                            };
+                            return model.UserModel.createUser(newFacebookUser);
+                        }
+                    },
+                    function(err) {
+                        if (err) { return done(err); }
+                    }
+                )
+                .then(
+                    function(user){
+                        return done(null, user);
+                    },
+                    function(err){
+                        if (err) { return done(err); }
+                    }
+                );}
+
+
+
+
+    var googleConfig = {
+        clientID     : process.env.GOOGLE_CLIENT_ID,
+        clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL  : "http://localhost:3000/auth/google/callback"
+    };
+
+    app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+    app.get('/auth/google/callback',
+        passport.authenticate('google', {
+            successRedirect: '/#/profile',
+            failureRedirect: '/#/login'
+        }));
+    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+    function googleStrategy(token, refreshToken, profile, done) {
+        model.UserModel
+            .findUserByGoogleId(profile.id)
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        var email = profile.emails[0].value;
+                        var emailParts = email.split("@");
+                        var newGoogleUser = {
+                            username:  emailParts[0],
+                            firstName: profile.name.givenName,
+                            lastName:  profile.name.familyName,
+                            email:     email,
+                            google: {
+                                id:    profile.id,
+                                token: token
+                            }
+                        };
+                        return model.UserModel.createUser(newGoogleUser);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            )
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
+    }
+
+    var githubConfig = {
+        clientID     : process.env.GITHUB_CLIENT_ID,
+        clientSecret : process.env.GITHUB_CLIENT_SECRET,
+        callbackURL  : "http://localhost:3000/auth/github/callback"
+    };
+
+    app.get('/auth/github', passport.authenticate('github', { scope : ['profile', 'email'] }));
+    app.get('/auth/github/callback',
+        passport.authenticate('github', {
+            successRedirect: '/#/profile',
+            failureRedirect: '/#/login'
+        }));
+    passport.use(new GitHubStrategy(githubConfig, githubStrategy));
+    function githubStrategy(token, refreshToken, profile, done) {
+        model.UserModel
+            .findUserByGitHubId(profile.id)
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        var newGitHubUser = {
+                            username:  profile.username,
+                            firstName: profile.displayName[0],
+                            lastName:  profile.displayName[1],
+                            email:     profile.email,
+                            avatar:     profile.avatar_url,
+                            github: {
+                                id:    profile.id,
+                                token: token
+                            }
+                        };
+                        return model.UserModel.createUser(newGitHubUser);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            )
+            .then(
+                function(user){
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
+    }
     // function createUser(req, res) {
     //
     //     var user = req.body;

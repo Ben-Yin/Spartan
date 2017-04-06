@@ -19,7 +19,19 @@ module.exports = function () {
         selfIntro:String,
         loggedin:{type:Boolean,default:false},
         service:Boolean,
-        news:Boolean
+        news:Boolean,
+        facebook: {
+            id:    String,
+            token: String
+        },
+        google: {
+            id:    String,
+            token: String
+        },
+        github: {
+            id:    String,
+            token: String
+        }
     }, {collection: "user"});
 
     return UserSchema;
