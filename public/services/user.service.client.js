@@ -19,7 +19,7 @@
         return api;
 
         function logout() {
-            return $http.post("/api//logout");
+            return $http.post("/api/logout");
 
         }
 

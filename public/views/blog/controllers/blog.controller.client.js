@@ -15,10 +15,10 @@
         vm.getFormattedDate = getFormattedDate;
         vm.getSingleBlogUrl = getSingleBlogUrl;
         vm.sortByCategory = sortByCategory;
-        vm.userId = $rootScope.currentUser.userId;
-        console.log($rootScope.currentUser)
 
         function init() {
+            vm.user = $rootScope.currentUser;
+
             vm.trendBlogNum = 20;
             vm.defaultSorting = "trending";
             if (vm.userId) {
