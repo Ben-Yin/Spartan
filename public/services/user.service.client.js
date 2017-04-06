@@ -11,11 +11,17 @@
     function UserService($http,$rootScope, $q) {
         var api={
             "login":login,
+            "logout":logout,
             "register":register,
             "setCurrentUser":setCurrentUser,
             "getCurrentUser":getCurrentUser
         }
         return api;
+
+        function logout() {
+            return $http.post("/api//logout");
+
+        }
 
         function login(user) {
             return $http.post("/api/login",user);

@@ -12,9 +12,21 @@
 
             <!-- BUTTONS -->
             <ul class="pull-right nav nav-pills nav-second-main">
-
-                <li class="dropdown active"><a ng-href="#/user">LOGIN</a></li>
-                <li class="dropdown active"><a ng-href="#/register">REGISTER</a></li>
+                <li ng-show="model.user.loggedin" class="text-welcome">Welcome to Spartan, <strong>{{model.firstname}} {{model.lastname}}</strong></li>
+                <li ng-show="model.user.loggedin">
+                    <a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> MY ACCOUNT</a>
+                    <ul class="dropdown-menu">
+                        <li><a tabindex="-1" href="#"><i class="fa fa-history"></i> ORDER HISTORY</a></li>
+                        <li class="divider"></li>
+                        <li><a tabindex="-1" href="#"><i class="fa fa-bookmark"></i> MY WISHLIST</a></li>
+                        <li><a tabindex="-1" href="#"><i class="fa fa-edit"></i> MY REVIEWS</a></li>
+                        <li><a tabindex="-1" href="#"><i class="fa fa-cog"></i> MY SETTINGS</a></li>
+                        <li class="divider"></li>
+                        <li><a tabindex="-1" href="#"><i class="glyphicon glyphicon-off"></i> LOGOUT</a></li>
+                    </ul>
+                </li>
+                <li ng-hide="model.user.loggedin" class="dropdown active"><a ng-href="#/login">LOGIN</a></li>
+                <li ng-hide="model.user.loggedin" class="dropdown active"><a ng-href="#/register">REGISTER</a></li>
             </ul>
             <!-- /BUTTONS -->
 

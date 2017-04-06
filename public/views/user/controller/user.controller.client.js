@@ -2,7 +2,8 @@
     angular
         .module("Spartan")
         .controller("LoginController", LoginController)
-        .controller("RegisterController", RegisterController);
+        .controller("RegisterController", RegisterController)
+        .controller("ProfileController",ProfileController);
     function RegisterController($location,UserService,$rootScope) {
         var vm=this;
         vm.register=register;
@@ -56,6 +57,10 @@
         vm.login=login;
 
         function login(user) {
+            if (user == null) {
+                vm.error="Please fill the required fields";
+                return;
+            }
             console.log(user)
             UserService
                 .login(user)
@@ -69,6 +74,10 @@
                 )
         }
 
+    }
+    
+    function ProfileController() {
+        
     }
 
 })();

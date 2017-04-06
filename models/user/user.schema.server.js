@@ -16,7 +16,8 @@ module.exports = function () {
         height: Number,
         avatar:String,
         usertype:String,
-        selfIntro:String
+        selfIntro:String,
+        loggedin:{type:Boolean,default:false}
     }, {collection: "user"});
 
     return UserSchema;
