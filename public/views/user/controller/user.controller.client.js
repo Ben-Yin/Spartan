@@ -94,8 +94,24 @@
 
     }
     
-    function ProfileController() {
-        
+    function ProfileController($location,$rootScope,UserService) {
+        var vm=this
+
+        var currUser = $rootScope.currentUser;
+        console.log(currUser)
+        if (currUser != null) {
+
+            vm.user = {
+                username: currUser.username,
+                firstName: currUser.firstname,
+                lastName: currUser.lastname,
+                password: currUser.password,
+                loggedin:currUser.loggedin
+            };
+        }
+
+
     }
+
 
 })();
