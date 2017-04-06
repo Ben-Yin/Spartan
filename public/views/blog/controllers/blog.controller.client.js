@@ -12,7 +12,7 @@
     function BlogListController($routeParams, $location, BlogService) {
         var vm = this;
         vm.getBlogIntro = getBlogIntro;
-        vm.getFormatedDate = getFormatedDate;
+        vm.getFormattedDate = getFormattedDate;
         vm.getSingleBlogUrl = getSingleBlogUrl;
         vm.sortByCategory = sortByCategory;
         vm.userId = $routeParams.userId;
@@ -43,7 +43,7 @@
             return intro;
         }
 
-        function getFormatedDate(dateStr) {
+        function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
             return date.toDateString();
         }
@@ -70,10 +70,11 @@
     function SingleBlogController($routeParams, BlogService, CommentService) {
         var vm = this;
         vm.postComment = postComment;
-        vm.getFormatedDate = getFormatedDate;
+        vm.getFormattedDate = getFormattedDate;
         vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
         vm.userId = "58e2fe3a3e931c5dc3af6c41";
+
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
@@ -96,6 +97,7 @@
                 .findCommentByBlogId(vm.blogId)
                 .success(function (comments) {
                     vm.comments = comments;
+
                 });
 
         }
@@ -131,7 +133,7 @@
                 });
         }
 
-        function getFormatedDate(dateStr) {
+        function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
             return date.toDateString();
         }
