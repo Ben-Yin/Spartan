@@ -79,8 +79,9 @@ module.exports = function (app, model) {
 
 
     function login(req, res) {
-        console.log("logedin")
+
         var user = req.user;
+        console.log("logedin",user);
         user.loggedin=true;
         res.json(user);
     }
@@ -103,6 +104,7 @@ module.exports = function (app, model) {
             .then(
                 function (user) {
                     if(user){
+                        // console.log("register success",user)
                         req.login(user,function (err) {
                             if (err){
                                 re.status(400).send(err);

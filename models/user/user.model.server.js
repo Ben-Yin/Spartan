@@ -15,6 +15,7 @@ module.exports = function () {
     return api;
 
     function createUser(user) {
+        // console.log("model create user",user);
         return UserModel.create(user);
     }
 

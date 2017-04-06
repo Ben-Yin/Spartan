@@ -3,8 +3,8 @@ module.exports = function () {
     var UserSchema = mongoose.Schema({
         username: String,
         password: String,
-        firstName: String,
-        lastName: String,
+        firstname: String,
+        lastname: String,
         email: String,
         phone: String,
         gender: {
@@ -17,7 +17,9 @@ module.exports = function () {
         avatar:String,
         usertype:String,
         selfIntro:String,
-        loggedin:{type:Boolean,default:false}
+        loggedin:{type:Boolean,default:false},
+        service:Boolean,
+        news:Boolean
     }, {collection: "user"});
 
     return UserSchema;

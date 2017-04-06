@@ -59,6 +59,7 @@
             console.log("checkLoggedin",user)
             $rootScope.errorMessage = null;
             if (user !== '0') {
+                user.loggedin=true
                 $rootScope.currentUser = user;
                 deferred.resolve();
             } else {

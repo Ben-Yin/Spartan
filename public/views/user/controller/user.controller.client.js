@@ -10,15 +10,7 @@
 
         function init(){
 
-            vm.user=[
-                {
-                    label: "service",
-                    val:false
-                },{
-                    label: "news",
-                    val:false
-                }
-            ]
+            vm.service={value:false}
         }
 
         init();
@@ -26,13 +18,16 @@
         function register(user) {
             if(user.username!=null){
                 if(vm.user.service){
-                    if (user.password ==user.passwordCheck){
+                    if (user.password ==user.passwordCheck && user.password){
+                        // console.log("input user",user)
+                        user.loggedin=true;
                         UserService
                             .register(user)
                             .then(function (res) {
                                 var user=res.data;
-                                console.log(user)
                                 $rootScope.currentUser=user;
+                                vm.user=user
+                                console.log("vm",vm.user)
                                 $location.path("/profile")
                             })
                     }
@@ -67,9 +62,9 @@
                 .then(
                     function (res) {
                         var user=res.data;
-                        console.log(user)
+                        console.log("login controller",user)
                         $rootScope.currentUser=user;
-                        $location.url("/user/"+user._id);
+                        $location.path("/hahha");
                     }
                 )
         }
