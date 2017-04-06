@@ -39,6 +39,14 @@
                         checkLoggedin: checkLoggedin
                     }
                 })
+                .when("/blog/new", {
+                    templateUrl: "/views/blog/templates/blog-new.view.client.html",
+                    controller: "NewBlogController",
+                    controllerAs: "model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
+                })
                 .when("/blog/:blogId", {
                     templateUrl: "/views/blog/templates/blog-single.view.client.html",
                     controller: "SingleBlogController",

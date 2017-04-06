@@ -1,4 +1,4 @@
-<ng-include src="'./views/header/header.view.client.html'"></ng-include>
+<!--<ng-include src="'./views/header/header.view.client.html'"></ng-include>-->
 <!-- wrapper -->
 <div id="wrapper">
 
@@ -11,8 +11,7 @@
             <ol class="breadcrumb">
                 <li><a ng-href="#">Home</a></li>
                 <li><a ng-href="#/blog">Blog</a></li>
-                <li><a ng-href="#/blog/{{model.blog._id}}">{{model.title}}</a></li>
-                <li class="active">Edit</li>
+                <li class="active">New Blog</li>
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -58,13 +57,14 @@
                 <div class="form-group">
                     <div ng-model="model.blog.content"
                          text-angular
-                         ta-toolbar>
+                         ta-toolbar
+                         placeholder="Start writing your blog here!">
                     </div>
 
                 </div>
 
             </form>
-            <a ng-click="model.updateBlog(model.blog)" class="btn btn-block btn-success btn-margin">Update Blog</a>
+            <a ng-click="model.createBlog(model.blog)" class="btn btn-block btn-success btn-margin">Post Blog</a>
         </div>
 
     </section>
@@ -78,4 +78,4 @@
 <!-- SCROLL TO TOP -->
 <a href="#" id="toTop"></a>
 
-<ng-include src="'./views/foot/foot.view.client.html'"></ng-include>
+<!--<ng-include src="'./views/foot/foot.view.client.html'"></ng-include>-->
