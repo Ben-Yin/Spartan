@@ -34,17 +34,26 @@
                 .when("/blog", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogListController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
                 })
                 .when("/blog/:blogId", {
                     templateUrl: "/views/blog/templates/blog-single.view.client.html",
                     controller: "SingleBlogController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
                 })
                 .when("/blog/:blogId/edit", {
                     templateUrl: "/views/blog/templates/blog-edit.view.client.html",
                     controller: "EditBlogController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
                 })
                 .otherwise({
                     redirectTo: '/index'
@@ -59,6 +68,7 @@
             console.log("checkLoggedin",user)
             $rootScope.errorMessage = null;
             if (user !== '0') {
+                user.loggedin=true
                 $rootScope.currentUser = user;
                 deferred.resolve();
             } else {

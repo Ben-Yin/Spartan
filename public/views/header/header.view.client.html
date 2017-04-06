@@ -12,8 +12,8 @@
 
             <!-- BUTTONS -->
             <ul class="pull-right nav nav-pills nav-second-main">
-                <li ng-show="model.user.loggedin" class="text-welcome">Welcome to Spartan, <strong>{{model.firstname}} {{model.lastname}}</strong></li>
-                <li ng-show="model.user.loggedin">
+                <li ng-show=true class="text-welcome">Welcome to Spartan, <strong>{{user.firstname}} {{model.user.lastname}} {{loggedin}}</strong></li>
+                <li ng-show=true>
                     <a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> MY ACCOUNT</a>
                     <ul class="dropdown-menu">
                         <li><a tabindex="-1" href="#"><i class="fa fa-history"></i> ORDER HISTORY</a></li>
@@ -25,8 +25,8 @@
                         <li><a tabindex="-1" href="#"><i class="glyphicon glyphicon-off"></i> LOGOUT</a></li>
                     </ul>
                 </li>
-                <li ng-hide="model.user.loggedin" class="dropdown active"><a ng-href="#/login">LOGIN</a></li>
-                <li ng-hide="model.user.loggedin" class="dropdown active"><a ng-href="#/register">REGISTER</a></li>
+                <li  class="dropdown active"><a ng-href="#/login">LOGIN</a></li>
+                <li  class="dropdown active"><a ng-href="#/register">REGISTER</a></li>
             </ul>
             <!-- /BUTTONS -->
 
@@ -104,20 +104,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown"><!-- BLOG -->
-                            <a class="dropdown-toggle" href="#">
-                                BLOG
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#">
-                                        template
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">template</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        <li class="dropdown active"><!-- HOME -->
+                            <a  href="#/blog">BLOG</a>
                         </li>
                         <li class="dropdown"><!-- SHOP -->
                             <a class="dropdown-toggle" href="#">

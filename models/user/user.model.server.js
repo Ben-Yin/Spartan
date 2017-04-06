@@ -15,6 +15,7 @@ module.exports = function () {
     return api;
 
     function createUser(user) {
+        // console.log("model create user",user);
         return UserModel.create(user);
     }
 
@@ -28,12 +29,7 @@ module.exports = function () {
                 {
                     _id: userId
                 },
-                {
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    phone: user.phone
-                }
+                {$set: user}
             );
     }
 
