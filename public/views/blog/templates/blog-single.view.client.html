@@ -26,7 +26,7 @@
                 <li>
                     <a href="#">
                         <i class="fa fa-clock-o"></i>
-                        <span class="font-lato">{{model.getFormatedDate(model.blog.blogDate)}}</span>
+                        <span class="font-lato">{{model.getFormattedDate(model.blog.blogDate)}}</span>
                     </a>
                 </li>
                 <li>
@@ -82,25 +82,17 @@
                 <h4 class="page-header margin-bottom-60 size-20">
                     <span>{{model.blog.likes.length}}</span>
                     <i ng-class="model.thumbsUp.icon"
-                       ng-click="model.likeBlog('58e2fe3a3e931c5dc3af6c41', model.blog)">
+                       ng-click="model.likeBlog(model.userId, model.blog)">
                     </i>
                     <span>{{model.blog.comments.length}}</span> COMMENTS
                 </h4>
 
-                <div class="container" ng-repeat="comment in model.comments">
+                <div class="container">
                     <!-- comment item -->
-                    <div class="comment-item">
-
-                        <!-- user-avatar -->
-                        <span class="user-avatar">
-								<img class="pull-left media-object" src="assets/images/avatar.png" width="64"
-                                     height="64" alt="">
-							</span>
-
+                    <div class="comment-item" ng-repeat="comment in model.comments">
                         <div class="media-body">
-                            <a href="#commentForm" class="scrollTo comment-reply">reply</a>
-                            <h4 class="media-heading bold">{{comment.user.username}}</h4>
-                            <small class="block">{{model.getFormatedDate(comment.commentDate}}</small>
+                            <h4 class="media-heading bold">abc</h4>
+                            <small class="block">{{model.getFormattedDate(comment.commentDate)}}</small>
                             {{comment.content}}
                         </div>
                     </div>
@@ -113,26 +105,6 @@
 
                 <!-- Form -->
                 <form action="#" method="post">
-
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <label>NAME</label>
-                                <input required="required" type="text" value="" maxlength="100"
-                                       class="form-control input-lg" name="author" id="author">
-                            </div>
-                            <div class="col-md-4">
-                                <label>EMAIL</label>
-                                <input required="required" type="email" value="" maxlength="100"
-                                       class="form-control input-lg" name="contact_email" id="contact_email">
-                            </div>
-                            <div class="col-md-4">
-                                <label>WEBSITE</label>
-                                <input type="email" value="" maxlength="100" class="form-control input-lg" name="url"
-                                       id="url">
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="form-group">

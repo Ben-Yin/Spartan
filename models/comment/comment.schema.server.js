@@ -9,11 +9,10 @@ module.exports = function () {
             ref: 'user'
         },
         _post: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'post'
+            type: mongoose.Schema.Types.ObjectId
         },
         content: String,
         commentDate: {type: Date, default: Date.now()}
-    });
+    }, {collection: "comment"});
 
 };
