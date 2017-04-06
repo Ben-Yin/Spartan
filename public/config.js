@@ -10,11 +10,10 @@
                 .when("/index", {
                     templateUrl: "/views/home/templates/index.view.client.html"
                 })
-                .when("/user", {
+                .when("/login", {
                     templateUrl: "/views/user/templates/login.view.client.html",
                     controller: "LoginController",
-                    controllerAs: "model",
-                    resolve: {loggedin:checkLoggedin}
+                    controllerAs: "model"
                 })
 
                 .when("/register", {
@@ -24,11 +23,12 @@
                 })
 
                 .when("/profile", {
-                    templateUrl: "/views/user/templates/profile.home.view.client.html"
-                })
-
-                .when("/profile/edit", {
-                    templateUrl: "/views/user/templates/profile.edit.view.client.html"
+                    templateUrl: "/views/user/templates/profile.home.view.client.html",
+                    controller:"ProfileController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
                 })
 
                 .when("/blog", {
@@ -50,21 +50,22 @@
                     redirectTo: '/index'
                 });
 
-            var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
-                var deferred = $q.defer();
-                $http.get('/api/loggedin').success(function(user) {
-                    $rootScope.errorMessage = null;
-                    if (user !== '0') {
-                        $rootScope.currentUser = user;
-                        deferred.resolve();
-                    } else {
-                        deferred.reject();
-                        $location.url('/');
-                    }
-                });
-                return deferred.promise;
-            };
+
 
         }
-
+    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/api/loggedin').success(function(user) {
+            console.log("checkLoggedin",user)
+            $rootScope.errorMessage = null;
+            if (user !== '0') {
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url('#/index');
+            }
+        });
+        return deferred.promise;
+    };
 })();

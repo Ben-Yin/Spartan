@@ -894,7 +894,6 @@
 					}
 
 					var config = jQuery.extend({}, defaults, options, slider.data("plugin-options"));
-					slider.owlCarousel(config).addClass("owl-carousel-init");
 					
 
 					// Progress Bar
