@@ -7,6 +7,7 @@
     function RegisterController($location,UserService,$rootScope) {
         var vm=this;
         vm.register=register;
+        vm.logout=logout;
 
         function init(){
 
@@ -14,7 +15,14 @@
         }
 
         init();
-
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    })}
         function register(user) {
             if(user.username!=null){
                 if(vm.user.service){
@@ -50,6 +58,16 @@
     function LoginController($location,$rootScope,UserService) {
         var vm=this;
         vm.login=login;
+        vm.logout=logout;
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    })}
 
         function login(user) {
             user.loggedin=true;

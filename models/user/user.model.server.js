@@ -5,6 +5,8 @@ module.exports = function () {
     var UserModel = mongoose.model("UserModel", UserSchema);
 
     var api = {
+        findUserByGoogleId:findUserByGoogleId,
+        findUserByFacebookId: findUserByFacebookId,
         createUser : createUser,
         findUserById: findUserById,
         updateUser: updateUser,
@@ -13,6 +15,17 @@ module.exports = function () {
         findUserByUsername: findUserByUsername
     };
     return api;
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
+    }
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
+    }
+    function findUserByGoogleId(googleId) {
+        return UserModel.findOne({'googleId.id': googleId});
+    }
 
     function createUser(user) {
         // console.log("model create user",user);
