@@ -82,12 +82,12 @@
                     function (res) {
                         var user=res.data;
                         $rootScope.currentUser=user;
-                        console.log("login controller",user)
-                        console.log("$rootScope.currentUser",$rootScope.currentUser)
-                        console.log("vm.user",vm.user)
+                        // console.log("login controller",user)
+                        // console.log("$rootScope.currentUser",$rootScope.currentUser)
+                        // console.log("vm.user",vm.user)
                         vm.user=user;
-                        console.log("vm.user",vm.user)
-                        $location.path("/profile");
+                        // console.log("vm.user",vm.user)
+                        $location.path("/index");
                     }
                 )
         }
@@ -96,9 +96,19 @@
     
     function ProfileController($location,$rootScope,UserService) {
         var vm=this
+        vm.logout=logout;
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    })}
+
 
         var currUser = $rootScope.currentUser;
-        console.log(currUser)
+        // console.log(currUser)
         if (currUser != null) {
 
             vm.user = {

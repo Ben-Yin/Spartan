@@ -8,7 +8,13 @@
                     redirectTo: '/index'
                 })
                 .when("/index", {
-                    templateUrl: "/views/home/templates/index.view.client.html"
+                    templateUrl: "/views/home/templates/index.view.client.html",
+                    controller:"HomeController",
+                    controllerAs:"model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+
                 })
                 .when("/login", {
                     templateUrl: "/views/user/templates/login.view.client.html",
@@ -86,4 +92,21 @@
         });
         return deferred.promise;
     };
+    function getLoggedIn($q, $http, $rootScope, $timeout) {
+
+        var deferred = $q.defer();
+
+        $http.get('/api/loggedin').success(function(user)
+        {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user !== '0')
+            {
+                $rootScope.user = user;
+            }
+            deferred.resolve();
+        });
+
+        return deferred.promise;
+    }
 })();

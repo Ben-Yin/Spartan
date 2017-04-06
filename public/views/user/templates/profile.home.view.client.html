@@ -13,9 +13,9 @@
             <div class="col-lg-3 col-md-3 col-sm-4">
 
                 <div class="thumbnail text-center">
-                    <img src={{user.avatar}} alt="" />
-                    <h2 class="size-18 margin-top-10 margin-bottom-0">{{user.firstname}}</h2>
-                    <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">{{user.usertype}}</h3>
+                    <img src="model.user.avatar" alt="" />
+                    <h2 class="size-18 margin-top-10 margin-bottom-0">{{model.user.username}}</h2>
+                    <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">{{model.user.usertype}}</h3>
                 </div>
 
                 <!-- completed -->
@@ -58,8 +58,8 @@
                     <!-- /info -->
 
                     <div class="text-muted">
-                        <h2 class="size-18 text-muted margin-bottom-6"><b>About</b> {{user.username}}</h2>
-                        <p>{{user.selfIntro}}</p>
+                        <h2 class="size-18 text-muted margin-bottom-6"><b>About</b> {{model.user.username}}</h2>
+                        <p>{{model.user.selfIntro}}</p>
 
                         <ul class="list-unstyled nomargin">
                             <li class="margin-bottom-10"><i class="fa fa-globe width-20 hidden-xs hidden-sm"></i> <a href={{model.github}}>Github</a></li>
@@ -82,7 +82,7 @@
                         <div class="box1 noradius">
                             <div class="box-icon-title">
                                 <i class="fa fa-user"></i>
-                                <h2>{{model.user.firstname}} {{model.user.lastname}} &ndash; Profile</h2>
+                                <h2>{{model.user.username}}&ndash; Profile</h2>
                             </div>
                             <p>I love Spartan so much!</p>
                         </div>

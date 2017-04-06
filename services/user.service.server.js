@@ -62,7 +62,7 @@ module.exports = function (app, model) {
 
 
     function deserializeUser(user, done) {
-        console.log("deserializeUser",user)
+        // console.log("deserializeUser",user)
         model
             .UserModel
             .findUserById(user._id)
@@ -77,7 +77,7 @@ module.exports = function (app, model) {
     }
 
     function serializeUser(user, done) {
-        console.log("serializeUser",user)
+        // console.log("serializeUser",user)
         done(null, user);
     }
 
@@ -85,7 +85,7 @@ module.exports = function (app, model) {
     function login(req, res) {
 
         var user = req.user;
-        console.log("logedin",user);
+        // console.log("logedin",user);
         user.loggedin=true;
         model.UserModel.updateUser(user._id,user);
         res.json(user);
@@ -97,7 +97,7 @@ module.exports = function (app, model) {
     }
 
     function loggedin(req, res) {
-        console.log("loggedin")
+        // console.log("loggedin")
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
