@@ -9,13 +9,14 @@
         .controller("EditBlogController", EditBlogController)
         .controller("NewBlogController", NewBlogController);
 
-    function BlogListController($routeParams, $location, BlogService) {
+    function BlogListController($routeParams, $location, BlogService,$rootScope) {
         var vm = this;
         vm.getBlogIntro = getBlogIntro;
         vm.getFormattedDate = getFormattedDate;
         vm.getSingleBlogUrl = getSingleBlogUrl;
         vm.sortByCategory = sortByCategory;
-        vm.userId = $routeParams.userId;
+        vm.userId = $rootScope.currentUser.userId;
+        console.log($rootScope.currentUser)
 
         function init() {
             vm.trendBlogNum = 20;

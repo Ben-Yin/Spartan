@@ -24,10 +24,14 @@ module.exports = function () {
             id:    String,
             token: String
         },
-        googleId: {
+        google: {
             id:    String,
             token: String
         },
+        github: {
+            id:    String,
+            token: String
+        }
     }, {collection: "user"});
 
     return UserSchema;
