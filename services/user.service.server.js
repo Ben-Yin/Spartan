@@ -83,6 +83,7 @@ module.exports = function (app, model) {
         var user = req.user;
         console.log("logedin",user);
         user.loggedin=true;
+        model.UserModel.updateUser(user._id,user);
         res.json(user);
     }
 

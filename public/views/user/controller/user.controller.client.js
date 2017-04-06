@@ -52,6 +52,7 @@
         vm.login=login;
 
         function login(user) {
+            user.loggedin=true;
             if (user == null) {
                 vm.error="Please fill the required fields";
                 return;
@@ -62,9 +63,13 @@
                 .then(
                     function (res) {
                         var user=res.data;
-                        console.log("login controller",user)
                         $rootScope.currentUser=user;
-                        $location.path("/hahha");
+                        console.log("login controller",user)
+                        console.log("$rootScope.currentUser",$rootScope.currentUser)
+                        console.log("vm.user",vm.user)
+                        vm.user=user;
+                        console.log("vm.user",vm.user)
+                        $location.path("/profile");
                     }
                 )
         }

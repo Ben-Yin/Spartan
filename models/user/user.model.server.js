@@ -29,12 +29,7 @@ module.exports = function () {
                 {
                     _id: userId
                 },
-                {
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    phone: user.phone
-                }
+                {$set: user}
             );
     }
 
