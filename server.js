@@ -1,27 +1,31 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 var favicons = require('connect-favicons')
-// configure a public directory to host static content
-app.use(favicons(__dirname + '/public/images/icons'));
-app.use(express.static(__dirname + '/public'));
 var passport      = require('passport');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
+var bcrypt = require("bcrypt-nodejs");
 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// configure a public directory to host static content
+app.use(favicons(__dirname + '/public/images/icons'));
+app.use(express.static(__dirname + '/public'));
+
+app.use(cookieParser());
 app.use(session({
-    secret: 'this is the secret',
+    secret: "hahah",
     resave: true,
     saveUninitialized: true
 }));
-app.use(cookieParser());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-var bcrypt = require("bcrypt-nodejs");
+
 
 var models = require("./models/models.server")();
 require("./services/user.service.server")(app, models);

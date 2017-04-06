@@ -4,133 +4,7 @@
     <div id="header" class="sticky header-md clearfix">
 
         <!-- TOP NAV -->
-        <header id="topNav">
-            <div class="container">
-
-                <!-- Mobile Menu Button -->
-                <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <!-- BUTTONS -->
-                <ul class="pull-right nav nav-pills nav-second-main">
-
-                    <li class="dropdown active"><a ng-href="#/user">LOGIN</a></li>
-                    <li class="dropdown active"><a ng-href="#/register">REGISTER</a></li>
-                </ul>
-                <!-- /BUTTONS -->
-
-
-                <!-- Logo -->
-                <a class="logo pull-left" href="index.html">
-                    <img src="./images/logo_light.png" alt=""/>
-                </a>
-
-                <!--
-                    Top Nav
-
-                    AVAILABLE CLASSES:
-                    submenu-dark = dark sub menu
-                -->
-                <div class="navbar-collapse pull-right nav-main-collapse collapse">
-                    <nav class="nav-main">
-
-                        <!--
-                            NOTE
-
-                            For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
-                            Direct Link Example:
-
-                            <li>
-                                <a href="#">HOME</a>
-                            </li>
-                        -->
-                        <ul id="topMain" class="nav nav-pills nav-main">
-                            <li class="dropdown active"><!-- HOME -->
-                                <a href="#/index">HOME</a>
-                            </li>
-                            <li class="dropdown"><!-- PAGES -->
-                                <a class="dropdown-toggle" href="#">
-                                    Training
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" href="#">
-                                            GYM EXERCISE
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">template</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown"><!-- FEATURES -->
-                                <a class="dropdown-toggle" href="#">
-                                    News
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" href="#">
-                                            template
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">template</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown"><!-- PORTFOLIO -->
-                                <a class="dropdown-toggle" href="#">
-                                    Show!
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" href="#">
-                                            template
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">template</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown"><!-- BLOG -->
-                                <a class="dropdown-toggle" href="#">
-                                    BLOG
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" href="#">
-                                            template
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">template</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown"><!-- SHOP -->
-                                <a class="dropdown-toggle" href="#">
-                                    SHOP
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" href="#">
-                                            template
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">template</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                    </nav>
-                </div>
-
-            </div>
-        </header>
+        <ng-include src="'./views/header/header.view.client.html'"></ng-include>
         <!-- /Top Nav -->
 
     </div>
@@ -665,44 +539,7 @@
                             <!-- /Newsletter Form -->
                         </div>
 
-                        <div class="col-md-6 col-sm-6 hidden-xs">
 
-                            <!-- Social Icons -->
-                            <div class="margin-left-50 clearfix">
-
-                                <p class="margin-bottom-10">Follow Us</p>
-                                <a href="https://www.facebook.com/"
-                                   class="social-icon social-icon-sm social-icon-transparent social-facebook pull-left"
-                                   title="Facebook">
-                                    <i class="icon-facebook"></i>
-                                    <i class="icon-facebook"></i>
-                                </a>
-
-                                <a href="https://twitter.com/"
-                                   class="social-icon social-icon-sm social-icon-transparent social-twitter pull-left"
-                                   title="Twitter">
-                                    <i class="icon-twitter"></i>
-                                    <i class="icon-twitter"></i>
-                                </a>
-
-                                <a href="https://www.google.com/"
-                                   class="social-icon social-icon-sm social-icon-transparent social-gplus pull-left"
-                                   title="Google plus">
-                                    <i class="icon-gplus"></i>
-                                    <i class="icon-gplus"></i>
-                                </a>
-
-                                <a href="https://www.linkedin.com/"
-                                   class="social-icon social-icon-sm social-icon-transparent social-linkedin pull-left"
-                                   title="Linkedin">
-                                    <i class="icon-linkedin"></i>
-                                    <i class="icon-linkedin"></i>
-                                </a>
-
-                            </div>
-                            <!-- /Social Icons -->
-
-                        </div>
 
                     </div>
 
@@ -745,10 +582,15 @@
 </div>
 <!-- /wrapper -->
 
-
+<!-- PRELOADER -->
+<div id="preloader">
+    <div class="inner">
+        <span class="loader"></span>
+    </div>
+</div><!-- /PRELOADER -->
 <!-- SCROLL TO TOP -->
 <a href="#" id="toTop"></a>
-
+<load-script type="text/javascript-lazy" src="./js/scripts.js"></load-script>
 <!-- REVOLUTION SLIDER -->
 <script type="text/javascript" src="./js/plugins/slider.revolution/js/jquery.themepunch.tools.min.js"></script>
 <script type="text/javascript" src="./js/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js"></script>
