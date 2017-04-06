@@ -67,14 +67,14 @@
         }
     }
 
-    function SingleBlogController($routeParams, BlogService, CommentService) {
+    function SingleBlogController($routeParams, $location, BlogService, CommentService) {
         var vm = this;
         vm.postComment = postComment;
         vm.getFormattedDate = getFormattedDate;
+        vm.redirectSingleBlog = redirectSingleBlog;
+
         vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
-        vm.userId = "58e2fe3a3e931c5dc3af6c41";
-
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
@@ -99,7 +99,6 @@
                     vm.comments = comments;
 
                 });
-
         }
         init();
 
@@ -136,6 +135,14 @@
         function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
             return date.toDateString();
+        }
+
+        function redirectSingleBlog(blog) {
+            if (blog._id) {
+                $location.url("/blog/"+blog._id);
+            } else {
+                $location.url("/blog");
+            }
         }
     }
 
@@ -175,22 +182,26 @@
         }
     }
 
-    function NewBlogController($routeParams, BlogService) {
+    function NewBlogController($routeParams, $rootScope, $location, BlogService) {
         var vm = this;
-        vm.userId = $routeParams.userId;
-        
+        vm.createBlog = createBlog;
+        // vm.userId = $rootScope.user._id;
+        vm.userId = "58e66510622d0e059941cbf1";
         function init() {
-            
+
         }
         init();
         
         function createBlog(blog) {
+            console.log("try create blog");
             BlogService
                 .createBlog(vm.userId, blog)
-                .success(function (status) {
+                .success(function (blog) {
+                    $location.url("/blog/"+blog._id);
                     console.log("create blog success");
                 });
         }
+
     }
 
 
