@@ -118,16 +118,28 @@
 
 
     }
-    function ProfileEditController($location,$rootScope,UserService) {
+    function ProfileEditController($location,$rootScope,UserService,$window) {
         var vm=this;
         vm.logout=logout;
-
+        vm.update=update;
         function init() {
 
             vm.user=$rootScope.currentUser;
         }
         init();
 
+        function update(user) {
+            var updateUser=vm.user;
+            console.log(updateUser,$rootScope.currentUser._id)
+            UserService.updateUser($rootScope.currentUser._id,updateUser)
+                .then(
+                    function (user) {
+                        $window.alert("Update success!")
+                        console.log("aa",user.config.data)
+                        $rootScope.currentUser=user.config.data;
+                    }
+                )
+        }
         function logout() {
             UserService
                 .logout()
@@ -138,6 +150,9 @@
                     })}
 
     }
+
+
+
 
 
 })();

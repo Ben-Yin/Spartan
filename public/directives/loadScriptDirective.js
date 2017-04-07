@@ -1,6 +1,3 @@
-/**
- * Created by BenYin on 4/5/17.
- */
 (function () {
     angular
         .module("spartanDirective", [])
@@ -29,5 +26,16 @@
                     }
                 }
             };
-        });
+        })
+        .directive('showtab',
+            function () {
+                return {
+                    link: function (scope, element, attrs) {
+                        element.click(function(e) {
+                            e.preventDefault();
+                            $(element).tab('show');
+                        });
+                    }
+                };
+            });
 })();
