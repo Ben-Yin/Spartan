@@ -2,6 +2,8 @@
  * Created by Chaos on 4/2/2017.
  */
 (function () {
+    'use strict';
+    
     angular
         .module("Spartan")
         .factory("UserService",UserService);

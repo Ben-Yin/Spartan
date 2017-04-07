@@ -9,6 +9,8 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 
 module.exports = function (app, model) {
+    'use strict';
+
     var auth = authorized;
     app.post  ('/api/login',passport.authenticate('local'),login);
     app.post  ('/api/register',register);
@@ -38,23 +40,19 @@ module.exports = function (app, model) {
 
     function localStrategy(username,password,done) {
         console.log(username)
-        console.log(password)
+        console.log(password,bcrypt.hashSync(password))
         model.UserModel
-            .findUserByCredential(username,password)
+            .findUserByUsername(username)
             .then(
-                function (user) {
-                    if(!user){
-
-                        console.log("fail",user)
-                        return done(null,false);
+                function(user) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
                     }
-                        return done(null,user);
-
                 },
-                function (err) {
-                    if (err){
-                        return done(err);
-                    }
+                function(err) {
+                    if (err) { return done(err); }
                 }
             );
     }
@@ -86,9 +84,6 @@ module.exports = function (app, model) {
     function login(req, res) {
 
         var user = req.user;
-        // console.log("logedin",user);
-        user.loggedin=true;
-        model.UserModel.updateUser(user._id,user);
         res.json(user);
     }
 
@@ -103,22 +98,32 @@ module.exports = function (app, model) {
     }
 
     function register(req, res) {
-        var user=req.body;
+        var newUser=req.body;
         model
             .UserModel
-            .createUser(user)
+            .findUserByUsername(newUser.username)
             .then(
                 function (user) {
                     if(user){
-                        // console.log("register success",user)
-                        req.login(user,function (err) {
-                            if (err){
-                                re.status(400).send(err);
-                            }else{
-                                res.json(user);
-                            }
-                        });
+                        res.json(null)
+                    }else{
+                        newUser.password=bcrypt.hashSync(newUser.password);
+                        model.UserModel.createUser(newUser)
+                            .then(function (user) {
+                                if(user){
+                                    // console.log("register success",user)
+                                    req.login(user,function (err) {
+                                        if (err){
+                                            re.status(400).send(err);
+                                        }else{
+                                            res.json(user);
+                                        }
+                                    });
+                                }
+                            });
                     }
+                },function (err) {
+                    res.status(400).send(err)
                 }
             );
     }
