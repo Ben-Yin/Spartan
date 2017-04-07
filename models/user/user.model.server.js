@@ -30,6 +30,8 @@ module.exports = function () {
     }
 
     function createUser(user) {
+        user.usertype="MemberShip Lv.1";
+        user.loggedin=true;
         // console.log("model create user",user);
         return UserModel.create(user);
     }
