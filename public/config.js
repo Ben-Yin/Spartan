@@ -36,7 +36,14 @@
                         checkLoggedin: checkLoggedin
                     }
                 })
-
+                .when("/profile/edit", {
+                    templateUrl: "/views/user/templates/profile.edit.view.client.html",
+                    controller:"ProfileEditController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
+                })
                 .when("/blog", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogListController",

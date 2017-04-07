@@ -1,9 +1,11 @@
 (function () {
+    'use strict';
     angular
         .module("Spartan")
         .controller("LoginController", LoginController)
         .controller("RegisterController", RegisterController)
-        .controller("ProfileController",ProfileController);
+        .controller("ProfileController",ProfileController)
+        .controller("ProfileEditController",ProfileEditController);
     function RegisterController($location,UserService,$rootScope) {
         var vm=this;
         vm.register=register;
@@ -70,7 +72,6 @@
                     })}
 
         function login(user) {
-            user.loggedin=true;
             if (user == null) {
                 vm.error="Please fill the required fields";
                 return;
@@ -88,6 +89,8 @@
                         vm.user=user;
                         // console.log("vm.user",vm.user)
                         $location.path("/index");
+                    },function (err) {
+                        vm.error="Username or password is Wrong";
                     }
                 )
         }
@@ -97,6 +100,13 @@
     function ProfileController($location,$rootScope,UserService) {
         var vm=this
         vm.logout=logout;
+        var vm=this;
+
+        function init() {
+            vm.user=$rootScope.currentUser;
+            console.log(vm.user)
+        }
+        init();
         function logout() {
             UserService
                 .logout()
@@ -107,19 +117,25 @@
                     })}
 
 
-        var currUser = $rootScope.currentUser;
-        // console.log(currUser)
-        if (currUser != null) {
+    }
+    function ProfileEditController($location,$rootScope,UserService) {
+        var vm=this;
+        vm.logout=logout;
 
-            vm.user = {
-                username: currUser.username,
-                firstName: currUser.firstname,
-                lastName: currUser.lastname,
-                password: currUser.password,
-                loggedin:currUser.loggedin
-            };
+        function init() {
+
+            vm.user=$rootScope.currentUser;
         }
+        init();
 
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    })}
 
     }
 
