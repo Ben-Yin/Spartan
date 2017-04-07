@@ -20,7 +20,7 @@ module.exports = function (app, model) {
     app.get   ('/api/loggedin',loggedin);
     app.get   ('/api/user/:userId', getUserById);
     // app.get   ('/api/user',auth, findAllUsers);
-    // app.put   ('/api/user/:id',auth, updateUser);
+    app.put   ('/api/user/:id',auth, updateUser);
     // app.delete('/api/user/:id',auth, deleteUser);
 
     passport.use(new LocalStrategy(localStrategy));
@@ -286,6 +286,23 @@ module.exports = function (app, model) {
                 },
                 function (err) {
                     res.sendStatus(500);
+                }
+            );
+    }
+    function updateUser(req, res) {
+        var userId = req.params.userId;
+        var newUser = req.body;
+        console.log(newUser);
+        model
+            .UserModel
+            .updateUser(userId, newUser)
+            .then(
+                function (user) {
+                    console.log("update user successfully");
+                    res.json(user);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
                 }
             );
     }
