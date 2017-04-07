@@ -8,7 +8,7 @@ module.exports = function (app, model) {
     app.get("/api/blog", findBlogByConditions);
     app.put("/api/blog/:blogId", updateBlog);
     app.delete("/api/blog/:blogId", deleteBlog);
-    app.post("/api/user/:userId/blog/:blogId/comment", addCommentForBlog);
+    app.post("/api/blog/:blogId/comment", addCommentForBlog);
 
     function createBlog(req, res) {
         var userId = req.params.userId;
@@ -124,10 +124,7 @@ module.exports = function (app, model) {
 
     function addCommentForBlog(req, res) {
         var blogId = req.params.blogId;
-        var userId = req.params.userId;
         var comment = req.body;
-        comment._user = userId;
-        comment._post = blogId;
         model
             .CommentModel
             .createComment(comment)

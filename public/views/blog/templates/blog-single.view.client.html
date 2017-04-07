@@ -90,7 +90,7 @@
                     <!-- comment item -->
                     <div class="comment-item" ng-repeat="comment in model.comments">
                         <div class="media-body">
-                            <h4 class="media-heading bold">abc</h4>
+                            <h4 class="media-heading bold">{{comment.commenter}}</h4>
                             <small class="block">{{model.getFormattedDate(comment.commentDate)}}</small>
                             {{comment.content}}
                         </div>
@@ -103,15 +103,15 @@
                 </h4>
 
                 <!-- Form -->
-                <form action="#" method="post">
-
+                <form>
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label>COMMENT</label>
                                 <textarea required="required" maxlength="5000" rows="5" class="form-control"
                                           name="comment"
-                                          id="comment"></textarea>
+                                          id="comment"
+                                          ng-model="model.comment.content"></textarea>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="row">
                         <div class="col-md-12">
 
-                            <button class="btn btn-3d btn-lg btn-reveal btn-black">
+                            <button class="btn btn-3d btn-lg btn-reveal btn-black" ng-click="model.postComment(model.comment)">
                                 <i class="fa fa-check"></i>
                                 <span>SUBMIT MESSAGE</span>
                             </button>

@@ -27,7 +27,9 @@
                     .success(
                         function (blogs) {
                             vm.blogs = blogs;
-                            setBloggerforBlogs(vm.blogs);
+                            for (var i in vm.blogs) {
+                                setBloggerforBlog(vm.blogs[i]);
+                            }
                         }
                     );
             } else {
@@ -65,22 +67,21 @@
                 .success(
                     function (blogs) {
                         vm.blogs = blogs;
-                        setBloggerforBlogs(vm.blogs);
+                        for (var i in vm.blogs) {
+                            setBloggerforBlog(vm.blogs[i]);
+                        }
                     }
                 );
         }
 
-        function setBloggerforBlogs(blogs) {
-            for (i in blogs) {
-                UserService
-                    .getUserById(blogs[i]._blogger)
-                    .success(
-                        function (user) {
-                            blogs[i].bloggerName = user.username;
-                        }
-                    )
-            }
-            console.log(vm.blogs);
+        function setBloggerforBlog(blog) {
+            UserService
+                .getUserById(blog._blogger)
+                .success(
+                    function (user) {
+                        blog.bloggerName = user.username;
+                    }
+                )
         }
 
         function logout() {
@@ -102,8 +103,8 @@
         vm.logout=logout;
         vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
-        vm.user = $rootScope.currentUser;
         function init() {
+            vm.user = $rootScope.currentUser;
             BlogService
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
@@ -113,7 +114,7 @@
                         .success(function (user) {
                             vm.blog.bloggerName = user.username;
                         });
-                    if (vm.user && vm.blog.likes.indexOf(vm.user._id) == -1) {
+                    if (!vm.user || vm.blog.likes.indexOf(vm.user._id) == -1) {
                         vm.thumbsUp = {
                             "like": false,
                             "icon": "icon-large icon-thumbs-up-alt"
@@ -130,16 +131,33 @@
                 .findCommentByBlogId(vm.blogId)
                 .success(function (comments) {
                     vm.comments = comments;
-
+                    for (var i in vm.comments) {
+                        setCommenter(vm.comments[i]);
+                    }
                 });
         }
         init();
 
         function postComment(comment) {
+            console.log(comment);
+            comment._post = vm.blogId;
+            if (vm.user) {
+                comment._user = vm.user._id;
+            } else {
+                comment._user = null;
+            }
             BlogService
                 .addCommentForBlog(vm.blogId, comment)
-                .success(function (status) {
-                    console.log("add comment success");
+                .success(function (newComment) {
+                    CommentService
+                        .findCommentByBlogId(vm.blogId)
+                        .success(function (comments) {
+                            vm.comments = comments;
+                            for (var i in vm.comments) {
+                                setCommenter(vm.comments[i]);
+                            }
+                        });
+                    vm.comment = null;
                 });
         }
 
@@ -176,6 +194,21 @@
             } else {
                 $location.url("/blog");
             }
+        }
+
+        function setCommenter(comment) {
+            UserService
+                .getUserById(comment._user)
+                .success(
+                    function (user) {
+                        comment.commenter = user.username;
+                    }
+                )
+                .error(
+                    function () {
+                        comment.commenter = "Visitor";
+                    }
+                )
         }
 
         function logout() {

@@ -60,7 +60,7 @@ module.exports = function () {
         return BlogModel
             .findById(blogId, function (err, blog) {
                 if (err) return handleError(err);
-                blog.comments.push(blogId);
+                blog.comments.push(comment);
                 blog.save();
             });
     }

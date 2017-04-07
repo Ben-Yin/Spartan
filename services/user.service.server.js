@@ -280,8 +280,7 @@ module.exports = function (app, model) {
                     res.json(user);
                 },
                 function (err) {
-                    console.log(err);
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             );
     }
