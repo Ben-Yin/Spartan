@@ -24,7 +24,7 @@
             <div class="row">
 
                 <!-- LEFT -->
-                <div class="col-md-3 col-sm-3">
+                <div class="col-md-3 col-sm-3" >
 
                     <!-- INLINE SEARCH -->
                     <div class="inline-search clearfix margin-bottom-30">
@@ -40,7 +40,7 @@
                     <hr/>
 
                     <!-- side navigation -->
-                    <div class="side-nav margin-bottom-60 margin-top-30">
+                    <div class="side-nav margin-bottom-60 margin-top-30" ng-show="model.showCategory">
 
                         <div class="side-nav-head">
                             <button class="fa fa-bars"></button>
@@ -75,6 +75,11 @@
 
                             <ul class="blog-post-info list-inline">
                                 <li>
+                                    <i class="fa fa-user"></i>
+                                    <span class="font-lato">{{blog.bloggerName}}</span>
+
+                                </li>
+                                <li>
                                     <i class="fa fa-clock-o"></i>
                                     <span class="font-lato">{{model.getFormatedDate(blog.blogDate)}}</span>
 
@@ -89,7 +94,7 @@
 
                             <p>{{model.getBlogIntro(blog.content)}}</p>
 
-                            <a ng-href="model.getSingleBlogUrl(blog)" class="btn btn-reveal btn-default">
+                            <a ng-click="model.getSingleBlogUrl(blog)" class="btn btn-reveal btn-default">
                                 <i class="fa fa-plus"></i>
                                 <span>Read More</span>
                             </a>

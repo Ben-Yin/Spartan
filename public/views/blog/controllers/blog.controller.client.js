@@ -9,27 +9,29 @@
         .controller("EditBlogController", EditBlogController)
         .controller("NewBlogController", NewBlogController);
 
-    function BlogListController($routeParams, $location, BlogService,$rootScope) {
+    function BlogListController($routeParams, $location, $rootScope, BlogService, UserService) {
         var vm = this;
         vm.getBlogIntro = getBlogIntro;
         vm.getFormattedDate = getFormattedDate;
         vm.getSingleBlogUrl = getSingleBlogUrl;
         vm.sortByCategory = sortByCategory;
+        vm.logout=logout;
 
         function init() {
             vm.user = $rootScope.currentUser;
-
             vm.trendBlogNum = 20;
             vm.defaultSorting = "trending";
-            if (vm.userId) {
+            if ($location.url() == "/blog/my") {
                 BlogService
-                    .findBlogByUserId(vm.userId)
+                    .findBlogByUserId(vm.user._id)
                     .success(
                         function (blogs) {
                             vm.blogs = blogs;
+                            setBloggerforBlogs(vm.blogs);
                         }
                     );
             } else {
+                vm.showCategory = true;
                 setBlogsByconditions(vm.trendBlogNum, null, vm.defaultSorting);
             }
             vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
@@ -63,25 +65,55 @@
                 .success(
                     function (blogs) {
                         vm.blogs = blogs;
+                        setBloggerforBlogs(vm.blogs);
                     }
                 );
         }
+
+        function setBloggerforBlogs(blogs) {
+            for (i in blogs) {
+                UserService
+                    .getUserById(blogs[i]._blogger)
+                    .success(
+                        function (user) {
+                            blogs[i].bloggerName = user.username;
+                        }
+                    )
+            }
+            console.log(vm.blogs);
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
     }
 
-    function SingleBlogController($routeParams, $location, BlogService, CommentService) {
+    function SingleBlogController($routeParams, $location, $rootScope, BlogService, UserService, CommentService) {
         var vm = this;
         vm.postComment = postComment;
         vm.getFormattedDate = getFormattedDate;
         vm.redirectSingleBlog = redirectSingleBlog;
-
+        vm.logout=logout;
         vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
+        vm.user = $rootScope.currentUser;
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
                     vm.blog = blog;
-                    if (vm.blog.likes.indexOf(vm.userId) == -1) {
+                    UserService
+                        .getUserById(blog._blogger)
+                        .success(function (user) {
+                            vm.blog.bloggerName = user.username;
+                        });
+                    if (vm.user && vm.blog.likes.indexOf(vm.user._id) == -1) {
                         vm.thumbsUp = {
                             "like": false,
                             "icon": "icon-large icon-thumbs-up-alt"
@@ -145,17 +177,32 @@
                 $location.url("/blog");
             }
         }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
     }
 
-    function EditBlogController($routeParams, $location, BlogService) {
+    function EditBlogController($routeParams, $location, $rootScope, BlogService) {
         var vm = this;
         vm.updateBlog = updateBlog;
         vm.blogId = $routeParams.blogId;
+        vm.logout=logout;
+        vm.user = $rootScope.currentUser;
 
         function init() {
             BlogService
                 .findBlogById(vm.blogId)
                 .success(function (blog) {
+                    if (vm.user._id != blog._blogger) {
+                        $location.url("/blog");
+                    }
                     vm.blog = blog;
                     vm.title = vm.blog.title;
                 });
@@ -178,16 +225,24 @@
                 });
         }
 
-        function findUserById(userId) {
-
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
         }
     }
 
     function NewBlogController($routeParams, $rootScope, $location, BlogService) {
         var vm = this;
         vm.createBlog = createBlog;
-        // vm.userId = $rootScope.user._id;
-        vm.userId = "58e66510622d0e059941cbf1";
+        vm.logout = logout;
+        vm.findUserNameById = findUserNameById;
+        vm.user = $rootScope.currentUser;
+        
         function init() {
 
         }
@@ -196,13 +251,31 @@
         function createBlog(blog) {
             console.log("try create blog");
             BlogService
-                .createBlog(vm.userId, blog)
+                .createBlog(vm.user._id, blog)
                 .success(function (blog) {
                     $location.url("/blog/"+blog._id);
-                    console.log("create blog success");
                 });
         }
 
+        function findUserNameById(userId) {
+            UserService
+                .getUserById(userId)
+                .success(
+                    function (user) {
+                        return user.username;
+                    }
+                )
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
     }
 
 

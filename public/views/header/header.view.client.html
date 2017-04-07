@@ -104,8 +104,15 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown active"><!-- HOME -->
-                            <a  href="#/blog">BLOG</a>
+                        <li class="dropdown"><!-- BLOG -->
+                            <a class="dropdown-toggle" href="#">
+                               BLOG
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a ng-href="#/blog/new" ng-show="model.user.loggedin">New Blog</a></li>
+                                <li><a href="#/blog/my" ng-show="model.user.loggedin">My Blog</a></li>
+                                <li><a href="#/blog">Trending Blog</a></li>
+                            </ul>
                         </li>
                         <li class="dropdown"><!-- SHOP -->
                             <a class="dropdown-toggle" href="#">

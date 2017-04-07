@@ -14,7 +14,8 @@
             "logout":logout,
             "register":register,
             "setCurrentUser":setCurrentUser,
-            "getCurrentUser":getCurrentUser
+            "getCurrentUser":getCurrentUser,
+            "getUserById":getUserById
         }
         return api;
 
@@ -39,6 +40,10 @@
         function getCurrentUser() {
             console.log("calling loggedin function");
             return $http.get("/api/assignment/users/loggedin");
+        }
+        
+        function getUserById(userId) {
+            return $http.get("/api/user/"+userId);
         }
     }
 })();

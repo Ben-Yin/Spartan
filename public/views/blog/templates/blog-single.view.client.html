@@ -1,4 +1,4 @@
-
+<ng-include src="'./views/header/header.view.client.html'"></ng-include>
 <!-- wrapper -->
 <div id="wrapper">
 
@@ -44,10 +44,10 @@
                 <li>
                     <a href="#">
                         <i class="fa fa-user"></i>
-                        <span class="font-lato">{{model.user.username}}</span>
+                        <span class="font-lato">{{model.blog.bloggerName}}</span>
                     </a>
                 </li>
-                <li>
+                <li ng-show="model.user._id==model.blog._blogger">
                     <a ng-href="#/blog/{{model.blog._id}}/edit"><button class="btn btn-block btn-primary">Edit</button></a>
                 </li>
             </ul>
@@ -81,7 +81,7 @@
                 <h4 class="page-header margin-bottom-60 size-20">
                     <span>{{model.blog.likes.length}}</span>
                     <i ng-class="model.thumbsUp.icon"
-                       ng-click="model.likeBlog(model.userId, model.blog)">
+                       ng-click="model.likeBlog(model.user._id, model.blog)">
                     </i>
                     <span>{{model.blog.comments.length}}</span> COMMENTS
                 </h4>
@@ -144,3 +144,5 @@
 
 <!-- SCROLL TO TOP -->
 <a href="#" id="toTop"></a>
+
+<ng-include src="'./views/foot/foot.view.client.html'"></ng-include>
