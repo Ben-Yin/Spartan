@@ -46,7 +46,7 @@
                             </div>
                             <div class="margiv-top10">
                                 <a ng-click="model.update(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
-                                <a ng-href="#/profile/edit" class="btn btn-default">Cancel </a>
+                                <a ng-href="#/profile" class="btn btn-default">Cancel </a>
                             </div>
                         </form>
                     </div>
@@ -55,51 +55,34 @@
                     <!-- AVATAR TAB -->
                     <div class="tab-pane fade" id="avatar">
 
-                        <form class="clearfix" action="#" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-
                                 <div class="row">
 
                                     <div class="col-md-3 col-sm-4">
 
                                         <div class="thumbnail">
-                                            <img class="img-responsive" src="model.user.avatar" alt="" />
+                                            <img  ng-src="{{model.user.avatar}}" ng-show="model.user.avatar" />
+                                            <img src="https://image.freepik.com/free-vector/variety-of-user-avatars_23-2147542131.jpg" ng-hide="model.user.avatar" />
                                         </div>
 
                                     </div>
 
-                                    <div class="col-md-9 col-sm-8">
-
-                                        <div class="sky-form nomargin">
-                                            <label class="label">Select File</label>
-                                            <label for="file" class="input input-file">
-                                                <div class="button">
-                                                    <input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse
-                                                </div><input type="text" readonly>
-                                            </label>
-                                        </div>
-
-                                        <a href="#" class="btn btn-danger btn-xs noradius"><i class="fa fa-times"></i> Remove Avatar</a>
-
-                                        <div class="clearfix margin-top-20">
-                                            <span class="label label-warning">NOTE! </span>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt laoreet!
-                                            </p>
-                                        </div>
-
+                                    <div class="col-md-9 col-sm-8" >
+                                            <form action="/api/upload"  method="post" enctype="multipart/form-data">
+                                                <input  name="myFile"  type="file" class="form-control"/>
+                                                <input  name="userId" value="{{model.user._id}}"   style="display:None"/>
+                                                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save Change</button>
+                                            </form>
+                                            <div class="clearfix margin-top-20">
+                                                <span class="label label-warning">NOTE! </span>
+                                                <p>
+                                                    Please select file in JPG and PNG!
+                                                </p>
+                                            </div>
                                     </div>
 
                                 </div>
 
-                            </div>
 
-                            <div class="margiv-top10">
-                                <a href="#" class="btn btn-primary">Save Changes </a>
-                                <a href="#" class="btn btn-default">Cancel </a>
-                            </div>
-
-                        </form>
 
                     </div>
                     <!-- /AVATAR TAB -->
@@ -111,20 +94,20 @@
 
                             <div class="form-group">
                                 <label class="control-label">Current Password</label>
-                                <input type="password" class="form-control">
+                                <input ng-model="model.user.originPass" type="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">New Password</label>
-                                <input type="password" class="form-control">
+                                <input ng-model="model.user.newpass" type="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Re-type New Password</label>
-                                <input type="password" class="form-control">
+                                <input ng-model="model.user.newpassCheck" type="password" class="form-control">
                             </div>
 
                             <div class="margiv-top10">
-                                <a href="#" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
-                                <a href="#" class="btn btn-default">Cancel </a>
+                                <a ng-click="model.updatePass(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
+                                <a href="#/profile" class="btn btn-default">Cancel </a>
                             </div>
 
                         </form>
@@ -163,7 +146,7 @@
 
                             <div class="margin-top-10">
                                 <a ng-click="model.update(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
-                                <a href="#/profile/edit" class="btn btn-default">Cancel </a>
+                                <a href="#/profile" class="btn btn-default">Cancel </a>
                             </div>
 
                         </form>
@@ -180,7 +163,7 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-lg-pull-9 col-md-pull-9 col-sm-pull-8">
 
                 <div class="thumbnail text-center">
-                    <img ng-show="model.user.avatar" ng-src="model.user.avatar" alt="" />
+                    <img  ng-src="{{model.user.avatar}}" ng-show="model.user.avatar" />
                     <h2 class="size-18 margin-top-10 margin-bottom-0">{{model.user.username}}</h2>
                     <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">{{model.user.usertype}}</h3>
                 </div>

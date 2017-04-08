@@ -16,7 +16,8 @@
             "logout": logout,
             "register": register,
             "getUserById": getUserById,
-            "updateUser": updateUser
+            "updateUser": updateUser,
+            "updatePass": updatePass
         };
         return api;
 
@@ -41,6 +42,10 @@
 
         function updateUser(userId, updateUser) {
             return $http.put('/api/user/' + userId, updateUser);
+        }
+
+        function updatePass(userId, password) {
+            return $http.put('/api/user/pass/' + userId, password);
         }
     }
 })();

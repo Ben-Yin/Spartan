@@ -13,10 +13,19 @@ module.exports = function () {
         updateUser: updateUser,
         deleteUser: deleteUser,
         findUserByCredential:findUserByCredential,
-        findUserByUsername: findUserByUsername
+        findUserByUsername: findUserByUsername,
+        updateAvatar:updateAvatar,
+        updatePassword:updatePassword
     };
     return api;
 
+    function updatePassword(userId,password) {
+        return UserModel
+            .update(
+                {_id: userId},
+                {password: password}
+            );
+    }
     function findUserByGitHubId(githubId) {
         return UserModel.findOne({'github.id': githubId});
     }
@@ -30,6 +39,7 @@ module.exports = function () {
     }
 
     function createUser(user) {
+        user.avatar="https://image.freepik.com/free-vector/variety-of-user-avatars_23-2147542131.jpg";
         user.usertype="MemberShip Lv.1";
         user.loggedin=true;
         // console.log("model create user",user);
@@ -47,6 +57,14 @@ module.exports = function () {
                     _id: userId
                 },
                 {$set: user}
+            );
+    }
+
+    function updateAvatar(userId, path) {
+        return UserModel
+            .update(
+                {_id: userId},
+                {avatar: path}
             );
     }
 
