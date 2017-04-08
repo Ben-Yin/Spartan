@@ -8,7 +8,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var multer = require('multer'); // npm install multer --save
-var upload = multer({ dest: __dirname+'/../../public/uploads' });
+var upload = multer({ dest: __dirname+'/../public/uploads' });
 
 module.exports = function (app, model) {
     'use strict';
@@ -24,6 +24,7 @@ module.exports = function (app, model) {
     app.get   ('/api/user/:userId', getUserById);
     // app.get   ('/api/user',auth, findAllUsers);
     app.put   ('/api/user/:userId',auth, updateUser);
+    app.put('/api/user/pass/:userId', auth, updatePass)
     // app.delete('/api/user/:id',auth, deleteUser);
 
     passport.use(new LocalStrategy(localStrategy));
@@ -308,6 +309,30 @@ module.exports = function (app, model) {
                     res.sendStatus(500).send(err);
                 }
             );
+    }
+    function updatePass(req, res) {
+        var userId = req.params.userId;
+        var password = req.body;
+        var originPass=password.originPass;
+        var newpass=password.newpass;
+        var encryptPass=password.encryptPass;
+        if ( bcrypt.compareSync(originPass,encryptPass))
+        {
+            model
+                .UserModel
+                .updatePassword(userId,bcrypt.hashSync(newpass))
+                .then(
+                    function (user) {
+                        res.json(user);
+                    },
+                    function (err) {
+                        res.json(null);
+                    }
+                );}else {
+            res.json(null);
+        }
+
+
     }
     function uploadImage(req, res) {
 

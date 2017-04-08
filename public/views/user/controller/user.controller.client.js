@@ -122,6 +122,7 @@
         var vm=this;
         vm.logout=logout;
         vm.update=update;
+        vm.updatePass=updatePass;
         function init() {
 
             vm.user=$rootScope.currentUser;
@@ -129,6 +130,31 @@
         }
         init();
 
+        function updatePass(pass) {
+            console.log(pass)
+            var originPass=pass.originPass;
+            var newpass=pass.newpass;
+            var newpassCheck=pass.newpassCheck;
+
+            var password={
+                originPass:originPass,
+                newpass:newpass,
+                encryptPass:vm.user.password
+            }
+            if(newpass==newpassCheck && newpass){
+                UserService.updatePass($rootScope.currentUser._id,password)
+                    .then(
+                        function (user) {
+                            if(user)
+                            {$window.alert("Update Password!")}
+                            else{$window.alert("Password Wrong!");}
+                        }
+                    )
+            }else{
+                $window.alert("Password doesn't match!");
+            }
+
+        }
         function update(user) {
             var updateUser=vm.user;
             console.log(updateUser,$rootScope.currentUser._id)

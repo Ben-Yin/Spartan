@@ -46,7 +46,7 @@
                             </div>
                             <div class="margiv-top10">
                                 <a ng-click="model.update(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
-                                <a ng-href="#/profile/edit" class="btn btn-default">Cancel </a>
+                                <a ng-href="#/profile" class="btn btn-default">Cancel </a>
                             </div>
                         </form>
                     </div>
@@ -60,7 +60,7 @@
                                     <div class="col-md-3 col-sm-4">
 
                                         <div class="thumbnail">
-                                            <img  ng-src="{{user.avatar}}" ng-show="model.user.avatar" />
+                                            <img  ng-src="{{model.user.avatar}}" ng-show="model.user.avatar" />
                                             <img src="https://image.freepik.com/free-vector/variety-of-user-avatars_23-2147542131.jpg" ng-hide="model.user.avatar" />
                                         </div>
 
@@ -98,16 +98,16 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label">New Password</label>
-                                <input type="password" class="form-control">
+                                <input ng-model="model.user.newpass" type="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Re-type New Password</label>
-                                <input type="password" class="form-control">
+                                <input ng-model="model.user.newpassCheck" type="password" class="form-control">
                             </div>
 
                             <div class="margiv-top10">
-                                <a href="#" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
-                                <a href="#" class="btn btn-default">Cancel </a>
+                                <a ng-click="model.updatePass(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
+                                <a href="#/profile" class="btn btn-default">Cancel </a>
                             </div>
 
                         </form>
@@ -146,7 +146,7 @@
 
                             <div class="margin-top-10">
                                 <a ng-click="model.update(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
-                                <a href="#/profile/edit" class="btn btn-default">Cancel </a>
+                                <a href="#/profile" class="btn btn-default">Cancel </a>
                             </div>
 
                         </form>
@@ -163,7 +163,7 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-lg-pull-9 col-md-pull-9 col-sm-pull-8">
 
                 <div class="thumbnail text-center">
-                    <img  ng-src="{{user.avatar}}" alt="" />
+                    <img  ng-src="{{model.user.avatar}}" ng-show="model.user.avatar" />
                     <h2 class="size-18 margin-top-10 margin-bottom-0">{{model.user.username}}</h2>
                     <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">{{model.user.usertype}}</h3>
                 </div>
