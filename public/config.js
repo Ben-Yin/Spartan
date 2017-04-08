@@ -68,7 +68,11 @@
                 .when("/blog/:blogId", {
                     templateUrl: "/views/blog/templates/blog-single.view.client.html",
                     controller: "SingleBlogController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+
                 })
                 .when("/blog/:blogId/edit", {
                     templateUrl: "/views/blog/templates/blog-edit.view.client.html",
@@ -85,7 +89,7 @@
 
 
         }
-    function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
+    function checkLoggedin($q, $http, $location, $rootScope) {
         var deferred = $q.defer();
         $http.get('/api/loggedin').success(function(user) {
             console.log("checkLoggedin",user);

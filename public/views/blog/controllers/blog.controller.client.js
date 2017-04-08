@@ -41,9 +41,11 @@
         init();
 
         function getBlogIntro(content) {
-            var intro = content.slice(0, content.lastIndexOf(" ", 200));
             if (content.length > 200) {
+                var intro = content.slice(0, content.lastIndexOf(" ", 200));
                 intro += "...";
+            } else {
+                intro = content;
             }
             return intro;
         }

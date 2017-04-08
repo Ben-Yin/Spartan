@@ -93,7 +93,8 @@ module.exports = function (app, model) {
     }
 
     function loggedin(req, res) {
-        // console.log("loggedin")
+        console.log("loggedin");
+        console.log(req.isAuthenticated());
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
