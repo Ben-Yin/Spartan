@@ -125,6 +125,7 @@
         function init() {
 
             vm.user=$rootScope.currentUser;
+            console.log("init",vm.user.avatar)
         }
         init();
 
