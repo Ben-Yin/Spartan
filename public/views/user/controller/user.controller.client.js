@@ -123,13 +123,36 @@
         vm.logout=logout;
         vm.update=update;
         vm.updatePass=updatePass;
+        vm.delete=deleteUser;
+
         function init() {
 
             vm.user=$rootScope.currentUser;
             console.log("init",vm.user.avatar)
         }
         init();
+        function deleteUser(user) {
+            // console.log("delete user",user)
+            if(user.confirmDelete==user.username)
+            {
+                UserService.deleteUser(user._id)
+                    .success(function () {
+                        UserService
+                            .logout()
+                            .then(
+                                function(response) {
+                                    $rootScope.currentUser = null;
+                                    $location.url("/");
+                                })
+                    })
+                    .error(function () {
+                        $window.alert('Unable to remove user');
+                    });
+            }else{
+                $window.alert('Please re-enter the username!');
+            }
 
+        }
         function updatePass(pass) {
             console.log(pass)
             var originPass=pass.originPass;

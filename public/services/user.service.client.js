@@ -17,10 +17,14 @@
             "register": register,
             "getUserById": getUserById,
             "updateUser": updateUser,
-            "updatePass": updatePass
+            "updatePass": updatePass,
+            "deleteUser":deleteUser
         };
         return api;
 
+        function deleteUser(userId) {
+            return $http.delete("/api/user/"+userId);
+        }
         function logout() {
             return $http.post("/api/logout");
 

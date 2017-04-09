@@ -17,6 +17,7 @@
                     <li><a showtab="" href="#avatar" data-toggle="tab" showtab="">Avatar</a></li>
                     <li><a showtab="" href="#password" data-toggle="tab" showtab="">Password</a></li>
                     <li><a showtab="" href="#privacy" data-toggle="tab" showtab="">Privacy</a></li>
+                    <li><a showtab="" href="#unregister" data-toggle="tab" showtab="">Unregister</a></li>
                 </ul>
 
                 <div class="tab-content margin-top-20">
@@ -116,7 +117,31 @@
                     <!-- /PASSWORD TAB -->
 
                     <!-- PRIVACY TAB -->
+                    <div class="tab-pane fade" id="unregister">
+
+
+                        <form action="#" method="post">
+                            <form action="#" method="post">
+
+                                <div class="form-group">
+                                    <label class="control-label">Enter your username
+                                        ({{model.user.username}}) below to confirm you want to permanently delete it:
+                                    </label>
+                                    <input ng-model="model.user.confirmDelete" type="text" class="form-control">
+                                </div>
+                                <div class="margiv-top10">
+                                    <a ng-click="model.delete(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Unregister User</a>
+                                </div>
+
+                            </form>
+
+                        </form>
+
+                    </div>
+                    <!-- /PRIVACY TAB -->
+                    <!-- Unregister -->
                     <div class="tab-pane fade" id="privacy">
+
 
                         <form action="#" method="post">
                             <div class="sky-form">
@@ -152,8 +177,7 @@
                         </form>
 
                     </div>
-                    <!-- /PRIVACY TAB -->
-
+                    <!-- /Unregister -->
                 </div>
 
             </div>

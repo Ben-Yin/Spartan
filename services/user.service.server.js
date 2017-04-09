@@ -25,7 +25,7 @@ module.exports = function (app, model) {
     // app.get   ('/api/user',auth, findAllUsers);
     app.put   ('/api/user/:userId',auth, updateUser);
     app.put('/api/user/pass/:userId', auth, updatePass)
-    // app.delete('/api/user/:id',auth, deleteUser);
+    app.delete('/api/user/:userId',auth, deleteUser);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -342,6 +342,21 @@ module.exports = function (app, model) {
         else{
             res.redirect("/#/profile");
         }
+    }
+    
+    function deleteUser(req,res) {
+        var userId=req.params.userId;
+        console.log(userId);
+        model.UserModel.deleteUser(userId)
+            .then(
+                function (status) {
+                    res.sendStatus(200)
+                },function (err) {
+                    res.sendStatus(500).send(err);
+                }
+            )
+        
+        
     }
 
 };
