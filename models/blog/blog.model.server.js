@@ -29,16 +29,16 @@ module.exports = function () {
             .sort({"postDate": -1});
     }
 
-    function findBlogByConditions(blogNum, category, sorting) {
+    function findBlogByConditions(key, category, sorting) {
+        var condition = {};
+        if (key) {
+            condition.title = new RegExp(key);
+            condition.content = new RegExp(key);
+        }
         if (category) {
-            var condition = {"category": category};
-        } else {
-            condition = {};
+            condition.category = category;
         }
         var query = BlogModel.find(condition);
-        if (blogNum) {
-            query = query.limit(blogNum);
-        }
         if (sorting == "trending") {
             query = query.sort({"likes": -1});
         } else if (sorting == "Date") {

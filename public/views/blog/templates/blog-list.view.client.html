@@ -5,9 +5,9 @@
     <section class="page-header dark page-header-xs">
         <div class="container">
             <ul class="nav nav-pills">
-                <li role="presentation"><a href="#">TRENDING</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#">MY BLOG</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#">NEW</a></li>
+                <li role="presentation"><a href="#/blog"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/my">MY BLOG</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/new">NEW</a></li>
             </ul>
             <!-- breadcrumbs -->
             <ol class="breadcrumb">
@@ -87,10 +87,8 @@
 
                                 </li>
                                 <li>
-                                    <a href="#">
                                         <i class="fa fa-comment-o"></i>
                                         <span class="font-lato">{{blog.comments.length}} Comments</span>
-                                    </a>
                                 </li>
                             </ul>
 

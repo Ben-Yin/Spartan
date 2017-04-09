@@ -85,6 +85,14 @@
                         checkLoggedin: checkLoggedin
                     }
                 })
+                .when("/post", {
+                    templateUrl: "/views/post/templates/post-list.view.client.html",
+                    controller: "PostListController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
                 .otherwise({
                     redirectTo: '/index'
                 });

@@ -16,7 +16,6 @@
 
         function init() {
             vm.user = $rootScope.currentUser;
-            vm.trendBlogNum = 20;
             vm.defaultSorting = "trending";
             if ($location.url() == "/blog/my") {
                 BlogService
@@ -25,13 +24,13 @@
                         function (blogs) {
                             vm.blogs = blogs;
                             for (var i in vm.blogs) {
-                                setBloggerforBlog(vm.blogs[i]);
+                                vm.blogs[i].bloggerName = vm.user.username;
                             }
                         }
                     );
             } else {
                 vm.showCategory = true;
-                setBlogsByconditions(vm.trendBlogNum, null, vm.defaultSorting);
+                setBlogsByConditions(null, null, vm.defaultSorting);
             }
             vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
         }
@@ -57,23 +56,23 @@
         }
 
         function sortByCategory(category) {
-            setBlogsByconditions(vm.trendBlogNum, category, vm.defaultSorting);
+            setBlogsByconditions(null, category, vm.defaultSorting);
         }
 
-        function setBlogsByconditions(trendBlogNum, category, sorting) {
+        function setBlogsByConditions(key, category, sorting) {
             BlogService
-                .findBlogByConditions(trendBlogNum, category, "trending")
+                .findBlogByConditions(key, category, "trending")
                 .success(
                     function (blogs) {
                         vm.blogs = blogs;
                         for (var i in vm.blogs) {
-                            setBloggerforBlog(vm.blogs[i]);
+                            setBloggerForBlog(vm.blogs[i]);
                         }
                     }
                 );
         }
 
-        function setBloggerforBlog(blog) {
+        function setBloggerForBlog(blog) {
             UserService
                 .getUserById(blog._blogger)
                 .success(

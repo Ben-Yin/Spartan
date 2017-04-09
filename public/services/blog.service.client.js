@@ -30,9 +30,9 @@
             return $http.get("/api/user/"+userId+"/blog");
         }
 
-        function findBlogByConditions(blogNum, category, sorting) {
+        function findBlogByConditions(key, category, sorting) {
             return $http.get("/api/blog", {params: {
-                "blogNum": blogNum,
+                "key": key,
                 "category": category,
                 "sorting": sorting
             }});

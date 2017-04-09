@@ -6,12 +6,15 @@ module.exports = function (app, model) {
     app.get("/api/post/:postId", findPostById);
     app.get("/api/user/:userId/post", findPostByUserId);
     app.get("/api/post/following/:userId", findFollowingPostByUserId);
+    app.get("/api/post", findPostByConditions);
     app.put("/api/post/:postId", updatePost);
     app.delete("/api/post/:postId", deletePost);
     app.post("/api/post/:postId/comment", addCommentForPost);
 
     function createPost(req, res) {
+        var userId = req.params.userId;
         var post = req.body;
+        post._poster = userId;
         model
             .PostModel
             .createPost(post)
@@ -78,6 +81,23 @@ module.exports = function (app, model) {
             );
     }
 
+    function findPostByConditions(req, res) {
+        var key = req.query.key;
+        var sorting = req.query.sorting;
+        model
+            .PostModel
+            .findPostByConditions(key, sorting)
+            .then(
+                function (blogs) {
+                    res.json(blogs);
+                },
+                function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+            );
+    }
+
     function updatePost(req, res) {
         var postId= req.params.postId;
         var post = req.body;
@@ -128,6 +148,7 @@ module.exports = function (app, model) {
     }
 
     function addCommentForPost(req, res) {
+        console.log("get add comment request");
         var postId = req.params.postId;
         var comment = req.body;
         model
@@ -145,11 +166,13 @@ module.exports = function (app, model) {
                     res.sendStatus(200);
                 },
                 function (err) {
+                    console.log("have trouble");
                     res.sendStatus(500);
                 }
             )
             .catch(
                 function (err) {
+                    console.log("have trouble");
                     res.sendStatus(500);
                 }
             );

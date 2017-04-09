@@ -59,12 +59,12 @@ module.exports = function (app, model) {
 
 
     function findBlogByConditions(req, res) {
-        var blogNum = parseInt(req.query.blogNum);
+        var key = req.query.key;
         var category = req.query.category;
         var sorting = req.query.sorting;
         model
             .BlogModel
-            .findBlogByConditions(blogNum, category, sorting)
+            .findBlogByConditions(key, category, sorting)
             .then(
                 function (blogs) {
                     res.json(blogs);

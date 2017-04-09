@@ -12,6 +12,7 @@ module.exports = function () {
         findPostById: findPostById,
         findPostByUserId: findPostByUserId,
         findPostByUserIds: findPostByUserIds,
+        findPostByConditions: findPostByConditions,
         updatePost: updatePost,
         deletePost: deletePost,
         addCommentForPost: addCommentForPost
@@ -36,6 +37,20 @@ module.exports = function () {
         return PostModel
             .find({_poster: {$in: userIds}})
             .sort({postDate: -1});
+    }
+
+    function findPostByConditions(key, sorting) {
+        var condition = {};
+        if (key) {
+            condition.key = new RegExp(key);
+        }
+        var query = PostModel.find(condition);
+        if (sorting == "trending") {
+            query = query.sort({"likes": -1});
+        } else if (sorting == "Date") {
+            query = query.sort({"postDate": -1});
+        }
+        return query;
     }
 
     function updatePost(postId, post) {

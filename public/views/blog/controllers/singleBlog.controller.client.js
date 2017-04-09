@@ -50,7 +50,6 @@
         init();
 
         function postComment(comment) {
-            console.log(comment);
             comment._post = vm.blogId;
             if (vm.user) {
                 comment._user = vm.user._id;

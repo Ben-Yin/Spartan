@@ -3,7 +3,6 @@
  */
 module.exports = function (app, model) {
     app.get("/api/blog/:id/comment", findCommentByBlogId);
-    app.get("/api/post/:id/comment", findCommentByBlogId);
 
     function findCommentByBlogId(req, res) {
         var id = req.params.id;
@@ -15,7 +14,7 @@ module.exports = function (app, model) {
                     res.json(comments);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             );
     }
