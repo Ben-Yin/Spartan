@@ -43,8 +43,6 @@ module.exports = function (app, model) {
 
 
     function localStrategy(username,password,done) {
-        console.log(username)
-        console.log(password,bcrypt.hashSync(password))
         model.UserModel
             .findUserByUsername(username)
             .then(
@@ -295,13 +293,11 @@ module.exports = function (app, model) {
     function updateUser(req, res) {
         var userId = req.params.userId;
         var newUser = req.body;
-        console.log(newUser);
         model
             .UserModel
             .updateUser(userId, newUser)
             .then(
                 function (user) {
-                    console.log("update user successfully");
                     res.json(user);
                 },
                 function (err) {
@@ -334,10 +330,7 @@ module.exports = function (app, model) {
 
     }
     function uploadImage(req, res) {
-
-        // console.log("uploadImage");
         var userId = req.body.userId;
-        // console.log(userId);
         if(req.file !=undefined){
             var path = "/uploads/" + req.file.filename;
             model.UserModel.updateAvatar(userId,path)

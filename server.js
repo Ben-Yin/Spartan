@@ -31,6 +31,7 @@ var models = require("./models/models.server")();
 require("./services/user.service.server")(app, models);
 require("./services/blog.service.server")(app, models);
 require("./services/comment.service.server")(app, models);
+require("./services/post.service.server")(app, models);
 console.log("Server start!");
 
 var port = process.env.PORT || 3000;

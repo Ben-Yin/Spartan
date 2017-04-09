@@ -2,13 +2,14 @@
  * Created by BenYin on 3/31/17.
  */
 module.exports = function (app, model) {
-    app.get("/api/blog/:blogId/comment", findCommentByBlogId);
+    app.get("/api/blog/:id/comment", findCommentByBlogId);
+    app.get("/api/post/:id/comment", findCommentByBlogId);
 
     function findCommentByBlogId(req, res) {
-        var blogId = req.params.blogId;
+        var id = req.params.id;
         model
             .CommentModel
-            .findCommentByPostId(blogId)
+            .findCommentByPostId(id)
             .then(
                 function (comments) {
                     res.json(comments);

@@ -14,13 +14,13 @@
             <ul class="pull-right nav nav-pills nav-second-main">
                 <li ng-show="model.user.loggedin" class="text-welcome">Welcome to Spartan, <strong>{{model.user.username}}</strong></li>
                 <li ng-show="model.user.loggedin">
-                    <a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#/profile"><i class="fa fa-user hidden-xs"></i> MY ACCOUNT</a>
+                    <a class="dropdown-toggle no-text-underline" data-toggle="dropdown" ng-href="#/profile"><i class="fa fa-user hidden-xs"></i> MY ACCOUNT</a>
                     <ul class="dropdown-menu">
                         <li><a tabindex="-1" href="#"><i class="fa fa-history"></i> ORDER HISTORY</a></li>
                         <li class="divider"></li>
                         <li><a tabindex="-1" href="#"><i class="fa fa-bookmark"></i> MY WISHLIST</a></li>
                         <li><a tabindex="-1" href="#"><i class="fa fa-edit"></i> MY REVIEWS</a></li>
-                        <li><a tabindex="-1" href="#/profile"><i class="fa fa-cog"></i> MY SETTINGS</a></li>
+                        <li><a tabindex="-1" ng-href="#/profile"><i class="fa fa-cog"></i> MY SETTINGS</a></li>
                         <li class="divider"></li>
                         <li><a tabindex="-1" ng-click="model.logout()"><i class="glyphicon glyphicon-off" ></i> LOGOUT</a></li>
                     </ul>
@@ -56,8 +56,8 @@
                         </li>
                     -->
                     <ul id="topMain" class="nav nav-pills nav-main">
-                        <li class="dropdown active"><!-- HOME -->
-                            <a  href="#/index">HOME</a>
+                        <li class="dropdown"><!-- HOME -->
+                            <a  ng-href="#/index">HOME</a>
                         </li>
                         <li class="dropdown"><!-- PAGES -->
                             <a class="dropdown-toggle" href="#">
@@ -105,14 +105,9 @@
                             </ul>
                         </li>
                         <li class="dropdown"><!-- BLOG -->
-                            <a class="dropdown-toggle" href="#">
+                            <a ng-href="#/blog">
                                BLOG
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a ng-href="#/blog/new" ng-show="model.user.loggedin">New Blog</a></li>
-                                <li><a href="#/blog/my" ng-show="model.user.loggedin">My Blog</a></li>
-                                <li><a href="#/blog">Trending Blog</a></li>
-                            </ul>
                         </li>
                         <li class="dropdown"><!-- SHOP -->
                             <a class="dropdown-toggle" href="#">

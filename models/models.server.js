@@ -3,6 +3,7 @@ module.exports = function () {
     var adminModel = require("./admin/admin.model.server")();
     var blogModel = require("./blog/blog.model.server")();
     var commentModel = require("./comment/comment.model.server")();
+    var postModel = require("./post/post.model.server")();
 
     var connectionString = 'mongodb://127.0.0.1:27017/spartan';
 
@@ -29,6 +30,7 @@ module.exports = function () {
         AdminModel: adminModel,
         BlogModel: blogModel,
         CommentModel: commentModel,
+        PostModel: postModel,
         Promise: Promise
     };
     return model;

@@ -22,7 +22,7 @@ module.exports = function (app, model) {
                     res.json(newBlog);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             )
     }
@@ -116,7 +116,12 @@ module.exports = function (app, model) {
                     res.sendStatus(200);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
+                }
+            )
+            .catch(
+                function (err) {
+                    res.sendStatus(500);
                 }
             );
 
@@ -139,6 +144,11 @@ module.exports = function (app, model) {
                 function (status) {
                     res.sendStatus(200);
                 },
+                function (err) {
+                    res.sendStatus(500);
+                }
+            )
+            .catch(
                 function (err) {
                     res.sendStatus(500);
                 }

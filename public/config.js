@@ -47,7 +47,10 @@
                 .when("/blog", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogListController",
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
                 })
                 .when("/blog/my", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
@@ -110,13 +113,13 @@
 
         var deferred = $q.defer();
 
-        $http.get('/api/loggedin').success(function(user)
-        {
+        $http.get('/api/loggedin').success(function(user) {
             $rootScope.errorMessage = null;
             // User is Authenticated
-            if (user !== '0')
-            {
-                $rootScope.user = user;
+            if (user !== '0') {
+                user.loggedin=true;
+                $rootScope.currentUser = user;
+                console.log("get user!!",user);
             }
             deferred.resolve();
         });
