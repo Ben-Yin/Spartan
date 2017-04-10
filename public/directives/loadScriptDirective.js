@@ -37,5 +37,22 @@
                         });
                     }
                 };
-            });
+            })
+
+        .directive("pagination",function(){
+            return{
+                templateUrl:"templates/training/templates/training-list.view.client.html",
+                link:function(scope,elem,attrs){
+                    console.log(scope);
+                }
+            }
+        })
+        .directive("searchBox",function(){
+            return{
+                templateUrl:"views/searchBox.html",
+                link:function(scope,elem,attrs){
+                    console.log(scope);
+                }
+            }
+        });
 })();

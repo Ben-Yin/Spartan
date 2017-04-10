@@ -119,6 +119,8 @@
             })
                 .when("/training", {
                     templateUrl: "/views/training/templates/training-list.view.client.html",
+                    controller:"TrainingController",
+                    controllerAs:"model",
                     resolve: {
                         getLoggedIn: getLoggedIn
                     }

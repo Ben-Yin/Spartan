@@ -58,7 +58,7 @@
 
                     <ul class="nav nav-tabs nav-top-border">
                         <li class="active"><a showtab="" href="#popular" data-toggle="tab" showtab="">Popular Training</a></li>
-                        <li><a showtab="" href="#youtube-training" data-toggle="tab" showtab="">Youtube Training</a></li>
+                        <li><a showtab="" href="#youtube-training" data-toggle="tab" showtab="" >Youtube Training</a></li>
                         <li><a showtab="" href="#spartan-college" data-toggle="tab" showtab="">Spartan College</a></li>
                     </ul>
 
@@ -72,28 +72,19 @@
                         <!-- Youtube Training TAB -->
                         <div class="tab-pane fade" id="youtube-training">
 
-                            <div class="row ng-scope" infinite-scroll="homePopularControllerModel.myPagingFunction()" infinite-scroll-disabled="homePopularControllerModel.busy" infinite-scroll-distance="1">
-                                <!-- ngRepeat: movie in homePopularControllerModel.movies --><div ng-repeat="movie in homePopularControllerModel.movies" class="ng-scope">
+                            <div class="row ng-scope">
+                                <div ng-repeat="youtube in model.youtubeData.data" class="ng-scope">
                                 <div class="col-sm-6 col-md-4">
-                                    <div class="thumbnail">
-                                        <span class="label label-default pull-right ng-binding">Release: 2017-03-16</span>
-                                        <a ui-sref="details({movieId: movie.id})" href="#/details/321612">
-                                            <div class="caption">
-                                                <h3 class="ng-binding">Beauty and the Bea...</h3>
-                                            </div>
-                                            <img class="img-responsive" ng-src="http://image.tmdb.org/t/p/original/6aUWe0GSl69wMTSWWexsorMIvwU.jpg" src="http://image.tmdb.org/t/p/original/6aUWe0GSl69wMTSWWexsorMIvwU.jpg">
-                                        </a>
-                                        <div class="caption">
-                                            <h5 class="ng-binding">A live-action adaptation of ...</h5>
-                                        </div>
-                                        <hr class="nomargin">
-                                        <div class="caption">
-                                            <h5 class="text-muted ng-binding">
-                                                #Fantasy #Music #Romance</h5>
-                                        </div>
+                                    <a class="thumbnail pull-left" target="_block" href="https://www.youtube.com/watch?v={{data.id.videoId}}">
+                                        <img alt="{{data.snippet.title}}" src="{{data.snippet.thumbnails.default.url}}" width="120" height="90">
+                                    </a>
+                                    <div class="media-body">
+                                        <a target="_block" href="https://www.youtube.com/watch?v={{data.id.videoId}}">{{data.snippet.title}}</a>
+                                        <p>By <a target="_block" href="https://www.youtube.com/channel/{{data.snippet.channelId}}"><span class="label label-info">{{data.snippet.channelTitle}}</span></a></p>
+                                    </div>
                                     </div>
                                 </div>
-                            </div><!-- end ngRepeat: movie in homePopularControllerModel.movies --><div ng-repeat="movie in homePopularControllerModel.movies" class="ng-scope">
+                            </div>
 
                         </div>
                         <!-- /Youtube Training TAB -->

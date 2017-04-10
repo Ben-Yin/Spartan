@@ -7,4 +7,6 @@ module.exports = function (app) {
     require("./services/blog.service.server")(app, models);
     require("./services/comment.service.server")(app, models);
     require("./services/post.service.server")(app, models);
+    require("./services/training.service.server")(app, models);
+
 }
