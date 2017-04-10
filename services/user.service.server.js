@@ -138,7 +138,7 @@ module.exports = function (app, model) {
     var facebookConfig = {
         clientID     : process.env.FACEBOOK_CLIENT_ID,
         clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL  : FACEBOOK_CALLBACK_URL
+        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
     };
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
     function facebookStrategy(token, refreshToken, profile, done) {
@@ -180,7 +180,7 @@ module.exports = function (app, model) {
     var googleConfig = {
         clientID     : process.env.GOOGLE_CLIENT_ID,
         clientSecret : process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL  : GOOGLE_CALLBACK_URL
+        callbackURL  : process.env.GOOGLE_CALLBACK_URL
     };
 
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
@@ -230,7 +230,7 @@ module.exports = function (app, model) {
     var githubConfig = {
         clientID     : process.env.GITHUB_CLIENT_ID,
         clientSecret : process.env.GITHUB_CLIENT_SECRET,
-        callbackURL  : GITHUB_CALLBACK_URL
+        callbackURL  : process.env.GITHUB_CALLBACK_URL
     };
 
     app.get('/auth/github', passport.authenticate('github', { scope : ['profile', 'email'] }));
