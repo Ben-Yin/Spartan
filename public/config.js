@@ -117,6 +117,12 @@
                     checkLoggedin: checkLoggedin
                 }
             })
+                .when("/training", {
+                    templateUrl: "/views/training/templates/training-list.view.client.html",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
                 .otherwise({
                     redirectTo: '/index'
                 });
