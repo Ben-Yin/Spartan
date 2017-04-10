@@ -52,12 +52,12 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
-                .when("/blog/my", {
+                .when("/blog/my/:userId", {
                     templateUrl: "/views/blog/templates/blog-list.view.client.html",
                     controller: "BlogListController",
                     controllerAs: "model",
                     resolve: {
-                        checkLoggedin: checkLoggedin
+                        getLoggedIn: getLoggedIn
                     }
                 })
                 .when("/blog/new", {
@@ -101,12 +101,12 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
-                .when("/post/my", {
+                .when("/post/my/:userId", {
                     templateUrl: "/views/post/templates/post-list.view.client.html",
                     controller: "PostListController",
                     controllerAs: "model",
                     resolve: {
-                        checkLoggedin: checkLoggedin
+                        getLoggedIn: getLoggedIn
                     }
                 })
                 .when("/post/new", {

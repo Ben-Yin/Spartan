@@ -8,7 +8,7 @@
             <ul class="nav nav-pills">
                 <li role="presentation"><a ng-href="#/post/trend"><i class="icon-compass icon-large"/></a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post"><i class="icon-refresh icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my">MY POST</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my/{{model.user._id}}">MY POST</a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/new">NEW</a></li>
             </ul>
 

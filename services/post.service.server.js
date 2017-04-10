@@ -92,8 +92,8 @@ module.exports = function (app, model) {
             .PostModel
             .findPostByConditions(key, sorting)
             .then(
-                function (blogs) {
-                    res.json(blogs);
+                function (posts) {
+                    res.json(posts);
                 },
                 function (err) {
                     console.log(err);
@@ -120,8 +120,8 @@ module.exports = function (app, model) {
     function deletePost(req, res) {
         var postId = req.params.postId;
         model
-            .BlogModel
-            .findBlogById(postId)
+            .PostModel
+            .findPostById(postId)
             .then(
                 function (post) {
                     return model
@@ -141,6 +141,7 @@ module.exports = function (app, model) {
                     res.sendStatus(200);
                 },
                 function (err) {
+                    console.log(err);
                     res.sendStatus(500);
                 }
             )
@@ -152,7 +153,6 @@ module.exports = function (app, model) {
     }
 
     function addCommentForPost(req, res) {
-        console.log("get add comment request");
         var postId = req.params.postId;
         var comment = req.body;
         model
@@ -170,13 +170,11 @@ module.exports = function (app, model) {
                     res.sendStatus(200);
                 },
                 function (err) {
-                    console.log("have trouble");
                     res.sendStatus(500);
                 }
             )
             .catch(
                 function (err) {
-                    console.log("have trouble");
                     res.sendStatus(500);
                 }
             );
@@ -185,7 +183,6 @@ module.exports = function (app, model) {
     function uploadImage(req, res) {
         var userId = req.body.userId;
         var content = req.body.content;
-        console.log("get post request");
         if(req.file !=undefined) {
             var post = {
                 "_poster": userId,

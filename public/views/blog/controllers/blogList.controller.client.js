@@ -17,20 +17,30 @@
         function init() {
             vm.user = $rootScope.currentUser;
             vm.defaultSorting = "trending";
-            if ($location.url() == "/blog/my") {
-                BlogService
-                    .findBlogByUserId(vm.user._id)
+            if ($location.url().startsWith("/blog/my")) {
+                vm.userId = $routeParams.userId;
+                UserService
+                    .getUserById(vm.userId)
                     .success(
-                        function (blogs) {
-                            vm.blogs = blogs;
-                            for (var i in vm.blogs) {
-                                vm.blogs[i].bloggerName = vm.user.username;
-                            }
+                        function (user) {
+                            vm.breadcrumb = user.username+"'s Blog";
+                            BlogService
+                                .findBlogByUserId(vm.userId)
+                                .success(
+                                    function (blogs) {
+                                        vm.blogs = blogs;
+                                        for (var i in vm.blogs) {
+                                            vm.blogs[i].bloggerName = user.username;
+                                        }
+                                    }
+                                );
                         }
                     );
+
             } else {
                 vm.showCategory = true;
                 setBlogsByConditions(null, null, vm.defaultSorting);
+                vm.breadcrumb = "Trending Blog";
             }
             vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
         }

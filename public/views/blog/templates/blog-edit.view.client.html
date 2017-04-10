@@ -6,9 +6,9 @@
         <div class="container">
 
             <ul class="nav nav-pills">
-                <li role="presentation"><a href="#/blog"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/my">MY BLOG</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/new">NEW</a></li>
+                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY BLOG</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
             </ul>
 
             <!-- breadcrumbs -->

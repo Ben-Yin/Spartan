@@ -5,14 +5,14 @@
     <section class="page-header dark page-header-xs">
         <div class="container">
             <ul class="nav nav-pills">
-                <li role="presentation"><a href="#/blog"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/my">MY BLOG</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/new">NEW</a></li>
+                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY BLOG</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
             </ul>
             <!-- breadcrumbs -->
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li class="active"><a href="#">Blog</a></li>
+                <li class="active"><a href="#">{{model.breadcrumb}}</a></li>
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -78,7 +78,7 @@
                             <ul class="blog-post-info list-inline">
                                 <li>
                                     <i class="fa fa-user"></i>
-                                    <span class="font-lato">{{blog.bloggerName}}</span>
+                                    <span class="font-lato"><a ng-href="#/blog/my/{{blog._blogger}}" >{{blog.bloggerName}}</a></span>
 
                                 </li>
                                 <li>

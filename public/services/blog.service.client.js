@@ -47,7 +47,6 @@
         }
 
         function addCommentForBlog(blogId, comment) {
-            console.log(blogId, comment);
             return $http.post("/api/blog/"+blogId+"/comment", comment);
         }
 
