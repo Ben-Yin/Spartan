@@ -16,10 +16,8 @@
                 <li ng-show="model.user.loggedin">
                     <a class="dropdown-toggle no-text-underline" data-toggle="dropdown" ng-href="#/profile"><i class="fa fa-user hidden-xs"></i> MY ACCOUNT</a>
                     <ul class="dropdown-menu">
-                        <li><a tabindex="-1" href="#"><i class="fa fa-history"></i> ORDER HISTORY</a></li>
-                        <li class="divider"></li>
-                        <li><a tabindex="-1" href="#"><i class="fa fa-bookmark"></i> MY WISHLIST</a></li>
-                        <li><a tabindex="-1" href="#"><i class="fa fa-edit"></i> MY REVIEWS</a></li>
+                        <li><a tabindex="-1" ng-href="#/blog/my/{{model.user._id}}"><i class="fa fa-bookmark"></i>MY BLOG</a></li>
+                        <li><a tabindex="-1" ng-href="#/post/my/{{model.user._id}}"><i class="fa fa-edit"></i> MY POST</a></li>
                         <li><a tabindex="-1" ng-href="#/profile"><i class="fa fa-cog"></i> MY SETTINGS</a></li>
                         <li class="divider"></li>
                         <li><a tabindex="-1" ng-click="model.logout()"><i class="glyphicon glyphicon-off" ></i> LOGOUT</a></li>
@@ -60,35 +58,14 @@
                             <a  ng-href="#/index">HOME</a>
                         </li>
                         <li class="dropdown"><!-- PAGES -->
-                            <a class="dropdown-toggle" href="#">
+                            <a class="dropdown-toggle" ng-href="#/training">
                                 Training
                             </a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#">
-                                        GYM EXERCISE
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">template</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </li>
                         <li class="dropdown"><!-- FEATURES -->
                             <a class="dropdown-toggle" href="#">
                                 News
                             </a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#">
-                                        template
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">template</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="dropdown"><!-- POST -->
                             <a ng-href="#/post">
                                 POST
