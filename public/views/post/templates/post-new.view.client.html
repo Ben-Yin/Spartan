@@ -1,0 +1,65 @@
+<ng-include src="'./views/header/header.view.client.html'"></ng-include>
+<!-- wrapper -->
+<div id="wrapper">
+
+    <section class="page-header page-header-xs">
+        <div class="container">
+
+            <ul class="nav nav-pills">
+                <li role="presentation"><a ng-href="#/post/trend"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post"><i class="icon-refresh icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my">MY POST</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/new">NEW</a></li>
+            </ul>
+
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a ng-href="#">Home</a></li>
+                <li><a ng-href="#/blog">Post</a></li>
+                <li class="active">New Post</li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
+    <!-- /PAGE HEADER -->
+
+
+    <!-- -->
+    <section>
+        <div class="container">
+            <form class="fancy-form" action="/api/upload/post"  method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Post Photo</label>
+                    <div class="fancy-file-upload fancy-file-primary">
+                        <i class="icon-camera"></i>
+                        <input type="file" class="form-control" name="uploadImage" onchange="jQuery(this).next('input').val(this.value);"/>
+                        <input type="text" class="form-control" placeholder="no image selected" readonly="" />
+                        <span class="button">Choose File</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <textarea rows="5"
+                              name="content"
+                              class="form-control word-count"
+                              data-maxlength="200"
+                              data-info="textarea-words-info"
+                              placeholder="Tell your friends how great you feel..."></textarea>
+                </div>
+                <input name="userId" value="{{model.user._id}}" style="display:None"/>
+                <button type="submit" class="btn btn-block btn-success btn-margin"><i class="fa fa-check"></i>Post</button>
+
+            </form>
+        </div>
+
+    </section>
+    <!-- / -->
+
+    <ng-include src="'./views/footer/footer.view.client.html'"></ng-include>
+
+</div>
+<!-- /wrapper -->
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>

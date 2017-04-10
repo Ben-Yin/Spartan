@@ -6,7 +6,8 @@
         <div class="container">
 
             <ul class="nav nav-pills">
-                <li role="presentation"><a ng-click="model.setPostsByConditions(null, 'trending')"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation"><a ng-href="model.setPostsByConditions(null, 'trending')"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post"><i class="icon-refresh icon-large"/></a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my">MY POST</a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/new">NEW</a></li>
             </ul>

@@ -5,7 +5,11 @@
     <section class="page-header dark page-header-xs">
         <div class="container">
 
-            <h1>Edit Blog</h1>
+            <ul class="nav nav-pills">
+                <li role="presentation"><a href="#/blog"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/my">MY BLOG</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/new">NEW</a></li>
+            </ul>
 
             <!-- breadcrumbs -->
             <ol class="breadcrumb">

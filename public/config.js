@@ -93,6 +93,30 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
+                .when("/post/trend", {
+                    templateUrl: "/views/post/templates/post-list.view.client.html",
+                    controller: "PostListController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
+                .when("/post/my", {
+                    templateUrl: "/views/post/templates/post-list.view.client.html",
+                    controller: "PostListController",
+                    controllerAs: "model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
+                })
+                .when("/post/new", {
+                templateUrl: "/views/post/templates/post-new.view.client.html",
+                controller: "NewPostController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedin: checkLoggedin
+                }
+            })
                 .otherwise({
                     redirectTo: '/index'
                 });

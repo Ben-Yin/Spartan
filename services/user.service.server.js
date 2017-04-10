@@ -24,7 +24,7 @@ module.exports = function (app, model) {
     app.get   ('/api/user/:userId', getUserById);
     // app.get   ('/api/user',auth, findAllUsers);
     app.put   ('/api/user/:userId',auth, updateUser);
-    app.put('/api/user/pass/:userId', auth, updatePass)
+    app.put('/api/user/pass/:userId', auth, updatePass);
     app.delete('/api/user/:userId',auth, deleteUser);
 
     passport.use(new LocalStrategy(localStrategy));

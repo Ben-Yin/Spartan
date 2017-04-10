@@ -5,7 +5,7 @@
     angular
         .module("Spartan")
         .controller("PostListController", postListController);
-    
+
     function postListController($sce, $location, $rootScope, PostService, UserService, CommentService) {
         var vm = this;
         vm.likePost = likePost;
@@ -18,38 +18,39 @@
         function init() {
             vm.user = $rootScope.currentUser;
             vm.defaultSorting = "trending";
-            if (vm.user) {
-                if ($location.url() == "/post/my") {
-                    PostService
-                        .findPostByUserId(vm.user._id)
-                        .success(
-                            function (posts) {
-                                vm.posts = posts;
-                                for (var i in vm.posts) {
-                                    vm.posts[i].posterName = vm.user.username;
-                                    setHeartIcon(vm.posts[i]);
-                                    setCommentView(vm.posts[i]);
-                                }
+            if ($location.url() == "/post/my" && vm.user) {
+                PostService
+                    .findPostByUserId(vm.user._id)
+                    .success(
+                        function (posts) {
+                            vm.posts = posts;
+                            for (var i in vm.posts) {
+                                vm.posts[i].posterName = vm.user.username;
+                                setHeartIcon(vm.posts[i]);
+                                setCommentView(vm.posts[i]);
                             }
-                        );
-                } else {
-                    PostService
-                        .findFollowingPostByUserId(vm.user._id)
-                        .success(
-                            function (posts) {
-                                vm.posts = posts;
-                                for (var i in vm.posts) {
-                                    setPosterForPost(vm.posts[i]);
-                                    setHeartIcon(vm.posts[i]);
-                                    setCommentView(vm.posts[i]);
-                                }
+                        }
+                    );
+            } else if ($location.url() == "/post/trend") {
+                setPostsByConditions(null, vm.defaultSorting);
+            } else if (vm.user){
+                PostService
+                    .findFollowingPostByUserId(vm.user._id)
+                    .success(
+                        function (posts) {
+                            vm.posts = posts;
+                            for (var i in vm.posts) {
+                                setPosterForPost(vm.posts[i]);
+                                setHeartIcon(vm.posts[i]);
+                                setCommentView(vm.posts[i]);
                             }
-                        );
-                }
+                        }
+                    );
             } else {
                 setPostsByConditions(null, vm.defaultSorting);
             }
         }
+
         init();
 
         function likePost(userId, post) {
@@ -143,12 +144,13 @@
         }
 
         function setHeartIcon(post) {
-            if (vm.user && post.likes.find(vm.user._id) != -1) {
+            if (vm.user && post.likes.indexOf(vm.user._id) != -1) {
                 post.heartIcon = "icon-heart icon-large";
             } else {
                 post.heartIcon = "icon-heart-empty icon-large";
             }
         }
+
         function getTrustUrl(WidgetUrl) {
             return $sce.trustAsResourceUrl(WidgetUrl);
         }
@@ -162,7 +164,7 @@
             UserService
                 .logout()
                 .then(
-                    function(response) {
+                    function (response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
                     });

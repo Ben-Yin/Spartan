@@ -1,6 +1,9 @@
 /**
  * Created by BenYin on 4/8/17.
  */
+var multer = require('multer'); // npm install multer --save
+var upload = multer({ dest: __dirname+'/../public/uploads/postImage' });
+
 module.exports = function (app, model) {
     app.post("/api/user/:userId/post", createPost);
     app.get("/api/post/:postId", findPostById);
@@ -10,6 +13,7 @@ module.exports = function (app, model) {
     app.put("/api/post/:postId", updatePost);
     app.delete("/api/post/:postId", deletePost);
     app.post("/api/post/:postId/comment", addCommentForPost);
+    app.post("/api/upload/post", upload.single('uploadImage'), uploadImage);
 
     function createPost(req, res) {
         var userId = req.params.userId;
@@ -176,5 +180,33 @@ module.exports = function (app, model) {
                     res.sendStatus(500);
                 }
             );
+    }
+    
+    function uploadImage(req, res) {
+        var userId = req.body.userId;
+        var content = req.body.content;
+        console.log("get post request");
+        if(req.file !=undefined) {
+            var post = {
+                "_poster": userId,
+                "content": content,
+                "imageUrl": "/uploads/postImage/" + req.file.filename,
+                "likes": [],
+                "comments": []
+            };
+            model
+                .PostModel
+                .createPost(post)
+                .then(
+                    function (post) {
+                        res.redirect("/#/post/my");
+                    }, function (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                    }
+                );
+        } else{
+            res.redirect("/#/post/new");
+        }
     }
 };
