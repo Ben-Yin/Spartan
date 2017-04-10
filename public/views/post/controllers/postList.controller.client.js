@@ -6,11 +6,13 @@
         .module("Spartan")
         .controller("PostListController", postListController);
 
-    function postListController($sce, $location, $rootScope, PostService, UserService, CommentService) {
+    function postListController($sce, $location, $routeParams, $rootScope, PostService, UserService, CommentService) {
         var vm = this;
         vm.likePost = likePost;
         vm.showCommentInput = showCommentInput;
         vm.postComment = postComment;
+        vm.followPoster = followPoster;
+        vm.deletePost = deletePost;
         vm.setPostsByConditions = setPostsByConditions;
         vm.getTrustUrl = getTrustUrl;
         vm.getFormattedDate = getFormattedDate;
@@ -18,21 +20,45 @@
         function init() {
             vm.user = $rootScope.currentUser;
             vm.defaultSorting = "trending";
-            if ($location.url() == "/post/my" && vm.user) {
-                PostService
-                    .findPostByUserId(vm.user._id)
+            if ($location.url().startsWith("/post/my") && vm.user) {
+                vm.posterId = $routeParams.userId;
+                UserService
+                    .getUserById(vm.posterId)
                     .success(
-                        function (posts) {
-                            vm.posts = posts;
-                            for (var i in vm.posts) {
-                                vm.posts[i].posterName = vm.user.username;
-                                setHeartIcon(vm.posts[i]);
-                                setCommentView(vm.posts[i]);
+                        function (user) {
+                            vm.pageType = {
+                                heading: user.username+"'s Post"
+                            };
+                            if (user._id != vm.user._id) {
+                                vm.pageType.showFollow = true;
                             }
+                            if (vm.user.following.indexOf(user._id) != -1) {
+                                vm.pageType.followBtn = "btn btn-info active pull-right";
+                                vm.pageType.followText = "Following";
+                            } else {
+                                vm.pageType.followBtn = "btn btn-info pull-right";
+                                vm.pageType.followText = "Follow";
+                            }
+                            PostService
+                                .findPostByUserId(vm.user._id)
+                                .success(
+                                    function (posts) {
+                                        vm.posts = posts;
+                                        for (var i in vm.posts) {
+                                            vm.posts[i].posterName = user.username;
+                                            setHeartIcon(vm.posts[i]);
+                                            setCommentView(vm.posts[i]);
+                                        }
+                                    }
+                                );
                         }
-                    );
+                    )
+
             } else if ($location.url() == "/post/trend") {
                 setPostsByConditions(null, vm.defaultSorting);
+                vm.pageType = {
+                    heading: "Trending Post"
+                };
             } else if (vm.user){
                 PostService
                     .findFollowingPostByUserId(vm.user._id)
@@ -46,6 +72,9 @@
                             }
                         }
                     );
+                vm.pageType = {
+                    heading: "My Following Post"
+                };
             } else {
                 setPostsByConditions(null, vm.defaultSorting);
             }
@@ -91,6 +120,41 @@
                 );
         }
 
+        function followPoster(userId) {
+            var posterIndex = vm.user.following.indexOf(userId);
+            console.log(vm.user.following);
+            if (posterIndex != -1) {
+                vm.user.following.splice(posterIndex, 1);
+                UserService
+                    .updateUser(vm.user._id, vm.user)
+                    .success(
+                        function () {
+                            vm.pageType.followBtn = "btn btn-info pull-right";
+                            vm.pageType.followText = "Follow";
+                        }
+                    )
+            } else {
+                vm.user.following.push(userId);
+                UserService
+                    .updateUser(vm.user._id, vm.user)
+                    .success(
+                        function () {
+                            vm.pageType.followBtn = "btn btn-info active pull-right";
+                            vm.pageType.followText = "Following";
+                        }
+                    );
+            }
+        }
+
+        function deletePost(postId) {
+            PostService
+                .deletePost(postId)
+                .success(
+                    function () {
+                        $location.url("/post/my/"+vm.user._id);
+                    }
+                )
+        }
         function setPosterForPost(post) {
             UserService
                 .getUserById(post._poster)

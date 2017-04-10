@@ -31,7 +31,11 @@ module.exports = function () {
         github: {
             id:    String,
             token: String
-        }
+        },
+        following: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        }]
     }, {collection: "user"});
 
     return UserSchema;

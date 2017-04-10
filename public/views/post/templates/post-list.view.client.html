@@ -6,16 +6,19 @@
         <div class="container">
 
             <ul class="nav nav-pills">
-                <li role="presentation"><a ng-href="model.setPostsByConditions(null, 'trending')"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post"><i class="icon-refresh icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my">MY POST</a></li>
+                <li role="presentation"><a ng-href="#/post/trend"><i
+                        class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post"><i
+                        class="icon-refresh icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my/{{model.user._id}}">MY
+                    POST</a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/new">NEW</a></li>
             </ul>
 
             <!-- breadcrumbs -->
             <ol class="breadcrumb">
                 <li><a ng-href="#">Home</a></li>
-                <li class="active">Post</li>
+                <li class="active">{{model.pageType.heading}}</li>
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -26,7 +29,17 @@
     <!-- -->
     <section>
         <div class="container post-width-60">
+            <div class="row">
+                <h1>{{model.pageType.heading}}
+                    <button ng-class="model.pageType.followBtn"
+                            type="button"
+                            ng-click="model.followPoster(model.posterId)"
+                            ng-show="model.pageType.showFollow">{{model.pageType.followText}}
+                    </button>
+                </h1>
 
+
+            </div>
             <!-- POST ITEM -->
             <div class="blog-post-item" ng-repeat="post in model.posts">
 
@@ -39,7 +52,7 @@
                     </figure>
                 </div>
 
-                <h3>{{post.posterName}}</h3>
+                <h3><a ng-href="#/post/my/{{post._poster}}">{{post.posterName}}</a></h3>
                 <p>{{post.content}}</p>
                 <ul class="blog-post-info list-inline">
                     <li>
@@ -55,6 +68,10 @@
                         <i class="fa fa-clock-o icon-large"></i>
                         <span class="font-lato">{{model.getFormattedDate(post.postDate)}}</span>
                     </li>
+                    <button type="button"
+                            class="btn btn-danger"
+                            ng-show="post._poster==model.user._id"
+                            ng-click="model.deletePost(post._id)">Delete</button>
                 </ul>
 
                 <div class="panel panel-default">
@@ -76,7 +93,7 @@
                 </div>
                 <div class="row" ng-show="post.commentInput">
                     <div class="col-xs-10">
-                        <div class="fancy-form" >
+                        <div class="fancy-form">
                             <i class="fa fa-comment-o"></i>
                             <input ng-model="post.newComment"
                                    type="tel"

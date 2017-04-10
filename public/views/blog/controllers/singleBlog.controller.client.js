@@ -11,6 +11,7 @@
         vm.postComment = postComment;
         vm.getFormattedDate = getFormattedDate;
         vm.redirectSingleBlog = redirectSingleBlog;
+        vm.deleteBlog = deleteBlog;
         vm.logout=logout;
         vm.likeBlog = likeBlog;
         vm.blogId = $routeParams.blogId;
@@ -117,6 +118,16 @@
                 .error(
                     function () {
                         comment.commenter = "Visitor";
+                    }
+                )
+        }
+
+        function deleteBlog(blogId) {
+            BlogService
+                .deleteBlog(blogId)
+                .success(
+                    function () {
+                        $location.url("/blog/my/"+vm.user._id);
                     }
                 )
         }

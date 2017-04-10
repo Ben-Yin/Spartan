@@ -6,9 +6,10 @@
         <div class="container">
 
             <ul class="nav nav-pills">
-                <li role="presentation"><a href="#/blog"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/my">MY BLOG</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a href="#/blog/new">NEW</a></li>
+                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY
+                    BLOG</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
             </ul>
 
             <!-- breadcrumbs -->
@@ -27,32 +28,32 @@
             <h1 class="blog-post-title">{{model.blog.title}}</h1>
             <ul class="blog-post-info list-inline">
                 <li>
-                    <a href="#">
-                        <i class="fa fa-clock-o"></i>
-                        <span class="font-lato">{{model.getFormattedDate(model.blog.blogDate)}}</span>
-                    </a>
+                    <i class="fa fa-clock-o"></i>
+                    <span class="font-lato">{{model.getFormattedDate(model.blog.blogDate)}}</span>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-comment-o"></i>
-                        <span class="font-lato">{{model.blog.comments.length}} Comments</span>
-                    </a>
+                    <i class="fa fa-comment-o"></i>
+                    <span class="font-lato">{{model.blog.comments.length}} Comments</span>
                 </li>
                 <li>
                     <i class="fa fa-folder-open-o"></i>
-
-                    <a class="category" href="#">
-                        <span class="font-lato">{{model.blog.category}}</span>
-                    </a>
+                    <span class="font-lato">{{model.blog.category}}</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a nghref="#/blog/my/{{model.blog._blogger}}">
                         <i class="fa fa-user"></i>
                         <span class="font-lato">{{model.blog.bloggerName}}</span>
                     </a>
                 </li>
                 <li ng-show="model.user._id==model.blog._blogger">
-                    <a ng-href="#/blog/{{model.blog._id}}/edit"><button class="btn btn-block btn-primary">Edit</button></a>
+                    <a ng-href="#/blog/{{model.blog._id}}/edit">
+                        <button class="btn btn-block btn-primary">Edit</button>
+                    </a>
+                </li>
+                <li ng-show="model.user._id==model.blog._blogger">
+                    <a ng-click="model.deleteBlog(model.blog._id)">
+                        <button class="btn btn-block btn-danger">Delete</button>
+                    </a>
                 </li>
             </ul>
 
@@ -123,7 +124,8 @@
                     <div class="row">
                         <div class="col-md-12">
 
-                            <button class="btn btn-3d btn-lg btn-reveal btn-black" ng-click="model.postComment(model.comment)">
+                            <button class="btn btn-3d btn-lg btn-reveal btn-black"
+                                    ng-click="model.postComment(model.comment)">
                                 <i class="fa fa-check"></i>
                                 <span>SUBMIT MESSAGE</span>
                             </button>
