@@ -58,7 +58,7 @@
 
                     <ul class="nav nav-tabs nav-top-border">
                         <li class="active"><a showtab="" href="#popular" data-toggle="tab" showtab="">Popular Training</a></li>
-                        <li><a showtab="" href="#youtube-training" data-toggle="tab" showtab="" >Youtube Training</a></li>
+                        <li ng-click="model.searchYoutube('fitness')"><a showtab="" href="#youtube-training" data-toggle="tab" showtab="" >Youtube Training</a></li>
                         <li><a showtab="" href="#spartan-college" data-toggle="tab" showtab="">Spartan College</a></li>
                     </ul>
 
@@ -70,22 +70,26 @@
                         <!-- /Popular Training TAB -->
 
                         <!-- Youtube Training TAB -->
-                        <div class="tab-pane fade" id="youtube-training">
-
-                            <div class="row ng-scope">
-                                <div ng-repeat="youtube in model.youtubeData.data" class="ng-scope">
-                                <div class="col-sm-6 col-md-4">
-                                    <a class="thumbnail pull-left" target="_block" href="https://www.youtube.com/watch?v={{data.id.videoId}}">
-                                        <img alt="{{data.snippet.title}}" src="{{data.snippet.thumbnails.default.url}}" width="120" height="90">
-                                    </a>
-                                    <div class="media-body">
-                                        <a target="_block" href="https://www.youtube.com/watch?v={{data.id.videoId}}">{{data.snippet.title}}</a>
-                                        <p>By <a target="_block" href="https://www.youtube.com/channel/{{data.snippet.channelId}}"><span class="label label-info">{{data.snippet.channelTitle}}</span></a></p>
-                                    </div>
+                        <div class="tab-pane row" id="youtube-training">
+                                <div ng-repeat="data in model.youtubeData" class="ng-scope">
+                                <div class="col-sm-6">
+                                    <div class="thumbnail">
+                                        <a  href="https://www.youtube.com/watch?v={{data.id.videoId}}">
+                                            <div class="caption">
+                                                <h5 class="ng-binding">{{data.snippet.title}}</h5>
+                                            </div>
+                                            <img class="image-responsive" alt="{{data.snippet.title}}" ng-src="{{model.getPhotoUrl(data.snippet.thumbnails.default.url)}}">
+                                        </a>
+                                        <hr class="nomargin">
+                                        <a href="https://www.youtube.com/channel/{{data.snippet.channelId}}">
+                                        <div class="caption text-center">
+                                            <h5 class="text-muted ng-binding">
+                                                Coach:{{data.snippet.channelTitle}}</h5>
+                                        </div></a>
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
                         </div>
                         <!-- /Youtube Training TAB -->
 

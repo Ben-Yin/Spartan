@@ -20,7 +20,7 @@
             return $http.get("/api/google_api");
         }
         function searchYoutube(content) {
-            console.log("training client")
+            // console.log("training client")
             return $http.get('https://www.googleapis.com/youtube/v3/search',content)
         }
     }
