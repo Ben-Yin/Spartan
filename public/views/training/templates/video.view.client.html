@@ -2,21 +2,13 @@
 <!-- wrapper -->
 <div id="wrapper">
 
-    <section class="page-header dark page-header-xs">
+    <section class="page-header page-header-xs">
         <div class="container">
-
-            <ul class="nav nav-pills">
-                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY
-                    BLOG</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
-            </ul>
-
+            <h1>Enjoy your study in Spartan College!</h1>
             <!-- breadcrumbs -->
             <ol class="breadcrumb">
-                <li><a ng-href="#">Home</a></li>
-                <li><a ng-href="#/blog">Blog</a></li>
-                <li class="active">{{model.title}}</li>
+                <li><a ng-href="#/index">Home</a></li>
+                <li class="active">New Training</li>
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -25,33 +17,33 @@
     <section>
         <div class="container">
 
-            <h1 class="blog-post-title">{{model.blog.title}}</h1>
+            <h1 class="blog-post-title">{{model.training.title}}</h1>
             <ul class="blog-post-info list-inline">
                 <li>
                     <i class="fa fa-clock-o"></i>
-                    <span class="font-lato">{{model.getFormattedDate(model.blog.blogDate)}}</span>
+                    <span class="font-lato">{{model.getFormattedDate(model.training.createDate)}}</span>
                 </li>
                 <li>
                     <i class="fa fa-comment-o"></i>
-                    <span class="font-lato">{{model.blog.comments.length}} Comments</span>
+                    <span class="font-lato">{{model.training.comments.length}} Comments</span>
                 </li>
                 <li>
                     <i class="fa fa-folder-open-o"></i>
-                    <span class="font-lato">{{model.blog.category}}</span>
+                    <span class="font-lato">{{model.training.category}}</span>
                 </li>
                 <li>
                     <a nghref="#/blog/my/{{model.blog._blogger}}">
                         <i class="fa fa-user"></i>
-                        <span class="font-lato">{{model.blog.bloggerName}}</span>
+                        <span class="font-lato">{{model.training.coachName}}</span>
                     </a>
                 </li>
-                <li ng-show="model.user._id==model.blog._blogger">
-                    <a ng-href="#/blog/{{model.blog._id}}/edit">
+                <li ng-show="model.user._id==model.training._coach">
+                    <a ng-href="#/training/{{model.training._id}}/edit">
                         <button class="btn btn-block btn-primary">Edit</button>
                     </a>
                 </li>
-                <li ng-show="model.user._id==model.blog._blogger">
-                    <a ng-click="model.deleteBlog(model.blog._id)">
+                <li ng-show="model.user._id==model.training._coach">
+                    <a ng-click="model.deleteTraining(model.training._id)">
                         <button class="btn btn-block btn-danger">Delete</button>
                     </a>
                 </li>
@@ -78,17 +70,17 @@
             <div ta-bind ng-model="model.blog.content"></div>
             <!-- /article content -->
 
-            <div class="divider divider-dotted"><!-- divider --></div>
+
 
             <!-- COMMENTS -->
             <div id="comments" class="comments">
 
                 <h4 class="page-header margin-bottom-60 size-20">
-                    <span>{{model.blog.likes.length}}</span>
+                    <span>{{model.training.likes.length}}</span>
                     <i ng-class="model.thumbsUp.icon"
                        ng-click="model.likeBlog(model.user._id, model.blog)">
                     </i>
-                    <span>{{model.blog.comments.length}}</span> COMMENTS
+                    <span>{{model.training.comments.length}}</span> COMMENTS
                 </h4>
 
                 <div class="container">

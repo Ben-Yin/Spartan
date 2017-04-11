@@ -7,6 +7,14 @@ module.exports=function () {
     var TrainingSchema=require('./training.schema.server')();
     var TrainingModel=mongoose.model('TrainingModel',TrainingSchema);
 
-    var api={}
+    var api={
+        createTraining:createTraining
+    }
     return api;
-}
+
+    function createTraining(newTraning) {
+        // console.log("training model",newTraning);
+        return TrainingModel.create(newTraning)
+
+    }
+};

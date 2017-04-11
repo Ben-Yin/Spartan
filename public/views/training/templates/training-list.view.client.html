@@ -6,8 +6,12 @@
         <div class="container">
             <h1>Enjoy your study in Spartan College!</h1>
             <!-- breadcrumbs -->
+
             <ol class="breadcrumb">
                 <li><a ng-href="#/index">Home</a></li>
+                <li role="presentation" ng-show="model.user.usertype=='coach'"><a ng-href="#/training/my/{{model.user._id}}">MY UPLOAD COURSE</a></li>
+                <li role="presentation" ng-show="model.user.usertype=='coach'"><a ng-href="#/training/new">NEW COURSE</a></li>
+
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -66,6 +70,45 @@
 
                         <!-- Popular Training TAB -->
                         <div class="tab-pane fade in active" id="popular">
+                            <!-- POST ITEM -->
+                            <div class="blog-post-item" ng-repeat="post in model.posts">
+
+                                <!-- IMAGE -->
+                                <div class="text-center">
+                                    <iframe width="50px" height="500px" src="{{model.getYouTubeEmbedUrl(training.videoUrl)}}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+
+                                <h3><a ng-href="#/post/my/{{training._coach}}">{{post.posterName}}</a></h3>
+                                <p>{{training.description}}</p>
+                                <ul class="blog-post-info list-inline">
+                                    <li>
+                                        <i ng-class="post.heartIcon"
+                                           ng-click="model.likePost(model.user._id, training)">
+                                        </i>
+                                        <span>{{training.likes.length}} likes</span>
+                                    </li>
+                                    <li>
+                                        <i class="icon-comment-alt icon-large" ng-click="model.showCommentInput(training)"></i>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-clock-o icon-large"></i>
+                                        <span class="font-lato">{{model.getFormattedDate(training.createDate)}}</span>
+                                    </li>
+                                    <button type="button"
+                                            class="btn btn-danger"
+                                            ng-show="post._poster==model.user._id"
+                                            ng-click="model.deletePost(post._id)">Delete</button>
+                                </ul>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading panel-heading-transparent">
+                                        <h2 class="panel-title">Comments</h2>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /POST ITEM -->
                         </div>
                         <!-- /Popular Training TAB -->
 
@@ -97,8 +140,8 @@
                                     </p>
                                     <div>
                                         <a href="https://www.youtube.com/watch?v={{data.id.videoId}}" class="btn btn-reveal btn-default">
-                                            <i class="fa fa-plus"></i>
-                                            <span>View Video</span></a>
+                                            <i class="fa fa-plus "></i>
+                                            <span class="pull-right">View Video</span></a>
                                     </div>
 
                                 </div>

@@ -125,6 +125,14 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
+                .when("/training/new", {
+                    templateUrl: "/views/training/templates/training.new.view.client.html",
+                    controller: "NewTrainingController",
+                    controllerAs: "model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
+                })
                 .otherwise({
                     redirectTo: '/index'
                 });

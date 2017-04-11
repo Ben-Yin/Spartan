@@ -4,18 +4,15 @@
 
     <section class="page-header page-header-xs">
         <div class="container">
-
-            <ul class="nav nav-pills">
-                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY BLOG</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
-            </ul>
+            <a  ng-show="model.user.usertype=='coach'" ng-href="#/blog"><h1>BE A CLOUD-COACH</h1></a>
 
             <!-- breadcrumbs -->
             <ol class="breadcrumb">
                 <li><a ng-href="#">Home</a></li>
-                <li><a ng-href="#/blog">Blog</a></li>
-                <li class="active">New Blog</li>
+                <li><a ng-href="#/training">Popular Training</a></li>
+                <li role="presentation" ng-show="model.user.usertype=='coach'"><a ng-href="#/training/my/{{model.user._id}}">MY UPLOAD COURSE</a></li>
+                <li role="presentation" ng-show="model.user.usertype=='coach'"><a ng-href="#/training/new">NEW COURSE</a></li>
+
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -30,45 +27,40 @@
             <form class="form">
                 <div class="form-group">
                     <label>Title</label>
-                    <input ng-model="model.blog.title"
+                    <input ng-model="model.training.title"
                            type="text"
                            class="form-control"
-                           placeholder="Blog Title">
+                           placeholder="Course Title">
                 </div>
 
                 <div class="form-group">
                     <div class="row"></div>
-                    <label>Title Photo</label>
-                    <input ng-model="model.blog.titleImageUrl"
+                    <label>Youtube Course Url</label>
+                    <input ng-model="model.training.videoUrl"
                            type="text"
                            class="form-control"
-                           placeholder="The URL of title photo">
+                           placeholder="The URL of Course">
                 </div>
 
                 <div class="form-group">
                     <div class="row"></div>
                     <label>Category</label>
-                    <select ng-model="model.blog.category"
+                    <select ng-model="model.training.category"
                             class="form-control">
-                        <option ng-selected="model.blog.category=='TRAINING'">TRAINING</option>
-                        <option ng-selected="model.blog.category=='RUNNING'">RUNNING</option>
-                        <option ng-selected="model.blog.category=='DIET'">DIET</option>
-                        <option ng-selected="model.blog.category=='SPORT'">SPORT</option>
-                        <option ng-selected="model.blog.category=='HEALTH'">HEALTH</option>
+                        <option ng-selected="model.training.category=='TRAINING'">TRAINING</option>
+                        <option ng-selected="model.training.category=='RUNNING'">RUNNING</option>
+                        <option ng-selected="model.training.category=='DIET'">DIET</option>
+                        <option ng-selected="model.training.category=='SPORT'">SPORT</option>
+                        <option ng-selected="model.training.category=='HEALTH'">HEALTH</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <div ng-model="model.blog.content"
-                         text-angular
-                         ta-toolbar
-                         placeholder="Start writing your blog here!">
-                    </div>
-
+                    <label>Description</label>
+                    <textarea ng-model="model.training.description" rows="3" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Course Introduction"></textarea>
                 </div>
-
             </form>
-            <a ng-click="model.createBlog(model.blog)" class="btn btn-block btn-success btn-margin">Post Blog</a>
+            <a ng-click="model.createTraining(model.training)" class="btn btn-block btn-success btn-margin">Post Training</a>
         </div>
 
     </section>

@@ -2,13 +2,46 @@
     'user strict';
     angular
         .module("Spartan")
-        .controller("TrainingController",TrainingController);
-    
+        .controller("TrainingController",TrainingController)
+        .controller("NewTrainingController",NewTrainingController);
+
+    function NewTrainingController($sce,$routeParams, $rootScope, $location,TrainingService,UserService) {
+        var vm=this;
+        vm.createTraining=createTraining;
+        vm.logout = logout;
+        function init() {
+            vm.user=$rootScope.currentUser;
+        }
+        init();
+
+        function createTraining(training) {
+            // console.log("controller",training);
+            TrainingService
+                .createTraining(vm.user._id,training)
+                .success(
+                    function (training) {
+                        // console.log("create success!")
+                        $location.url("/training/"+training._id);
+                    }
+                )
+
+        }
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+
+
+    }
     function TrainingController($location,$filter,TrainingService,$rootScope,$sce) {
         var vm=this;
         vm.searchYoutube=searchYoutube;
         vm.getPhotoUrl = getPhotoUrl;
-
         vm.youtubeData=[];
         vm.nextPage="";
         vm.youtubeSearchText=""
@@ -38,7 +71,7 @@
                     vm.youtubeSearchText = searchText;
                     vm.nextPageToken = data.nextPageToken;
                     vm.prevPageToken = data.prevPageToken;
-                    console.log("data",vm.youtubeData);
+                    // console.log("data",vm.youtubeData);
                 });}
 
             vm.checkDataLength = function (data) {
@@ -55,6 +88,9 @@
         function getPhotoUrl(url) {
             return $sce.trustAsResourceUrl(url);
         }
+
+
         
     }
+
 })();
