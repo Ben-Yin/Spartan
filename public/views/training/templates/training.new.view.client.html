@@ -1,0 +1,84 @@
+<ng-include src="'./views/header/header.view.client.html'"></ng-include>
+<!-- wrapper -->
+<div id="wrapper">
+
+    <section class="page-header page-header-xs">
+        <div class="container">
+
+            <ul class="nav nav-pills">
+                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY BLOG</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
+            </ul>
+
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a ng-href="#">Home</a></li>
+                <li><a ng-href="#/blog">Blog</a></li>
+                <li class="active">New Blog</li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
+    <!-- /PAGE HEADER -->
+
+
+    <!-- -->
+    <section>
+        <div class="container">
+
+            <form class="form">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input ng-model="model.blog.title"
+                           type="text"
+                           class="form-control"
+                           placeholder="Blog Title">
+                </div>
+
+                <div class="form-group">
+                    <div class="row"></div>
+                    <label>Title Photo</label>
+                    <input ng-model="model.blog.titleImageUrl"
+                           type="text"
+                           class="form-control"
+                           placeholder="The URL of title photo">
+                </div>
+
+                <div class="form-group">
+                    <div class="row"></div>
+                    <label>Category</label>
+                    <select ng-model="model.blog.category"
+                            class="form-control">
+                        <option ng-selected="model.blog.category=='TRAINING'">TRAINING</option>
+                        <option ng-selected="model.blog.category=='RUNNING'">RUNNING</option>
+                        <option ng-selected="model.blog.category=='DIET'">DIET</option>
+                        <option ng-selected="model.blog.category=='SPORT'">SPORT</option>
+                        <option ng-selected="model.blog.category=='HEALTH'">HEALTH</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div ng-model="model.blog.content"
+                         text-angular
+                         ta-toolbar
+                         placeholder="Start writing your blog here!">
+                    </div>
+
+                </div>
+
+            </form>
+            <a ng-click="model.createBlog(model.blog)" class="btn btn-block btn-success btn-margin">Post Blog</a>
+        </div>
+
+    </section>
+    <!-- / -->
+
+    <ng-include src="'./views/footer/footer.view.client.html'"></ng-include>
+
+</div>
+<!-- /wrapper -->
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>
