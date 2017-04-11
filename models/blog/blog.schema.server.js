@@ -7,6 +7,7 @@ module.exports = function () {
         },
         title: String,
         titleImageUrl: String,
+        intro: String,
         content: String,
         category: String,
         likes: [{

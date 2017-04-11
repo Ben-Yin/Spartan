@@ -5,7 +5,7 @@
     <section class="page-header dark page-header-xs">
         <div class="container">
             <ul class="nav nav-pills">
-                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
+                <li role="presentation"><a ng-href="#/blog">TREND</a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY BLOG</a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
             </ul>
@@ -30,9 +30,14 @@
 
                     <!-- INLINE SEARCH -->
                     <div class="inline-search clearfix margin-bottom-30">
-                        <form action="" method="get" class="widget_search">
-                            <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
-                            <button type="submit">
+                        <form class="widget_search">
+                            <input type="search"
+                                   ng-model="model.keyword"
+                                   placeholder="Start Searching..."
+                                   id="s"
+                                   name="s"
+                                   class="serch-input">
+                            <button ng-click="model.searchBlogs(model.keyword)">
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
@@ -92,7 +97,7 @@
                                 </li>
                             </ul>
 
-                            <p>{{model.getBlogIntro(blog.content)}}</p>
+                            <p>{{model.getBlogIntro(blog.intro)}}</p>
 
                             <a ng-click="model.getSingleBlogUrl(blog)" class="btn btn-reveal btn-default">
                                 <i class="fa fa-plus"></i>
