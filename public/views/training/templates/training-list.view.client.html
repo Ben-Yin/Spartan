@@ -71,25 +71,47 @@
 
                         <!-- Youtube Training TAB -->
                         <div class="tab-pane row" id="youtube-training">
-                                <div ng-repeat="data in model.youtubeData" class="ng-scope">
-                                <div class="col-sm-6">
-                                    <div class="thumbnail">
-                                        <a  href="https://www.youtube.com/watch?v={{data.id.videoId}}">
-                                            <div class="caption">
-                                                <h5 class="ng-binding">{{data.snippet.title}}</h5>
-                                            </div>
-                                            <img class="image-responsive" alt="{{data.snippet.title}}" ng-src="{{model.getPhotoUrl(data.snippet.thumbnails.default.url)}}">
-                                        </a>
-                                        <hr class="nomargin">
-                                        <a href="https://www.youtube.com/channel/{{data.snippet.channelId}}">
-                                        <div class="caption text-center">
-                                            <h5 class="text-muted ng-binding">
-                                                Coach:{{data.snippet.channelTitle}}</h5>
-                                        </div></a>
+
+
+                            <div class="blog-post-item" ng-repeat="data in model.youtubeData">
+                                <!-- .blog-post-item-inverse = image right side [left on RTL] -->
+
+                                <!-- IMAGE -->
+                                <figure class="blog-item-small-image margin-bottom-20">
+                                    <img class="img-responsive" ng-src="{{model.getPhotoUrl(data.snippet.thumbnails.default.url)}}" alt="">
+                                </figure>
+
+                                <div class="blog-item-small-content">
+
+                                    <h2><a href="https://www.youtube.com/watch?v={{data.id.videoId}}">{{data.snippet.title}}</a></h2>
+
+                                    <ul class="blog-post-info list-inline">
+                                        <li>
+                                            <i class="fa fa-user"></i>
+                                            <span class="font-lato"><a href="https://www.youtube.com/channel/{{data.snippet.channelId}}" >{{data.snippet.channelTitle}}</a></span>
+
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        {{data.snippet.description}}
+                                    </p>
+                                    <div>
+                                        <a href="https://www.youtube.com/watch?v={{data.id.videoId}}" class="btn btn-reveal btn-default">
+                                            <i class="fa fa-plus"></i>
+                                            <span>View Video</span></a>
                                     </div>
+
+                                </div>
+
+                            </div>
+                            <div class="text-center">
+                                <input type="hidden" id="pageToken" value="">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" ng-show="model.prevPageToken" id="pageTokenPrev" ng-click="model.callNextPageFn(model.prevPageToken)" class="btn btn-default">Prev</button>
+                                    <button type="button" id="pageTokenNext" ng-click="model.callNextPageFn(model.nextPageToken)" class="btn btn-default">Next</button>
                                 </div>
                             </div>
-                        </div>
+
                         </div>
                         <!-- /Youtube Training TAB -->
 
