@@ -75,7 +75,6 @@
                     resolve: {
                         getLoggedIn: getLoggedIn
                     }
-
                 })
                 .when("/blog/:blogId/edit", {
                     templateUrl: "/views/blog/templates/blog-edit.view.client.html",
@@ -130,7 +129,15 @@
                     controller: "NewTrainingController",
                     controllerAs: "model",
                     resolve: {
-                        checkLoggedin: checkLoggedin
+                        checkCoachLoggedin: checkCoachLoggedin
+                    }
+                })
+                .when("/training/:trainingId", {
+                    templateUrl: "/views/training/templates/video.view.client.html",
+                    controller: "VideoController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
                     }
                 })
                 .otherwise({
@@ -146,6 +153,22 @@
             console.log("checkLoggedin",user);
             $rootScope.errorMessage = null;
             if (user !== '0') {
+                user.loggedin=true;
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url('/index');
+            }
+        });
+        return deferred.promise;
+    }
+    function checkCoachLoggedin($q, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/api/loggedin').success(function(user) {
+            console.log("checkLoggedin",user);
+            $rootScope.errorMessage = null;
+            if (user !== '0'&& user.usertype=='coach') {
                 user.loggedin=true;
                 $rootScope.currentUser = user;
                 deferred.resolve();

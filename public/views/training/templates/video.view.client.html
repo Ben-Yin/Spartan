@@ -32,7 +32,7 @@
                     <span class="font-lato">{{model.training.category}}</span>
                 </li>
                 <li>
-                    <a nghref="#/blog/my/{{model.blog._blogger}}">
+                    <a nghref="#/training/my/{{model.training._coach}}">
                         <i class="fa fa-user"></i>
                         <span class="font-lato">{{model.training.coachName}}</span>
                     </a>
@@ -66,11 +66,14 @@
             <!-- /VIDEO -->
 
 
-            <!-- article content -->
-            <div ta-bind ng-model="model.blog.content"></div>
-            <!-- /article content -->
+            <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="model.getYouTubeEmbedUrl(model.training.videoUrl)" width="800" height="450"></iframe>
+            </div>
 
-
+            <div id="description">
+                <strong>Description</strong>
+                <p>{{model.training.description}}</p>
+            </div>
 
             <!-- COMMENTS -->
             <div id="comments" class="comments">

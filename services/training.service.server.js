@@ -4,6 +4,102 @@
 module.exports = function (app, model) {
     app.get("/api/google_api", getApiKey);
     app.post("/api/coach/:coachId/training",createTraining);
+    app.get("/api/training/:trainingId", findTrainingById);
+    app.get("/api/coach/:coachId/training", findTrainingByCoachId);
+    app.get("/api/training", findTrainingByConditions);
+    app.put("/api/training/:training", updateTraining);
+    app.delete("/api/training/:trainingId", deleteTraining);
+    app.post("/api/training/:trainingId/comment", addCommentForBlog);
+
+    function findTrainingById(req,res) {
+        var trainingId=req.params.trainingId;
+        model.TrainingModel.findTrainingById(trainingId)
+            .then(
+                function (training) {
+                    res.json(training);
+                },function (err) {
+                    res.sendStatus(500).send(err);
+                }
+            )
+    }
+    function findTrainingByCoachId(req,res) {
+        var coachId=req.params.coachId;
+        model.TrainingModel.findTrainingByCoachId(coachId)
+            .then(
+                function (training) {
+                    res.json(training)
+                },function (err) {
+                    res.sendStatus(500).send(err);
+                }
+            )
+    }
+    function findTrainingByConditions(req,res) {
+        var key=req.query.key;
+        var category=req.query.category;
+        var sorting=req.query.sorting;
+        model.TrainingModel.findTrainingByConditions(key,category,sorting)
+            .then(
+                function (trainings) {
+                    res.json(trainings)
+                },function (err) {
+                    res.sendStatus(500).send(err);
+                }
+            )
+    }
+    function updateTraining(req,res) {
+        var trainingId=req.params.trainingId;
+        var updateTraining=req.body;
+        model.TrainingModel.updateTraining(trainingId,updateTraining)
+            .then(function (status) {
+                res.sendStatus(200);
+            },function (err) {
+                res.sendStatus(500).send(err);
+            })
+    }
+    function deleteTraining(req,res) {
+        var trainingId=req.params.trainingId;
+        model.TrainingModel.findTrainingById(trainingId)
+            .then(
+                function (training) {
+                    return model.Promise
+                        .join(
+                            model.CommentModel
+                                .deleteComment(training.comments),
+                            training.remove(),
+                            function () {
+
+                            }
+                        )
+                }
+            )
+            .then(
+                function (status) {
+                    res.sendStatus(200);
+                },function (err) {
+                    res.sendStatus(500).send(err);
+                }
+            )
+
+    }
+    function addCommentForTraining(req,res) {
+        var trainingId=req.params.trainingId;
+        var commet=req.body;
+        model.CommentModel
+            .createComment(commet)
+            .then(
+                function (newComment) {
+                    return model.TrainingModel.addCommentForTraining(trainingId,newComment)
+                }
+            )
+            .then(
+                function (status) {
+                    res.sendStatus(500);
+                },function (err) {
+                    res.sendStatus(500).send(err);
+                }
+            )
+    }
+
 
     function createTraining(req,res) {
         var newTraining=req.body;

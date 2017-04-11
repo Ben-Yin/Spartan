@@ -3,9 +3,45 @@
     angular
         .module("Spartan")
         .controller("TrainingController",TrainingController)
-        .controller("NewTrainingController",NewTrainingController);
+        .controller("NewTrainingController",NewTrainingController)
+        .controller("VideoController",VideoController);
 
-    function NewTrainingController($sce,$routeParams, $rootScope, $location,TrainingService,UserService) {
+    function VideoController($routeParams,$sce,$rootScope, $location,TrainingService,$rootScope, UserService, CommentService) {
+        var vm=this;
+        vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
+        vm.logout=logout;
+        vm.getFormattedDate = getFormattedDate;
+        vm.deleteTraining = deleteTraining;
+        vm.likeTraining = likeTraining;
+        vm.trainingId = $routeParams.trainingId;
+        function init() {
+            vm.user=$rootScope.currentUser;
+            findTrainingById
+
+
+
+        }
+        init();
+        function getYouTubeEmbedUrl(widgetUrl) {
+            var urlParts = widgetUrl.split('/');
+            var id = urlParts[urlParts.length - 1];
+            var url = "https://www.youtube.com/embed/"+id;
+            return $sce.trustAsResourceUrl(url);
+        }
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+    }
+
+
+
+    function NewTrainingController($routeParams, $rootScope, $location,TrainingService,UserService) {
         var vm=this;
         vm.createTraining=createTraining;
         vm.logout = logout;
