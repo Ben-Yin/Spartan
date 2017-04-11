@@ -9,4 +9,4 @@ module.exports = function (app) {
     require("./services/post.service.server")(app, models);
     require("./services/training.service.server")(app, models);
 
-}
+};
