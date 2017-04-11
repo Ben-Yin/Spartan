@@ -42,7 +42,7 @@ module.exports = function () {
     function findPostByConditions(key, sorting) {
         var condition = {};
         if (key) {
-            condition.key = new RegExp(key);
+            condition.content = new RegExp(key);
         }
         var query = PostModel.find(condition);
         if (sorting == "trending") {

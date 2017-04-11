@@ -2,14 +2,17 @@
 <!-- wrapper -->
 <div id="wrapper">
 
-    <section class="page-header page-header-xs">
+    <section class="page-header dark page-header-xs">
         <div class="container">
 
             <ul class="nav nav-pills">
-                <li role="presentation"><a ng-href="#/post/trend"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post"><i class="icon-refresh icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my/{{model.user._id}}">MY POST</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/new">NEW</a></li>
+                <li role="presentation" ng-show="model.user.loggedin">
+                    <a ng-href="#/post"><i class="icon-refresh icon-large"/></a></li>
+                <li role="presentation"><a ng-href="#/post/trend">TREND</a></li>
+                <li role="presentation" ng-show="model.user.loggedin">
+                    <a ng-href="#/post/my/{{model.user._id}}">MY POST</a></li>
+                <li role="presentation" ng-show="model.user.loggedin">
+                    <a ng-href="#/post/new">NEW</a></li>
             </ul>
 
             <!-- breadcrumbs -->

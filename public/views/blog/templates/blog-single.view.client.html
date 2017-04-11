@@ -6,9 +6,8 @@
         <div class="container">
 
             <ul class="nav nav-pills">
-                <li role="presentation"><a ng-href="#/blog"><i class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY
-                    BLOG</a></li>
+                <li role="presentation"><a ng-href="#/blog">TREND</a></li>
+                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/my/{{model.user._id}}">MY BLOG</a></li>
                 <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/blog/new">NEW</a></li>
             </ul>
 
@@ -88,7 +87,7 @@
                     <i ng-class="model.thumbsUp.icon"
                        ng-click="model.likeBlog(model.user._id, model.blog)">
                     </i>
-                    <span>{{model.blog.comments.length}}</span> COMMENTS
+                    <span>{{model.comments.length}}</span> COMMENTS
                 </h4>
 
                 <div class="container">

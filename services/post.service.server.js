@@ -66,6 +66,7 @@ module.exports = function (app, model) {
             .findUserById(userId)
             .then(
                 function (user) {
+                    user.following.push(userId);
                     return model
                         .PostModel
                         .findPostByUserIds(user.following);
@@ -196,7 +197,7 @@ module.exports = function (app, model) {
                 .createPost(post)
                 .then(
                     function (post) {
-                        res.redirect("/#/post/my");
+                        res.redirect("/#/post");
                     }, function (err) {
                         console.log(err);
                         res.sendStatus(500);

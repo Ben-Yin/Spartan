@@ -33,7 +33,6 @@ module.exports = function () {
         var condition = {};
         if (key) {
             condition.title = new RegExp(key);
-            condition.content = new RegExp(key);
         }
         if (category) {
             condition.category = category;

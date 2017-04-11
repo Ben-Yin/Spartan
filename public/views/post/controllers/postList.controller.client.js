@@ -6,13 +6,14 @@
         .module("Spartan")
         .controller("PostListController", postListController);
 
-    function postListController($sce, $location, $routeParams, $rootScope, PostService, UserService, CommentService) {
+    function postListController($sce, $route, $location, $routeParams, $rootScope, PostService, UserService, CommentService) {
         var vm = this;
         vm.likePost = likePost;
         vm.showCommentInput = showCommentInput;
         vm.postComment = postComment;
         vm.followPoster = followPoster;
         vm.deletePost = deletePost;
+        vm.searchPosts = searchPosts;
         vm.setPostsByConditions = setPostsByConditions;
         vm.getTrustUrl = getTrustUrl;
         vm.getFormattedDate = getFormattedDate;
@@ -86,12 +87,25 @@
             console.log(post);
             var userIndex = post.likes.indexOf(userId);
             if (userIndex != -1) {
-                post.heartIcon = "icon-heart-empty icon-large";
                 post.likes.splice(userIndex, 1);
+                PostService
+                    .updatePost(post._id, post)
+                    .success(
+                        function (status) {
+                            post.heartIcon = "icon-heart-empty icon-large";
+                        }
+                    );
+
 
             } else {
-                post.heartIcon = "icon-heart icon-large";
                 post.likes.push(userId);
+                PostService
+                    .updatePost(post._id, post)
+                    .success(
+                        function (status) {
+                            post.heartIcon = "icon-heart icon-large";
+                        }
+                    );
             }
         }
 
@@ -151,7 +165,7 @@
                 .deletePost(postId)
                 .success(
                     function () {
-                        $location.url("/post/my/"+vm.user._id);
+                        $route.reload();
                     }
                 )
         }
@@ -163,6 +177,10 @@
                         post.posterName = user.username;
                     }
                 );
+        }
+
+        function searchPosts(keyword) {
+            setPostsByConditions(keyword, vm.defaultSorting);
         }
 
         function setCommentView(post) {

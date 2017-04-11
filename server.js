@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var favicons = require('connect-favicons')
+var favicons = require('connect-favicons');
 var passport      = require('passport');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
@@ -24,7 +24,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 require ("./app.js")(app);
 

@@ -6,13 +6,13 @@
         <div class="container">
 
             <ul class="nav nav-pills">
-                <li role="presentation"><a ng-href="#/post/trend"><i
-                        class="icon-compass icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post"><i
-                        class="icon-refresh icon-large"/></a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/my/{{model.user._id}}">MY
-                    POST</a></li>
-                <li role="presentation" ng-show="model.user.loggedin"><a ng-href="#/post/new">NEW</a></li>
+                <li role="presentation" ng-show="model.user.loggedin">
+                    <a ng-href="#/post"><i class="icon-refresh icon-large"/></a></li>
+                <li role="presentation"><a ng-href="#/post/trend">TREND</a></li>
+                <li role="presentation" ng-show="model.user.loggedin">
+                    <a ng-href="#/post/my/{{model.user._id}}">MY POST</a></li>
+                <li role="presentation" ng-show="model.user.loggedin">
+                    <a ng-href="#/post/new">NEW</a></li>
             </ul>
 
             <!-- breadcrumbs -->
@@ -29,6 +29,23 @@
     <!-- -->
     <section>
         <div class="container post-width-60">
+            <!-- INLINE SEARCH -->
+            <div class="inline-search clearfix margin-bottom-30">
+                <form class="widget_search">
+                    <input type="search"
+                           ng-model="model.keyword"
+                           placeholder="Start Searching..."
+                           id="s"
+                           name="s"
+                           class="serch-input">
+                    <button ng-click="model.searchPosts(model.keyword)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- /INLINE SEARCH -->
+
+
             <div class="row">
                 <h1>{{model.pageType.heading}}
                     <button ng-class="model.pageType.followBtn"

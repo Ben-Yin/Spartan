@@ -12,6 +12,7 @@
         vm.getFormattedDate = getFormattedDate;
         vm.getSingleBlogUrl = getSingleBlogUrl;
         vm.sortByCategory = sortByCategory;
+        vm.searchBlogs = searchBlogs;
         vm.logout=logout;
 
         function init() {
@@ -56,6 +57,9 @@
             return intro;
         }
 
+        function searchBlogs(keyword) {
+            setBlogsByConditions(keyword, null, vm.defaultSorting);
+        }
         function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
             return date.toDateString();
