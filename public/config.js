@@ -168,7 +168,7 @@
         $http.get('/api/loggedin').success(function(user) {
             console.log("checkLoggedin",user);
             $rootScope.errorMessage = null;
-            if (user !== '0'&& user.usertype=='coach') {
+            if (user !== '0'&& user.usertype=='Coach') {
                 user.loggedin=true;
                 $rootScope.currentUser = user;
                 deferred.resolve();

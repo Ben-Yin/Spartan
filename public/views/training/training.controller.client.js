@@ -184,28 +184,70 @@
 
 
     }
-    function TrainingController($location,$filter,TrainingService,$rootScope,$sce,$routeParams,UserService) {
+    function TrainingController($location,$filter,TrainingService,$rootScope,$sce,$routeParams,UserService,$window) {
         var vm=this;
         vm.searchYoutube=searchYoutube;
         vm.logout=logout;
+        vm.likeTrainingInYoutube=likeTrainingInYoutube;
         vm.sortByCategory = sortByCategory;
         vm.getFormattedDate = getFormattedDate;
         vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
         vm.searchTraining = searchTraining;
+        vm.likeTraining=likeTraining;
+        vm.storeCourse=storeCourse;
         vm.youtubeData=[];
         vm.nextPage="";
-        vm.youtubeSearchText="fitness"
+        vm.youtubeSearchText="FITNESS"
         function init() {
             vm.user=$rootScope.currentUser;
             vm.defaultSorting = "trending";
             setPopularTrainingByConditions(null,null,vm.defaultSorting);
             vm.showCategory=true;
-            vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
+            vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH","FITNESS"];
         }
         init();
 
+        function likeTrainingInYoutube(userId,data) {
+            console.log(userId,data);
+            if(userId==null){
+                $window.alert("Please register, this function is only for membership!")
+            }
+            else {
+                console.log(data.id.videoId)
+                TrainingService
+                    .findTrainingByVideoId(data.id.videoId)
+                    .success(
+                        function (training) {
+                            if(training==null){
+                                newTraining={
+                                    videoUrl:data.id.videoId,
+                                    likes:[userId],
+                                    source:"Youtube",
+                                    title:data.snippet.title,
+                                    description:data.snippet.description
+                                }
+                                TrainingService.createTraining("101",newTraining)
+                                    .success(
+                                        function (status) {
+                                            setPopularTrainingByConditions(null,null,vm.defaultSorting);
+                                            $window.alert("You can see it in Spartan College!")
+                                        }
+                                    )
+                            }
+                        }
+                    )
+
+            }
+
+        }
         function searchYoutube(searchText) {
-            api_key=TrainingService.getApiKey();
+            TrainingService.getApiKey()
+                .success(function (key) {
+                    console.log(key)
+                    var api_key=key;
+                    console.log("api_key",api_key);
+                });
+
             content = {
                 params: {
                     key: "AIzaSyCE6iQJ7JkSdDLDEfzsIFu9dDddnYMSXS0",
@@ -293,18 +335,18 @@
                     }
                 )
         }
-        function setHeartIcon(training) {
-            if (vm.user && training.likes.indexOf(vm.user._id) != -1) {
-                training.heartIcon = "icon-heart icon-large";
-            } else {
-                training.heartIcon = "icon-heart-empty icon-large";
-            }
-        }
         function setLikeIcon(training) {
-            if (vm.user && vm.user.storecourse.indexOf(training._id) != -1) {
+            if (vm.user && training.likes.indexOf(vm.user._id) != -1) {
                 training.likeIcon = "icon-large icon-thumbs-up";
             } else {
                 training.likeIcon = "icon-large icon-thumbs-up-alt";
+            }
+        }
+        function setHeartIcon(training) {
+            if (vm.user && vm.user.storecourse.indexOf(training._id) != -1) {
+                training.heartIcon = "icon-heart icon-large";
+            } else {
+                training.heartIcon = "icon-heart-empty icon-large";
             }
         }
         function getYouTubeEmbedUrl(videoId) {
@@ -317,6 +359,69 @@
             setPopularTrainingByConditions(keyword,null,vm.defaultSorting);
             searchYoutube(keyword);
         }
+        function likeTraining(userId, training) {
+
+            var userIndex = training.likes.indexOf(userId);
+            // console.log(userIndex,training._id)
+
+            if (userIndex != -1) {
+                training.likes.splice(userIndex, 1);
+                TrainingService
+                    .updateTraining(training._id, training)
+                    .success(
+                        function (status) {
+                            // console.log("after update",training);
+                            training.likeIcon = "icon-large icon-thumbs-up-alt";
+                        }
+                    );
+
+
+            } else {
+                training.likes.push(userId);
+                TrainingService
+                    .updateTraining(training._id,training)
+                    .success(
+                        function (status) {
+                            // console.log("after update",training);
+                            training.likeIcon = "icon-large icon-thumbs-up";
+                        }
+                    );
+            }
+        }
+        function storeCourse(userId,training) {
+            UserService
+                .getUserById(userId)
+                .success(
+                    function (user) {
+                        console.log(user)
+                        var trainingIndex = user.storecourse.indexOf(training._id);
+                        if (trainingIndex != -1) {
+                            user.storeCourse.splice(training._id, 1);
+                            UserService
+                                .updateUser(user._id, user)
+                                .success(
+                                    function (status) {
+                                        // console.log("after update",training);
+                                        training.heartIcon = "icon-heart-empty icon-large";
+                                    }
+                                );
+
+
+                        } else {
+                            user.storecourse.push(training._id);
+                            UserService
+                                .updateUser(user._id,user)
+                                .success(
+                                    function (status) {
+                                        training.heartIcon = "icon-heart icon-large";
+                                    }
+                                );
+                        }
+                    }
+                )
+
+        }
     }
+
 
 })();

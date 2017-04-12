@@ -19,14 +19,15 @@
             "findTrainingByConditions":findTrainingByConditions,
             "updateTraining":updateTraining,
             "deleteTraining":deleteTraining,
-            "addCommentForTraining":addCommentForTraining
+            "addCommentForTraining":addCommentForTraining,
+            "findTrainingByVideoId":findTrainingByVideoId
         }
         return api;
         function addCommentForTraining(trainingId, comment) {
             return $http.post("/api/training/"+trainingId+"/comment", comment);
         }
         function deleteTraining(trainingId) {
-            return $http.delete("/api/training"+trainingId);
+            return $http.delete("/api/training/"+trainingId);
         }
         function updateTraining(trainingId,training) {
             return $http.put("/api/training/"+trainingId, training);
@@ -39,7 +40,10 @@
             }});
         }
         function findTrainingByCoachId(coachId) {
-            $http.get("/api/coach/"+coachId+"/training");
+           return $http.get("/api/coach/"+coachId+"/training");
+        }
+        function findTrainingByVideoId(videoId) {
+           return $http.get("/api/video/"+videoId);
         }
         function findTrainingById(trainingId) {
             return $http.get("/api/training/"+trainingId);

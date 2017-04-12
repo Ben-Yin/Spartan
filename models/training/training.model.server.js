@@ -14,7 +14,8 @@ module.exports=function () {
         findTrainingByConditions:findTrainingByConditions,
         updateTraining:updateTraining,
         deleteTraining:deleteTraining,
-        addCommentForTraining:addCommentForTraining
+        addCommentForTraining:addCommentForTraining,
+        findTrainingByVideoId:findTrainingByVideoId
     };
     return api;
 
@@ -25,6 +26,9 @@ module.exports=function () {
 
     function findTrainingById(trainingId) {
         return TrainingModel.findById(trainingId);
+    }
+    function findTrainingByVideoId(videoId) {
+        return TrainingModel.findOne({"videoUrl":videoId});
     }
     function findTrainingByCoachId(coachId) {
         return TrainingModel.findOne({"_coach":coachId}).sort({"createDate":-1});
@@ -46,7 +50,8 @@ module.exports=function () {
         return query;
     }
     function updateTraining(trainingId,training) {
-        return TrainingModel.update({_id:trainingId},{$set:training});
+        // console.log("model",training,trainingId)
+        return TrainingModel.update({_id: trainingId}, {$set: training});
     }
     function deleteTraining(traniningId) {
         return TrainingModel.remove({_id:traniningId});
