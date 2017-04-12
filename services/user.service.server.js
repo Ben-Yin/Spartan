@@ -26,6 +26,8 @@ module.exports = function (app, model) {
     app.put   ('/api/user/:userId',auth, updateUser);
     app.put('/api/user/pass/:userId', auth, updatePass);
     app.delete('/api/user/:userId',auth, deleteUser);
+    app.get('/api/user/following/:userId', findUserFollowing);
+    app.get('/api/user/follower/:userId', findUserFollower);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -346,17 +348,56 @@ module.exports = function (app, model) {
     
     function deleteUser(req,res) {
         var userId=req.params.userId;
-        console.log(userId);
         model.UserModel.deleteUser(userId)
             .then(
                 function (status) {
                     res.sendStatus(200)
                 },function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
                 }
             )
         
         
+    }
+
+    function findUserFollowing(req,res) {
+        var userId = req.params.userId;
+        model
+            .UserModel
+            .findUserById(userId)
+            .then(
+                function (user) {
+                    return model
+                        .UserModel
+                        .findUsersByIds(user.following);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                }
+            )
+            .catch(
+                function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+            );
+    }
+
+    function findUserFollower(req, res) {
+        var userId = req.params.userId;
+        model
+            .UserModel
+            .findFollowerById(userId)
+            .then(
+                function (users) {
+                    res.json(users);
+                }, function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+            );
     }
 
 };

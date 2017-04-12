@@ -17,12 +17,11 @@
         vm.trainingId = $routeParams.trainingId;
         function init() {
             vm.user=$rootScope.currentUser;
-            console.log("user",vm.user)
+
             TrainingService.findTrainingById(vm.trainingId)
                 .success(
                     function (training) {
                         vm.training=training;
-                        console.log("training",vm.training);
                         UserService.getUserById(training._coach)
                             .success(function (coach) {
                                 vm.training.coachName=coach.username;
@@ -80,7 +79,7 @@
         function getYouTubeEmbedUrl(videoId) {
             // console.log(widgetUrl)
             var url = "https://www.youtube.com/embed/"+videoId;
-            console.log(url)
+            // console.log(url)
             return $sce.trustAsResourceUrl(url);
         }
         function getFormattedDate(dateStr) {
@@ -207,13 +206,13 @@
         }
         init();
 
-        function likeTrainingInYoutube(userId,data) {
-            console.log(userId,data);
-            if(userId==null){
-                $window.alert("Please register, this function is only for membership!")
+        function likeTrainingInYoutube(user,data) {
+            // console.log(userId,data);
+            if(user.usertype!='Coach'){
+                $window.alert("This function is only for Coach!")
             }
             else {
-                console.log(data.id.videoId)
+                // console.log(data.id.videoId)
                 TrainingService
                     .findTrainingByVideoId(data.id.videoId)
                     .success(
@@ -221,18 +220,20 @@
                             if(training==null){
                                 newTraining={
                                     videoUrl:data.id.videoId,
-                                    likes:[userId],
+                                    likes:[user._id],
                                     source:"Youtube",
                                     title:data.snippet.title,
-                                    description:data.snippet.description
+                                    description:data.snippet.description+"This video is recommended by Spartan Coach"
                                 }
-                                TrainingService.createTraining("101",newTraining)
+                                TrainingService.createTraining(user._id,newTraining)
                                     .success(
                                         function (status) {
                                             setPopularTrainingByConditions(null,null,vm.defaultSorting);
-                                            $window.alert("You can see it in Spartan College!")
+                                            $window.alert("You recommend it in Spartan College!")
                                         }
                                     )
+                            }else{
+                                $window.alert("This video is already in Spartan College!")
                             }
                         }
                     )

@@ -112,19 +112,23 @@ module.exports = function (app, model) {
             )
             .then(
                 function (status) {
+                    res.sendStatus(200);
+                },
+                function (err) {
                     res.sendStatus(500);
-                },function (err) {
-                    res.sendStatus(500);
-                    console.log(err);
                 }
             )
+            .catch(
+                function (err) {
+                    res.sendStatus(500);
+                }
+            );
     }
 
 
     function createTraining(req,res) {
         var newTraining=req.body;
         var coachId=req.params.coachId;
-        if (coachId=="101"){coachId="58ee90e7797f141be89659c0"}
         newTraining._coach=coachId;
         // console.log("create server side",newTraining);
         model
