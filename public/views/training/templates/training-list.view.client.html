@@ -31,8 +31,13 @@
                     <!-- INLINE SEARCH -->
                     <div class="inline-search clearfix margin-bottom-30">
                         <form action="" method="get" class="widget_search">
-                            <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
-                            <button type="submit">
+                            <input type="search"
+                                   ng-model="model.keyword"
+                                   placeholder="Start Searching..."
+                                   id="s"
+                                   name="s"
+                                   class="serch-input">
+                            <button ng-click="model.searchTraining(model.keyword)">
                                 <i class="fa fa-search"></i>
                             </button>
                         </form>
@@ -62,7 +67,7 @@
 
                     <ul class="nav nav-tabs nav-top-border">
                         <li class="active"><a showtab="" href="#popular" data-toggle="tab" showtab="">Popular Training</a></li>
-                        <li ng-click="model.searchYoutube('fitness')"><a showtab="" href="#youtube-training" data-toggle="tab" showtab="" >Youtube Training</a></li>
+                        <li ng-click="model.searchYoutube(model.youtubeSearchText)"><a showtab="" href="#youtube-training" data-toggle="tab" showtab="" >Youtube Training</a></li>
                         <li><a showtab="" href="#spartan-college" data-toggle="tab" showtab="">Spartan College</a></li>
                     </ul>
 
@@ -70,45 +75,64 @@
 
                         <!-- Popular Training TAB -->
                         <div class="tab-pane fade in active" id="popular">
-                            <!-- POST ITEM -->
-                            <div class="blog-post-item" ng-repeat="post in model.posts">
+                            <div class="blog-post-item" ng-repeat="training in model.allTraining">
+                                <!-- .blog-post-item-inverse = image right side [left on RTL] -->
+                                <h2><a ng-href="#/training/{{training._id}}">{{training.title}}</a></h2>
 
-                                <!-- IMAGE -->
-                                <div class="text-center">
-                                    <iframe width="50px" height="500px" src="{{model.getYouTubeEmbedUrl(training.videoUrl)}}" frameborder="0" allowfullscreen></iframe>
-                                </div>
+                                <!-- Video -->
+                                <figure class="blog-item-middle-item margin-bottom-20">
+                                    <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
+                                        <iframe src={{model.getYouTubeEmbedUrl(training.videoUrl)}} width="800" height="450"></iframe>
+                                    </div>
+                                </figure>
 
-                                <h3><a ng-href="#/post/my/{{training._coach}}">{{post.posterName}}</a></h3>
-                                <p>{{training.description}}</p>
-                                <ul class="blog-post-info list-inline">
-                                    <li>
-                                        <i ng-class="post.heartIcon"
-                                           ng-click="model.likePost(model.user._id, training)">
-                                        </i>
-                                        <span>{{training.likes.length}} likes</span>
-                                    </li>
-                                    <li>
-                                        <i class="icon-comment-alt icon-large" ng-click="model.showCommentInput(training)"></i>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-clock-o icon-large"></i>
-                                        <span class="font-lato">{{model.getFormattedDate(training.createDate)}}</span>
-                                    </li>
-                                    <button type="button"
-                                            class="btn btn-danger"
-                                            ng-show="post._poster==model.user._id"
-                                            ng-click="model.deletePost(post._id)">Delete</button>
-                                </ul>
+                                <div class="blog-item-small-content">
 
-                                <div class="panel panel-default">
-                                    <div class="panel-heading panel-heading-transparent">
-                                        <h2 class="panel-title">Comments</h2>
+
+                                    <p>
+                                        {{training.description}}
+                                    </p>
+                                    <div class="row blog-post-info ">
+                                        <div class="col-xs-8">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <i ng-class="training.likeIcon"
+                                                       ng-click="model.likeTraining(model.user._id, training)">
+                                                    </i>
+                                                    <span>{{data.likes.length}} likes</span>
+                                                </li>
+                                                <li>
+                                                    <i ng-class="training.heartIcon"
+                                                       ng-click="model.storeTraining(model.user._id, training)">
+                                                    </i>
+                                                    <span>Store</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-clock-o icon-large"></i>
+                                                    <span class="font-lato">{{model.getFormattedDate(training.createDate)}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <p>Source: {{training.source}}</p>
+                                                </li>
+                                                <li>
+                                                <li>
+                                                    <i class="fa fa-user"></i>
+                                                    <span class="font-lato"><a ng-href="#/training/my/{{training._coach}}" >{{training.coachName}}</a></span>
+                                                </li>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                     </div>
 
                                 </div>
 
                             </div>
-                            <!-- /POST ITEM -->
+
                         </div>
                         <!-- /Popular Training TAB -->
 
@@ -120,8 +144,10 @@
                                 <!-- .blog-post-item-inverse = image right side [left on RTL] -->
 
                                 <!-- IMAGE -->
-                                <figure class="blog-item-small-image margin-bottom-20">
-                                    <img class="img-responsive" ng-src="{{model.getPhotoUrl(data.snippet.thumbnails.default.url)}}" alt="">
+                                <figure class="blog-item-middle-item margin-bottom-20">
+                                    <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
+                                        <iframe src={{model.getYouTubeEmbedUrl(data.id.videoId)}} width="800" height="450"></iframe>
+                                    </div>
                                 </figure>
 
                                 <div class="blog-item-small-content">
@@ -139,9 +165,19 @@
                                         {{data.snippet.description}}
                                     </p>
                                     <div>
-                                        <a href="https://www.youtube.com/watch?v={{data.id.videoId}}" class="btn btn-reveal btn-default">
-                                            <i class="fa fa-plus "></i>
-                                            <span class="pull-right">View Video</span></a>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a ng-click="model.likeTrainingInYoutube(model.user._id, data)" class="btn btn-reveal btn-default">
+                                                    <i class="fa fa-thumbs-up "></i>
+                                                    <span class="pull-right">Want to see it in Spartan</span></a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.youtube.com/watch?v={{data.id.videoId}}" class="btn btn-reveal btn-default">
+                                                    <i class="fa fa-plus "></i>
+                                                    <span class="pull-right">View Video in Youtube</span></a>
+                                            </li>
+                                        </ul>
+
                                     </div>
 
                                 </div>
@@ -161,7 +197,60 @@
                         <!-- spartan-college TAB -->
                         <div class="tab-pane fade" id="spartan-college">
 
+                            <div class="blog-post-item" ng-repeat="training in model.spartanTraining">
+                                <!-- .blog-post-item-inverse = image right side [left on RTL] -->
+                                <h2><a ng-href="#/training/{{training._id}}">{{training.title}}</a></h2>
 
+                                <!-- VIDEO -->
+                                <figure class="blog-item-middle-item margin-bottom-20">
+                                    <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
+                                        <iframe src={{model.getYouTubeEmbedUrl(training.videoUrl)}} width="800" height="450"></iframe>
+                                    </div>
+                                </figure>
+
+                                <div class="blog-item-small-content">
+
+
+                                    <p>
+                                        {{training.description}}
+                                    </p>
+                                    <div class="row blog-post-info ">
+                                        <div class="col-xs-10">
+                                            <ul class="list-inline">
+                                                <li >
+                                                    <i ng-class="training.likeIcon"
+                                                       ng-click="model.likeTraining(model.user._id, training)">
+                                                    </i>
+                                                    <span>{{data.likes.length}} likes</span>
+                                                </li>
+                                                <li>
+                                                    <i ng-class="training.heartIcon"
+                                                       ng-click="model.storeTraining(model.user._id, training)">
+                                                    </i>
+                                                    <span>Store</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-clock-o icon-large"></i>
+                                                    <span class="font-lato">{{model.getFormattedDate(training.createDate)}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <ul class="list-inline">
+                                                <li>
+                                                <li>
+                                                    <i class="fa fa-user"></i>
+                                                    <span class="font-lato"><a ng-href="#/training/my/{{training._coach}}" >{{training.coachName}}</a></span>
+                                                </li>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
                         <!-- /spartan-college TAB -->
 

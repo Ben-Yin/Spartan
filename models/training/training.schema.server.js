@@ -12,6 +12,7 @@ module.exports=function () {
         description:String,
         title:String,
         videoUrl:String,
+        source:String,
         likes:[{
             type:mongoose.Schema.Types.ObjectId,
             ref:'user'

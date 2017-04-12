@@ -64,7 +64,7 @@
                     "icon": "icon-large icon-thumbs-up-alt"
                 }
             } else {
-                training.likes.push(404);
+                training.likes.push(null);
                 vm.thumbsUp = {
                     "like": true,
                     "icon": "icon-large icon-thumbs-up"
@@ -77,8 +77,10 @@
                 });
         }
 
-        function getYouTubeEmbedUrl(url) {
+        function getYouTubeEmbedUrl(videoId) {
             // console.log(widgetUrl)
+            var url = "https://www.youtube.com/embed/"+videoId;
+            console.log(url)
             return $sce.trustAsResourceUrl(url);
         }
         function getFormattedDate(dateStr) {
@@ -157,8 +159,8 @@
         function createTraining(training) {
             var urlParts = training.videoUrl.split('/');
             var id = urlParts[urlParts.length - 1];
-            var url = "https://www.youtube.com/embed/"+id;
-            training.videoUrl=url;
+            training.videoUrl=id;
+            training.source="Spartan College";
             // console.log("controller",training);
             TrainingService
                 .createTraining(vm.user._id,training)
@@ -182,15 +184,23 @@
 
 
     }
-    function TrainingController($location,$filter,TrainingService,$rootScope,$sce) {
+    function TrainingController($location,$filter,TrainingService,$rootScope,$sce,$routeParams,UserService) {
         var vm=this;
         vm.searchYoutube=searchYoutube;
-        vm.getPhotoUrl = getPhotoUrl;
+        vm.logout=logout;
+        vm.sortByCategory = sortByCategory;
+        vm.getFormattedDate = getFormattedDate;
+        vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
+        vm.searchTraining = searchTraining;
         vm.youtubeData=[];
         vm.nextPage="";
-        vm.youtubeSearchText=""
+        vm.youtubeSearchText="fitness"
         function init() {
             vm.user=$rootScope.currentUser;
+            vm.defaultSorting = "trending";
+            setPopularTrainingByConditions(null,null,vm.defaultSorting);
+            vm.showCategory=true;
+            vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
         }
         init();
 
@@ -207,7 +217,7 @@
                     q: searchText
                 }
             };
-            console.log(content);
+            // console.log(content);
             TrainingService
                 .searchYoutube(content)
                 .success(function (data) {
@@ -229,12 +239,84 @@
 
 
 
-        function getPhotoUrl(url) {
-            return $sce.trustAsResourceUrl(url);
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
         }
 
+        function sortByCategory(category) {
+            setPopularTrainingByConditions(null, category, vm.defaultSorting);
+            searchYoutube(category);
+        }
 
-        
+        function getFormattedDate(dateStr) {
+            var date = new Date(dateStr);
+            return date.toDateString();
+        }
+
+        function setPopularTrainingByConditions(key, category, sorting) {
+            TrainingService
+                .findTrainingByConditions(key, category, "trending")
+                .success(
+                    function (trainings) {
+                        // console.log(trainings);
+                        popularTrainings = trainings;
+                        for (var i in popularTrainings) {
+                            setCoachForTraining(popularTrainings[i]);
+                            setHeartIcon(popularTrainings[i]);
+                            setLikeIcon(popularTrainings[i]);
+                        }
+                        vm.allTraining=popularTrainings;
+                        vm.spartanTraining=[]
+                        for(var i in popularTrainings)
+                        {
+                            if(popularTrainings[i].source=="Spartan College")
+                            {
+                                vm.spartanTraining.push(popularTrainings[i]);
+                            }
+                        }
+                    }
+                );
+        }
+
+        function setCoachForTraining(training) {
+            UserService
+                .getUserById(training._coach)
+                .success(
+                    function (user) {
+                        training.coachName = user.username;
+                    }
+                )
+        }
+        function setHeartIcon(training) {
+            if (vm.user && training.likes.indexOf(vm.user._id) != -1) {
+                training.heartIcon = "icon-heart icon-large";
+            } else {
+                training.heartIcon = "icon-heart-empty icon-large";
+            }
+        }
+        function setLikeIcon(training) {
+            if (vm.user && vm.user.storecourse.indexOf(training._id) != -1) {
+                training.likeIcon = "icon-large icon-thumbs-up";
+            } else {
+                training.likeIcon = "icon-large icon-thumbs-up-alt";
+            }
+        }
+        function getYouTubeEmbedUrl(videoId) {
+            // console.log(widgetUrl)
+            var url = "https://www.youtube.com/embed/"+videoId;
+            // console.log(url)
+            return $sce.trustAsResourceUrl(url);
+        }
+        function searchTraining(keyword) {
+            setPopularTrainingByConditions(keyword,null,vm.defaultSorting);
+            searchYoutube(keyword);
+        }
     }
 
 })();

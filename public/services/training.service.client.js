@@ -32,7 +32,7 @@
             return $http.put("/api/training/"+trainingId, training);
         }
         function findTrainingByConditions(key,category,sorting) {
-            $http.get("/api/training",{params: {
+            return $http.get("/api/training",{params: {
                 "key": key,
                 "category": category,
                 "sorting": sorting
