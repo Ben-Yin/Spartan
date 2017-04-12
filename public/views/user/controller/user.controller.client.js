@@ -26,7 +26,7 @@
                         $location.url("/");
                     })}
         function register(user) {
-            if(user.username!=null){
+            if(user.username!=null &&user.usertype!=null){
                 if(vm.user.service){
                     if (user.password ==user.passwordCheck && user.password){
                         // console.log("input user",user)
@@ -52,7 +52,7 @@
             }
             else
             {
-                vm.error="Please fill in Username!"
+                vm.error="Please fill in Username and select Usertype!"
             }
 
         }

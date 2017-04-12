@@ -5,7 +5,19 @@
     <ng-include src="'./views/header/header.view.client.html'"></ng-include>
 
 
+    <section class="page-header page-header-xs">
+        <div class="container">
 
+            <h1>REGISTER</h1>
+
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a href="#/index">Home</a></li>
+                <li class="active">Register</li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
     <!-- -->
     <section>
         <div class="container">
@@ -48,18 +60,14 @@
                                 <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
                             </label>
 
-                            <div class="row margin-bottom-10">
-                                <div class="col-md-6">
-                                    <label class="input">
-                                        <input ng-model="model.user.firstname" type="text" placeholder="First name">
-                                    </label>
-                                </div>
-                                <div class="col col-md-6">
-                                    <label class="input">
-                                        <input ng-model="model.user.lastname" type="text" placeholder="Last name">
-                                    </label>
-                                </div>
-                            </div>
+                            <label class="select margin-bottom-10 margin-top-20">
+                                <select ng-model="model.user.usertype">
+                                    <option value="0" selected="" disabled="">User Type</option>
+                                    <option ng-selected="model.user.usertype=='MemberShip'">MemberShip</option>
+                                    <option ng-selected="model.user.usertype=='Coach'">Coach</option>
+                                </select>
+                                <i></i>
+                            </label>
 
                             <div class="margin-top-30">
                                 <label class="checkbox nomargin"><input id="service" ng-model="model.user.service"  type="checkbox" name="checkbox" ><i></i>I agree to the <a>Terms of Service</a></label>
