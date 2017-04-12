@@ -1,0 +1,133 @@
+<ng-include src="'./views/header/header.view.client.html'"></ng-include>
+<!-- wrapper -->
+<div id="wrapper">
+
+    <section class="page-header page-header-xs">
+        <div class="container">
+            <h1>Enjoy your study in Spartan College!</h1>
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a ng-href="#/index">Home</a></li>
+                <li class="active">New Training</li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
+    <!-- /PAGE HEADER -->
+    <section>
+        <div class="container">
+
+            <h1>{{model.training.title}}</h1>
+            <ul class="blog-post-info list-inline">
+                <li>
+                    <i class="fa fa-clock-o"></i>
+                    <span class="font-lato">{{model.getFormattedDate(model.training.createDate)}}</span>
+                </li>
+                <li>
+                    <i class="fa fa-comment-o"></i>
+                    <span class="font-lato">{{model.training.comments.length}} Comments</span>
+                </li>
+                <li>
+                    <i class="fa fa-folder-open-o"></i>
+                    <span class="font-lato">{{model.training.category}}</span>
+                </li>
+                <li>
+                    <a nghref="#/training/my/{{model.training._coach}}">
+                        <i class="fa fa-user"></i>
+                        <span class="font-lato">{{model.training.coachName}}</span>
+                    </a>
+                </li>
+                <li ng-show="model.user._id==model.training._coach">
+                    <a ng-href="#/training/{{model.training._id}}/edit">
+                        <button class="btn btn-block btn-primary">Edit</button>
+                    </a>
+                </li>
+                <li ng-show="model.user._id==model.training._coach">
+                    <a ng-click="model.deleteTraining(model.training._id)">
+                        <button class="btn btn-block btn-danger">Delete</button>
+                    </a>
+                </li>
+            </ul>
+
+
+            <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
+                <iframe src={{model.getYouTubeEmbedUrl(model.training.videoUrl)}} width="800" height="450"></iframe>
+            </div>
+
+            <div id="description">
+                <strong>Description</strong>
+                <p>{{model.training.description}}</p>
+            </div>
+
+            <!-- COMMENTS -->
+            <div id="comments" class="comments">
+
+                <h4 class="page-header margin-bottom-60 size-20">
+                    <span>{{model.training.likes.length}}</span>
+                    <i ng-class="model.thumbsUp.icon"
+                       ng-click="model.likeTraining(model.user._id, model.training)">
+                    </i>
+                    <span>{{model.training.comments.length}}</span> COMMENTS
+                </h4>
+
+                <div class="container">
+                    <!-- comment item -->
+                    <div class="comment-item" ng-repeat="comment in model.comments">
+                        <div class="media-body">
+                            <h4 class="media-heading bold">{{comment.commenter}}</h4>
+                            <small class="block">{{model.getFormattedDate(comment.commentDate)}}</small>
+                            {{comment.content}}
+                        </div>
+                    </div>
+                </div>
+
+
+                <h4 class="page-header size-20 margin-bottom-60 margin-top-100">
+                    LEAVE A <span>COMMENT</span>
+                </h4>
+
+                <!-- Form -->
+                <form>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>COMMENT</label>
+                                <textarea required="required" maxlength="5000" rows="5" class="form-control"
+                                          name="comment"
+                                          id="comment"
+                                          ng-model="model.comment.content"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <button class="btn btn-3d btn-lg btn-reveal btn-black"
+                                    ng-click="model.postComment(model.comment)">
+                                <i class="fa fa-check"></i>
+                                <span>SUBMIT MESSAGE</span>
+                            </button>
+
+                        </div>
+                    </div>
+
+                </form>
+                <!-- /Form -->
+
+            </div>
+            <!-- /COMMENTS -->
+
+
+        </div>
+    </section>
+    <!-- / -->
+
+    <ng-include src="'./views/footer/footer.view.client.html'"></ng-include>
+
+</div>
+<!-- /wrapper -->
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>

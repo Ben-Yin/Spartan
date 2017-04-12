@@ -35,7 +35,13 @@ module.exports = function () {
         following: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
-        }]
+        }],
+        storecourse:[
+            {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'training'
+            }
+        ]
     }, {collection: "user"});
 
     return UserSchema;

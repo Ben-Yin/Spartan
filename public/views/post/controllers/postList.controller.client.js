@@ -66,6 +66,7 @@
                     .success(
                         function (posts) {
                             vm.posts = posts;
+
                             for (var i in vm.posts) {
                                 setPosterForPost(vm.posts[i]);
                                 setHeartIcon(vm.posts[i]);

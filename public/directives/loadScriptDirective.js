@@ -37,5 +37,14 @@
                         });
                     }
                 };
-            });
+            })
+
+        .directive("pagination",function(){
+            return{
+                templateUrl:"templates/training/templates/training-list.view.client.html",
+                link:function(scope,elem,attrs){
+                    console.log(scope);
+                }
+            }
+        });
 })();
