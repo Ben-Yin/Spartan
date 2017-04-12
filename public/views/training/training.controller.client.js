@@ -17,12 +17,11 @@
         vm.trainingId = $routeParams.trainingId;
         function init() {
             vm.user=$rootScope.currentUser;
-            console.log("user",vm.user)
+
             TrainingService.findTrainingById(vm.trainingId)
                 .success(
                     function (training) {
                         vm.training=training;
-                        console.log("training",vm.training);
                         UserService.getUserById(training._coach)
                             .success(function (coach) {
                                 vm.training.coachName=coach.username;
@@ -80,7 +79,7 @@
         function getYouTubeEmbedUrl(videoId) {
             // console.log(widgetUrl)
             var url = "https://www.youtube.com/embed/"+videoId;
-            console.log(url)
+            // console.log(url)
             return $sce.trustAsResourceUrl(url);
         }
         function getFormattedDate(dateStr) {
@@ -213,7 +212,7 @@
                 $window.alert("This function is only for Coach!")
             }
             else {
-                console.log(data.id.videoId)
+                // console.log(data.id.videoId)
                 TrainingService
                     .findTrainingByVideoId(data.id.videoId)
                     .success(
