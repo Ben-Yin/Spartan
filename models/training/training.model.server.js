@@ -58,7 +58,7 @@ module.exports=function () {
     }
 
     function addCommentForTraining(trainingId,comment) {
-        console.log("add comment for training model")
+        // console.log("add comment for training model")
         return TrainingModel.findById(trainingId,function (err,training) {
             if(err) return handleError(err);
             training.comments.push(comment);

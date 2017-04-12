@@ -132,6 +132,14 @@
                         checkCoachLoggedin: checkCoachLoggedin
                     }
                 })
+                .when("/training/:trainingId/edit", {
+                    templateUrl: "/views/training/templates/training.edit.view.client.html",
+                    controller: "EditTrainingController",
+                    controllerAs: "model",
+                    resolve: {
+                        checkCoachLoggedin: checkCoachLoggedin
+                    }
+                })
                 .when("/training/:trainingId", {
                     templateUrl: "/views/training/templates/video.view.client.html",
                     controller: "VideoController",

@@ -4,7 +4,7 @@
 
     <section class="page-header page-header-xs">
         <div class="container">
-            <a  ng-hide="model.user.usertype=='Coach'" ng-href="#/training"><h1>Create a Course</h1></a>
+            <a  ng-show="model.user.usertype=='Coach'" ng-href="#/training"><h1>Edit Your Course</h1></a>
             <!-- breadcrumbs -->
 
             <ol class="breadcrumb">
@@ -61,17 +61,17 @@
                     <textarea ng-model="model.training.description" rows="3" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Course Introduction"></textarea>
                 </div>
             </form>
-            <a ng-click="model.createTraining(model.training)" class="btn btn-block btn-success btn-margin">Post Training</a>
+            <a ng-click="model.updateTraining(model.training)" class="btn btn-block btn-success btn-margin">Update Training</a>
         </div>
 
     </section>
     <!-- / -->
 
+    <!-- SCROLL TO TOP -->
+    <a href="#" id="toTop"></a>
     <ng-include src="'./views/footer/footer.view.client.html'"></ng-include>
 
 </div>
 <!-- /wrapper -->
 
 
-<!-- SCROLL TO TOP -->
-<a href="#" id="toTop"></a>

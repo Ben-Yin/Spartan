@@ -4,7 +4,51 @@
         .module("Spartan")
         .controller("TrainingController",TrainingController)
         .controller("NewTrainingController",NewTrainingController)
-        .controller("VideoController",VideoController);
+        .controller("VideoController",VideoController)
+        .controller("EditTrainingController",EditTrainingController);
+    function EditTrainingController($routeParams,$rootScope, $location,TrainingService,UserService) {
+        var vm=this;
+        vm.updateTraining=updateTraining;
+        vm.logout = logout;
+        vm.trainingId = $routeParams.trainingId;
+        function init() {
+            vm.user=$rootScope.currentUser;
+            TrainingService
+                .findTrainingById(vm.trainingId)
+                .success(
+                    function (training) {
+                        training.videoUrl="https://youtu.be/"+training.videoUrl;
+                        vm.training=training;
+                    }
+                )
+        }
+        init();
+
+        function updateTraining(training) {
+            var urlParts = training.videoUrl.split('/');
+            var id = urlParts[urlParts.length - 1];
+            training.videoUrl=id;
+            // console.log("controller",training);
+            TrainingService
+                .updateTraining(vm.user._id,training)
+                .success(
+                    function (training) {
+                        // console.log("create success!")
+                        $location.url("/training/"+training._id);
+                    }
+                )
+
+        }
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+    }
 
     function VideoController($sce,$routeParams,$rootScope, $location,TrainingService, UserService, CommentService) {
         var vm=this;
@@ -207,11 +251,11 @@
         init();
 
         function likeTrainingInYoutube(user,data) {
-            // console.log(userId,data);
-            if(user.usertype!='Coach'){
-                $window.alert("This function is only for Coach!")
+            if(angular.isUndefined(user)){
+                $window.alert("Please register a account!");
+                return;
             }
-            else {
+            if(user.usertype='Coach'){
                 // console.log(data.id.videoId)
                 TrainingService
                     .findTrainingByVideoId(data.id.videoId)
@@ -238,6 +282,9 @@
                         }
                     )
 
+            }
+            else {
+                $window.alert("Register as a coach!")
             }
 
         }
