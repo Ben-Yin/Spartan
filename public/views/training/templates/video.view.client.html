@@ -17,7 +17,7 @@
     <section>
         <div class="container">
 
-            <h1 class="blog-post-title">{{model.training.title}}</h1>
+            <h1>{{model.training.title}}</h1>
             <ul class="blog-post-info list-inline">
                 <li>
                     <i class="fa fa-clock-o"></i>
@@ -49,25 +49,9 @@
                 </li>
             </ul>
 
-            <!-- IMAGE -->
-            <!--
-            <figure class="margin-bottom-20">
-                <img class="img-responsive" src="assets/images/demo/content_slider/10-min.jpg" alt="img" />
-            </figure>
-            -->
-            <!-- /IMAGE -->
-
-            <!-- VIDEO -->
-            <!--
-            <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="http://player.vimeo.com/video/8408210" width="800" height="450"></iframe>
-            </div>
-            -->
-            <!-- /VIDEO -->
-
 
             <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="model.getYouTubeEmbedUrl(model.training.videoUrl)" width="800" height="450"></iframe>
+                <iframe src={{model.getYouTubeEmbedUrl(model.training.videoUrl)}} width="800" height="450"></iframe>
             </div>
 
             <div id="description">
@@ -81,7 +65,7 @@
                 <h4 class="page-header margin-bottom-60 size-20">
                     <span>{{model.training.likes.length}}</span>
                     <i ng-class="model.thumbsUp.icon"
-                       ng-click="model.likeBlog(model.user._id, model.blog)">
+                       ng-click="model.likeTraining(model.user._id, model.training)">
                     </i>
                     <span>{{model.training.comments.length}}</span> COMMENTS
                 </h4>
