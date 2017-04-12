@@ -46,7 +46,8 @@ module.exports=function () {
         return query;
     }
     function updateTraining(trainingId,training) {
-        return TrainingModel.update({_id:trainingId},{$set:training});
+        // console.log("model",training,trainingId)
+        return TrainingModel.update({_id: trainingId}, {$set: training});
     }
     function deleteTraining(traniningId) {
         return TrainingModel.remove({_id:traniningId});

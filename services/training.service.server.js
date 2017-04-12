@@ -7,7 +7,7 @@ module.exports = function (app, model) {
     app.get("/api/training/:trainingId", findTrainingById);
     app.get("/api/coach/:coachId/training", findTrainingByCoachId);
     app.get("/api/training", findTrainingByConditions);
-    app.put("/api/training/:training", updateTraining);
+    app.put("/api/training/:trainingId", updateTraining);
     app.delete("/api/training/:trainingId", deleteTraining);
     app.post("/api/training/:trainingId/comment", addCommentForTraining);
 
@@ -50,6 +50,7 @@ module.exports = function (app, model) {
     function updateTraining(req,res) {
         var trainingId=req.params.trainingId;
         var updateTraining=req.body;
+        // console.log("server",trainingId,updateTraining)
         model.TrainingModel.updateTraining(trainingId,updateTraining)
             .then(function (status) {
                 res.sendStatus(200);

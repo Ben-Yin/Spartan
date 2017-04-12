@@ -4,8 +4,8 @@
 
     <section class="page-header page-header-xs">
         <div class="container">
-            <h1 ng-hide="model.user.usertype=='Coach'">Enjoy your study in Spartan College!</h1>
-            <a  ng-show="model.user.usertype=='Coach'" ng-href="#/blog"><h1>BE A CLOUD-COACH</h1></a>
+            <a  ng-hide="model.user.usertype=='Coach'" ng-href="#/training"><h1>Enjoy your study in Spartan College!</h1></a>
+            <a  ng-show="model.user.usertype=='Coach'" ng-href="#/training"><h1>BE A CLOUD-COACH</h1></a>
             <!-- breadcrumbs -->
 
             <ol class="breadcrumb">
@@ -101,13 +101,13 @@
                                                     <i ng-class="training.likeIcon"
                                                        ng-click="model.likeTraining(model.user._id, training)">
                                                     </i>
-                                                    <span>{{data.likes.length}} likes</span>
+                                                    <span>{{training.likes.length}} likes</span>
                                                 </li>
-                                                <li>
+                                                <li ng-show="model.user.usertype">
                                                     <i ng-class="training.heartIcon"
-                                                       ng-click="model.storeTraining(model.user._id, training)">
+                                                       ng-click="model.storeCourse(model.user._id, training)">
                                                     </i>
-                                                    <span>Store</span>
+                                                    <span>Favorite</span>
                                                 </li>
                                                 <li>
                                                     <i class="fa fa-clock-o icon-large"></i>

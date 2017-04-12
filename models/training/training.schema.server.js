@@ -14,8 +14,8 @@ module.exports=function () {
         videoUrl:String,
         source:String,
         likes:[{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'user'
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
         }],
         comments: [{
             type: mongoose.Schema.Types.ObjectId,
