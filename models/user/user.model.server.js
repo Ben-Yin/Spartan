@@ -10,6 +10,8 @@ module.exports = function () {
         findUserByGitHubId: findUserByGitHubId,
         createUser : createUser,
         findUserById: findUserById,
+        findUsersByIds: findUsersByIds,
+        findFollowerById: findFollowerById,
         updateUser: updateUser,
         deleteUser: deleteUser,
         findUserByCredential:findUserByCredential,
@@ -48,6 +50,14 @@ module.exports = function () {
 
     function findUserById(userId) {
         return UserModel.findById(userId);
+    }
+
+    function findUsersByIds(userIds) {
+        return UserModel.find({_id:{$in:userIds}});
+    }
+
+    function findFollowerById(userId) {
+        return UserModel.find({following:userId});
     }
 
     function updateUser(userId, user) {
