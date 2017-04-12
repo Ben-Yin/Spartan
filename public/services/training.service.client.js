@@ -19,10 +19,10 @@
             "findTrainingByConditions":findTrainingByConditions,
             "updateTraining":updateTraining,
             "deleteTraining":deleteTraining,
-            "addCommentForBlog":addCommentForBlog
+            "addCommentForTraining":addCommentForTraining
         }
         return api;
-        function addCommentForBlog(trainingId, comment) {
+        function addCommentForTraining(trainingId, comment) {
             return $http.post("/api/training/"+trainingId+"/comment", comment);
         }
         function deleteTraining(trainingId) {

@@ -9,7 +9,7 @@ module.exports = function (app, model) {
     app.get("/api/training", findTrainingByConditions);
     app.put("/api/training/:training", updateTraining);
     app.delete("/api/training/:trainingId", deleteTraining);
-    app.post("/api/training/:trainingId/comment", addCommentForBlog);
+    app.post("/api/training/:trainingId/comment", addCommentForTraining);
 
     function findTrainingById(req,res) {
         var trainingId=req.params.trainingId;
@@ -18,7 +18,8 @@ module.exports = function (app, model) {
                 function (training) {
                     res.json(training);
                 },function (err) {
-                    res.sendStatus(500).send(err);
+                    console.log(err);
+                    res.sendStatus(500);
                 }
             )
     }
@@ -89,13 +90,16 @@ module.exports = function (app, model) {
             .then(
                 function (newComment) {
                     return model.TrainingModel.addCommentForTraining(trainingId,newComment)
+                },function (err) {
+                    console.log(err)
                 }
             )
             .then(
                 function (status) {
                     res.sendStatus(500);
                 },function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(500);
+                    console.log(err);
                 }
             )
     }

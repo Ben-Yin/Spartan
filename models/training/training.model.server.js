@@ -24,7 +24,7 @@ module.exports=function () {
     }
 
     function findTrainingById(trainingId) {
-        return TrainingModel.findById(findTrainingById);
+        return TrainingModel.findById(trainingId);
     }
     function findTrainingByCoachId(coachId) {
         return TrainingModel.findOne({"_coach":coachId}).sort({"createDate":-1});
@@ -53,6 +53,7 @@ module.exports=function () {
     }
 
     function addCommentForTraining(trainingId,comment) {
+        console.log("add comment for training model")
         return TrainingModel.findById(trainingId,function (err,training) {
             if(err) return handleError(err);
             training.comments.push(comment);
