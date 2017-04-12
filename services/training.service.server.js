@@ -124,7 +124,6 @@ module.exports = function (app, model) {
     function createTraining(req,res) {
         var newTraining=req.body;
         var coachId=req.params.coachId;
-        if (coachId=="101"){coachId="58ee90e7797f141be89659c0"}
         newTraining._coach=coachId;
         // console.log("create server side",newTraining);
         model
