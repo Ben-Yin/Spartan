@@ -10,6 +10,7 @@ module.exports = function (app, model) {
     app.put("/api/training/:trainingId", updateTraining);
     app.delete("/api/training/:trainingId", deleteTraining);
     app.post("/api/training/:trainingId/comment", addCommentForTraining);
+    app.get("/api/video/:videoId",findTrainingByVideoId);
 
     function findTrainingById(req,res) {
         var trainingId=req.params.trainingId;
@@ -20,6 +21,20 @@ module.exports = function (app, model) {
                 },function (err) {
                     console.log(err);
                     res.sendStatus(500);
+                }
+            )
+    }
+
+    function findTrainingByVideoId(req,res) {
+
+        var videoId=req.params.videoId;
+        // console.log("videoId",videoId);
+        model.TrainingModel.findTrainingByVideoId(videoId)
+            .then(
+                function (training) {
+                    res.json(training)
+                },function (err) {
+                    console.log(err)
                 }
             )
     }
@@ -109,6 +124,7 @@ module.exports = function (app, model) {
     function createTraining(req,res) {
         var newTraining=req.body;
         var coachId=req.params.coachId;
+        if (coachId=="101"){coachId="58ee90e7797f141be89659c0"}
         newTraining._coach=coachId;
         // console.log("create server side",newTraining);
         model
@@ -126,6 +142,7 @@ module.exports = function (app, model) {
     }
 
     function getApiKey(req,res) {
+        // console.log(process.env.API_KEY);
         res.json(process.env.API_KEY);
     }
 };

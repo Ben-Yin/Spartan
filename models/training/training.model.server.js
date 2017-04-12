@@ -14,7 +14,8 @@ module.exports=function () {
         findTrainingByConditions:findTrainingByConditions,
         updateTraining:updateTraining,
         deleteTraining:deleteTraining,
-        addCommentForTraining:addCommentForTraining
+        addCommentForTraining:addCommentForTraining,
+        findTrainingByVideoId:findTrainingByVideoId
     };
     return api;
 
@@ -25,6 +26,9 @@ module.exports=function () {
 
     function findTrainingById(trainingId) {
         return TrainingModel.findById(trainingId);
+    }
+    function findTrainingByVideoId(videoId) {
+        return TrainingModel.findOne({"videoUrl":videoId});
     }
     function findTrainingByCoachId(coachId) {
         return TrainingModel.findOne({"_coach":coachId}).sort({"createDate":-1});

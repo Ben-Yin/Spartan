@@ -184,10 +184,11 @@
 
 
     }
-    function TrainingController($location,$filter,TrainingService,$rootScope,$sce,$routeParams,UserService) {
+    function TrainingController($location,$filter,TrainingService,$rootScope,$sce,$routeParams,UserService,$window) {
         var vm=this;
         vm.searchYoutube=searchYoutube;
         vm.logout=logout;
+        vm.likeTrainingInYoutube=likeTrainingInYoutube;
         vm.sortByCategory = sortByCategory;
         vm.getFormattedDate = getFormattedDate;
         vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
@@ -196,18 +197,57 @@
         vm.storeCourse=storeCourse;
         vm.youtubeData=[];
         vm.nextPage="";
-        vm.youtubeSearchText="fitness"
+        vm.youtubeSearchText="FITNESS"
         function init() {
             vm.user=$rootScope.currentUser;
             vm.defaultSorting = "trending";
             setPopularTrainingByConditions(null,null,vm.defaultSorting);
             vm.showCategory=true;
-            vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH"];
+            vm.categories = ["TRAINING", "RUNNING", "DIET", "SPORT", "HEALTH","FITNESS"];
         }
         init();
 
+        function likeTrainingInYoutube(userId,data) {
+            console.log(userId,data);
+            if(userId==null){
+                $window.alert("Please register, this function is only for membership!")
+            }
+            else {
+                console.log(data.id.videoId)
+                TrainingService
+                    .findTrainingByVideoId(data.id.videoId)
+                    .success(
+                        function (training) {
+                            if(training==null){
+                                newTraining={
+                                    videoUrl:data.id.videoId,
+                                    likes:[userId],
+                                    source:"Youtube",
+                                    title:data.snippet.title,
+                                    description:data.snippet.description
+                                }
+                                TrainingService.createTraining("101",newTraining)
+                                    .success(
+                                        function (status) {
+                                            setPopularTrainingByConditions(null,null,vm.defaultSorting);
+                                            $window.alert("You can see it in Spartan College!")
+                                        }
+                                    )
+                            }
+                        }
+                    )
+
+            }
+
+        }
         function searchYoutube(searchText) {
-            api_key=TrainingService.getApiKey();
+            TrainingService.getApiKey()
+                .success(function (key) {
+                    console.log(key)
+                    var api_key=key;
+                    console.log("api_key",api_key);
+                });
+
             content = {
                 params: {
                     key: "AIzaSyCE6iQJ7JkSdDLDEfzsIFu9dDddnYMSXS0",

@@ -19,7 +19,8 @@
             "findTrainingByConditions":findTrainingByConditions,
             "updateTraining":updateTraining,
             "deleteTraining":deleteTraining,
-            "addCommentForTraining":addCommentForTraining
+            "addCommentForTraining":addCommentForTraining,
+            "findTrainingByVideoId":findTrainingByVideoId
         }
         return api;
         function addCommentForTraining(trainingId, comment) {
@@ -39,7 +40,10 @@
             }});
         }
         function findTrainingByCoachId(coachId) {
-            $http.get("/api/coach/"+coachId+"/training");
+           return $http.get("/api/coach/"+coachId+"/training");
+        }
+        function findTrainingByVideoId(videoId) {
+           return $http.get("/api/video/"+videoId);
         }
         function findTrainingById(trainingId) {
             return $http.get("/api/training/"+trainingId);
