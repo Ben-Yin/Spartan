@@ -42,13 +42,8 @@
                 </a>
             </li>
             <li>
-                <a href="#membership" data-toggle="tab" showtab="">
-                    Membership List
-                </a>
-            </li>
-            <li>
-                <a href="#coach" data-toggle="tab" showtab="">
-                    COACH MANAGEMENT
+                <a href="#user" data-toggle="tab" showtab="">
+                    User List
                 </a>
             </li>
         </ul>
@@ -61,6 +56,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a href="#dashboard" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa fa-laptop"></i>Dashboard</li>
+                        </ol>
                     </div>
                 </div>
                 <div class="row">
@@ -101,18 +100,21 @@
 
             </div>
 
-            <div id="membership" class="tab-pane">
+
+            <div id="user" class="tab-pane">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h3 class="page-header"><i class="fa fa-laptop"></i> Memberships</h3>
+                        <h3 class="page-header"><i class="fa fa-users"></i> Spartan User</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a href="#dashboard" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa fa-users"></i>User List</li>
+                        </ol>
                     </div>
                 </div>
                 <div class="main-content">
 
                     <div class="btn-toolbar list-toolbar">
                         <button class="btn btn-primary"><i class="fa fa-plus"></i> New User</button>
-                        <button class="btn btn-default">Import</button>
-                        <button class="btn btn-default">Export</button>
                         <div class="btn-group">
                         </div>
                     </div>
@@ -120,85 +122,25 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
                             <th>Username</th>
+                            <th>User Type</th>
+                            <th>News Service</th>
                             <th style="width: 3.5em;"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Tompson</td>
-                            <td>the_mark7</td>
-                            <td>
-                                <a href="user.html"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-                            </td>
+                        <tr  ng-repeat="user in model.users">
+                            <td>{{user.index}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.usertype}}</td>
+                            <td>{{user.news}}</td>
+                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Ashley</td>
-                            <td>Jacobs</td>
-                            <td>ash11927</td>
-                            <td>
-                                <a href="user.html"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Audrey</td>
-                            <td>Ann</td>
-                            <td>audann84</td>
-                            <td>
-                                <a href="user.html"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>John</td>
-                            <td>Robinson</td>
-                            <td>jr5527</td>
-                            <td>
-                                <a href="user.html"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Aaron</td>
-                            <td>Butler</td>
-                            <td>aaron_butler</td>
-                            <td>
-                                <a href="user.html"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Chris</td>
-                            <td>Albert</td>
-                            <td>cab79</td>
-                            <td>
-                                <a href="user.html"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
 
-                    <ul class="pagination">
-                        <li><a href="#">«</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
 
                     <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -228,9 +170,79 @@
                 </div>
             </div>
 
-            <div id="coach" class="tab-pane">
-                <h4>Alternate Stacked 3</h4>
-                <p>Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa.</p>
+            <div id="user-profile" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-users"></i> Profile</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a href="#dashboard" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa fa-users"></i><a href="#user" data-toggle="tab" showtab="">User List</a></li>
+                            <li><i class="fa fa-user"></i>User Profile</li>
+                        </ol>
+                    </div>
+                </div>
+                    <!-- PERSONAL INFO TAB -->
+                    <div class="tab-pane fade in active" id="info">
+                        <form role="form" action="#" method="post">
+                            <div class="form-group">
+                                <label class="control-label">Username</label>
+                                <input ng-model="model.singleuser.username" type="text" placeholder="Username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">First Name</label>
+                                <input ng-model="model.singleuser.firstname" type="text" placeholder="First Name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Last Name</label>
+                                <input ng-model="model.singleuser.lastname" type="text" placeholder="Last Name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">email</label>
+                                <input ng-model="model.singleuser.email" type="text" placeholder="email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Phone</label>
+                                <input ng-model="model.singleuser.phone" type="text" placeholder="Phone Number" class="form-control">
+                            </div>
+                            <div class="sky-form">
+
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <td>I agree to the <a>Terms of Service</a></td>
+                                        <td>
+                                            <label class="checkbox nomargin">
+                                                <input ng-model="model.singleuser.service" type="checkbox" name="checkbox" checked="checked"><i></i> Yes
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>I want to receive news and  special offers</td>
+                                        <td>
+                                            <label class="checkbox nomargin">
+                                                <input ng-model="model.singleuser.news" type="checkbox" name="checkbox" checked=""><i></i> Yes
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                            <div class="margiv-top10">
+                                <a ng-click="model.createUser(model.singleuser)" ng-show="model.createuser" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                                <a ng-click="model.updateUser(model.singleuser)" ng-hide="model.createuser" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                                <a ng-click="model.deleteUser(model.singleuser)" ng-hide="model.createuser" class="btn btn-danger"><i class="fa fa-check"></i> Unregister User</a>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /PERSONAL INFO TAB -->
+
+
+
+
+                </div>
             </div>
         </div>
     </div>

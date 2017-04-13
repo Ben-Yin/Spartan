@@ -9,6 +9,8 @@
                 })
                 .when("/admin", {
                     templateUrl: "/views/admin/admin.view.client.html",
+                    controller:"AdminController",
+                    controllerAs:"model",
                     css: ['style_v1.css','style_v2.css']
 
                 })
@@ -201,6 +203,22 @@
         return deferred.promise;
     }
 
+    function checkAdminLoggedIn($q, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/api/loggedin').success(function(user) {
+            // console.log("checkLoggedin",user);
+            $rootScope.errorMessage = null;
+            if (user !== '0'&& user.usertype=='Admin') {
+                user.loggedin=true;
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url('/index');
+            }
+        });
+        return deferred.promise;
+    }
     function getLoggedIn($q, $http, $rootScope, $timeout) {
 
         var deferred = $q.defer();

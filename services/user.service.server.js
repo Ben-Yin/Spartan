@@ -28,12 +28,24 @@ module.exports = function (app, model) {
     app.delete('/api/user/:userId',auth, deleteUser);
     app.get('/api/user/following/:userId', findUserFollowing);
     app.get('/api/user/follower/:userId', findUserFollower);
-
+    app.get('/api/admin/find/',findAllUsers);
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
 
+    function findAllUsers(req,res) {
+        var type=req.query.type;
+        model.UserModel.findAllUsers()
+            .then(
+                function (users) {
+                    res.json(users)
+                },function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+            )
+    }
     function authorized (req, res, next) {
         if (!req.isAuthenticated()) {
             res.send(401);

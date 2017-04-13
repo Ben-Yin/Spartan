@@ -18,7 +18,8 @@
             "getUserById": getUserById,
             "updateUser": updateUser,
             "updatePass": updatePass,
-            "deleteUser":deleteUser
+            "deleteUser":deleteUser,
+            "findAllUsers":findAllUsers
         };
         return api;
 
@@ -50,6 +51,10 @@
 
         function updatePass(userId, password) {
             return $http.put('/api/user/pass/' + userId, password);
+        }
+        function findAllUsers() {
+            // console.log(type)
+            return $http.get("/api/admin/find/");
         }
     }
 })();
