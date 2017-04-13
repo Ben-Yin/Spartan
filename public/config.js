@@ -148,6 +148,14 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
+                .when("/training/coach/:coachId", {
+                    templateUrl: "/views/training/templates/coach.training.list.view.client.html",
+                    controller: "CourseListController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
                 .otherwise({
                     redirectTo: '/index'
                 });

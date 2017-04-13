@@ -31,7 +31,7 @@ module.exports=function () {
         return TrainingModel.findOne({"videoUrl":videoId});
     }
     function findTrainingByCoachId(coachId) {
-        return TrainingModel.findOne({"_coach":coachId}).sort({"createDate":-1});
+        return TrainingModel.find({"_coach":coachId}).sort({"createDate":-1});
     }
     function findTrainingByConditions(key,category,sorting) {
         var condition = {};
