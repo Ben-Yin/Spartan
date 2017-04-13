@@ -15,10 +15,14 @@ module.exports = function () {
         findPostByConditions: findPostByConditions,
         updatePost: updatePost,
         deletePost: deletePost,
-        addCommentForPost: addCommentForPost
+        addCommentForPost: addCommentForPost,
+        findAllPosts:findAllPosts
     };
     return api;
 
+    function findAllPosts() {
+        return PostModel.find();
+    }
     function createPost(post) {
         return PostModel.create(post);
     }

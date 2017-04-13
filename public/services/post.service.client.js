@@ -15,10 +15,14 @@
             "findPostByConditions": findPostByConditions,
             "updatePost": updatePost,
             "deletePost": deletePost,
-            "addCommentForPost": addCommentForPost
+            "addCommentForPost": addCommentForPost,
+            'findAllPosts':findAllPosts
         };
         return api;
 
+        function findAllPosts() {
+            return $http.get("/api/find/posts");
+        }
         function createPost(userId, post) {
             return $http.post("/api/user/"+userId+"/post", post);
         }

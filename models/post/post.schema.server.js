@@ -10,6 +10,7 @@ module.exports = function () {
         },
         content: String,
         imageUrl: String,
+        posterName:String,
         likes: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'

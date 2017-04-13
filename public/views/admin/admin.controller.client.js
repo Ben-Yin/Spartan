@@ -11,11 +11,25 @@
             vm.user=$rootScope.currentUser;
             setAllUsers();
             setAllTrainings();
-            console.log(vm.trainings)
+            setAllPosts();
         }
 
         init();
+        function  setAllPosts() {
+            PostService.findAllPosts()
+                .success(
+                    function (posts) {
 
+                        var index=1;
+                        for(var i in posts){
+                            posts[i].index=index;
+                            index+=1;
+                        }
+                        vm.posts=posts;
+                        console.log(posts)
+                    }
+                )
+        }
         function setAllTrainings() {
             TrainingService.findAllTrainings()
                 .success(
