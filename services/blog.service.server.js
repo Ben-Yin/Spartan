@@ -9,6 +9,20 @@ module.exports = function (app, model) {
     app.put("/api/blog/:blogId", updateBlog);
     app.delete("/api/blog/:blogId", deleteBlog);
     app.post("/api/blog/:blogId/comment", addCommentForBlog);
+    app.get("/api/find/blogs",findAllBlogs);
+
+    function findAllBlogs(req,res) {
+        model.BlogModel.findAllBlogs()
+            .then(
+                function (blogs) {
+                    res.json(blogs);
+                },function (err) {
+                    res.sendStatus(500);
+                    console.log(err);
+                }
+            );
+
+    }
 
     function createBlog(req, res) {
         var userId = req.params.userId;

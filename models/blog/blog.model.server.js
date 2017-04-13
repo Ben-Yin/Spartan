@@ -11,10 +11,14 @@ module.exports = function () {
         findBlogByConditions: findBlogByConditions,
         updateBlog: updateBlog,
         deleteBlog: deleteBlog,
-        addCommentForBlog: addCommentForBlog
+        addCommentForBlog: addCommentForBlog,
+        findAllBlogs:findAllBlogs
     };
     return api;
 
+    function findAllBlogs() {
+        return BlogModel.find();
+    }
     function createBlog(blog) {
         return BlogModel.create(blog);
     }

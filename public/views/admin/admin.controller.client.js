@@ -12,9 +12,26 @@
             setAllUsers();
             setAllTrainings();
             setAllPosts();
+            setAllBlogs();
         }
 
         init();
+
+        function setAllBlogs() {
+            console.log("set")
+            BlogService.findAllBlogs()
+                .success(
+                    function (blogs) {
+                        var index=1;
+                        for(var i in blogs){
+                            blogs[i].index=index;
+                            index+=1;
+                        }
+                        vm.blogs=blogs;
+                        console.log(blogs);
+                    }
+                )
+        }
         function  setAllPosts() {
             PostService.findAllPosts()
                 .success(
@@ -26,7 +43,7 @@
                             index+=1;
                         }
                         vm.posts=posts;
-                        console.log(posts)
+                        // console.log(posts)
                     }
                 )
         }
@@ -34,7 +51,7 @@
             TrainingService.findAllTrainings()
                 .success(
                     function (trainings) {
-                        console.log("find",trainings)
+                        // console.log("find",trainings)
                         var index=1;
                         for(var i in trainings){
                             trainings[i].index=index;
