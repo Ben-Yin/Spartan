@@ -140,6 +140,22 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
+                .when("/user/:userId/following", {
+                    templateUrl: "/views/user/templates/user-list.view.client.html",
+                    controller: "UserFollowingController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
+                .when("/user/:userId/follower", {
+                    templateUrl: "/views/user/templates/user-list.view.client.html",
+                    controller: "UserFollowingController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
                 .otherwise({
                     redirectTo: '/index'
                 });

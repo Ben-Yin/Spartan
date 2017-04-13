@@ -8,10 +8,22 @@
 
     function NewPostController($rootScope) {
         var vm = this;
+        vm.logout = logout;
 
         function init() {
             vm.user = $rootScope.currentUser;
         }
         init();
+
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
     }
 })();

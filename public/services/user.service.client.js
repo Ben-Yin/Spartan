@@ -18,7 +18,10 @@
             "getUserById": getUserById,
             "updateUser": updateUser,
             "updatePass": updatePass,
-            "deleteUser":deleteUser
+            "deleteUser": deleteUser,
+            "getUserFollowing": getUserFollowing,
+            "getUserFollower": getUserFollower,
+            "countFollowerById": countFollowerById
         };
         return api;
 
@@ -27,7 +30,6 @@
         }
         function logout() {
             return $http.post("/api/logout");
-
         }
 
         function login(user) {
@@ -36,8 +38,6 @@
 
         function register(user) {
             return $http.post("/api/register", user);
-
-
         }
 
         function getUserById(userId) {
@@ -50,6 +50,19 @@
 
         function updatePass(userId, password) {
             return $http.put('/api/user/pass/' + userId, password);
+        }
+        
+        function getUserFollowing(userId) {
+            console.log(userId);
+            return $http.get("/api/user/"+userId+"/following");
+        }
+
+        function getUserFollower(userId) {
+            return $http.get("/api/user/"+userId+"/follower");
+        }
+
+        function countFollowerById(userId) {
+            return $http.get("/api/user/"+userId+"/followerNum");
         }
     }
 })();

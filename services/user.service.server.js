@@ -21,13 +21,14 @@ module.exports = function (app, model) {
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     // app.post  ('/api/user',auth, createUser);
     app.get   ('/api/loggedin',loggedin);
-    app.get   ('/api/user/:userId', getUserById);
+    app.get   ('/api/user/:userId', findUserById);
     // app.get   ('/api/user',auth, findAllUsers);
     app.put   ('/api/user/:userId',auth, updateUser);
     app.put('/api/user/pass/:userId', auth, updatePass);
     app.delete('/api/user/:userId',auth, deleteUser);
-    app.get('/api/user/following/:userId', findUserFollowing);
-    app.get('/api/user/follower/:userId', findUserFollower);
+    app.get('/api/user/:userId/following', findUserFollowing);
+    app.get('/api/user/:userId/follower', findUserFollower);
+    app.get('/api/user/:userId/followerNum', CountUserFollower);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -278,7 +279,7 @@ module.exports = function (app, model) {
             );
     }
 
-    function getUserById(req, res) {
+    function findUserById(req, res) {
         var userId = req.params.userId;
         model
             .UserModel
@@ -399,5 +400,22 @@ module.exports = function (app, model) {
                 }
             );
     }
+
+    function CountUserFollower(req, res) {
+        var userId = req.params.userId;
+        model
+            .UserModel
+            .countFollowerById(userId)
+            .then(
+                function (followerNum) {
+                    res.json({followerNum: followerNum});
+                }, function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+            );
+    }
+
+
 
 };

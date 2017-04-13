@@ -5,7 +5,8 @@
         .controller("LoginController", LoginController)
         .controller("RegisterController", RegisterController)
         .controller("ProfileController",ProfileController)
-        .controller("ProfileEditController",ProfileEditController);
+        .controller("ProfileEditController",ProfileEditController)
+        .controller("UserFollowingController", UserFollowingController);
     function RegisterController($location,UserService,$rootScope) {
         var vm=this;
         vm.register=register;
@@ -202,6 +203,101 @@
     }
 
 
+    function UserFollowingController($location, $rootScope, $routeParams, UserService) {
+        var vm = this;
+        vm.setFollowing = setFollowing;
+        vm.setFollower = setFollower;
+        vm.followUser = followUser;
+        vm.logout = logout;
+        function init() {
+            vm.user = $rootScope.currentUser;
+            UserService
+                .getUserById($routeParams.userId)
+                .then(
+                    function (user) {
+                        vm.reqUser = user.data;
+                        return UserService.getUserFollowing(vm.reqUser._id);
+                    }
+                )
+                .then(
+                    function (followings) {
+                        vm.followings = followings.data;
+                        for (var i in vm.followings) {
+                            setFollow(vm.followings[i]);
+                        }
+                        return UserService.getUserFollower(vm.reqUser._id);
+                    }
+                )
+                .then(
+                    function (followers) {
+                        vm.followers = followers.data;
+                        for (var i in vm.followers) {
+                            setFollow(vm.followers[i]);
+                        }
+                        if ($location.url().indexOf("following") != -1) {
+                            vm.title = vm.reqUser.username+"'s following";
+                            vm.userList = vm.followings;
+                        } else {
+                            vm.title = vm.reqUser.username+"'s follower";
+                            vm.userList = vm.followers;
+                        }
+                        console.log(vm.userList);
+                    }
+                )
+        }
+        init();
+
+        function setFollowing() {
+            vm.userList = vm.followings;
+        }
+
+        function setFollower() {
+            vm.userList = vm.followers;
+        }
+
+        function followUser(user) {
+            if (!vm.user) {
+                $location.url("/register");
+            }
+            var userId = user._id;
+            var userIndex = vm.user.following.indexOf(userId);
+            if (userIndex != -1) {
+                vm.user.following.splice(userIndex, 1);
+            } else {
+                vm.user.following.push(userId);
+            }
+            UserService
+                .updateUser(vm.user._id, vm.user)
+                .success(
+                    function () {
+                        setFollow(user);
+                    }
+                );
+        }
+
+        function setFollow(user) {
+            if (vm.user && vm.user._id != user._id) {
+                user.follow = {
+                    showFollow: true
+                };
+                if (vm.user.following.indexOf(user._id) != -1) {
+                    user.follow.followBtn = "btn btn-info active pull-right";
+                    user.follow.text = "Following";
+                } else {
+                    user.follow.followBtn = "btn btn-info pull-right";
+                    user.follow.text = "Follow";
+                }
+            }
+        }
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    })}
+    }
 
 
 
