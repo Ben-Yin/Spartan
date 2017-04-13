@@ -56,7 +56,7 @@
         function findAllUsers() {
             // console.log(type)
             return $http.get("/api/admin/find/");
-
+        }
         
         function getUserFollowing(userId) {
             console.log(userId);
