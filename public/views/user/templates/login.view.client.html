@@ -49,14 +49,27 @@
                                 <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
                             </label>
 
-                            <div class="clearfix note margin-bottom-30">
-                                <a class="pull-right" href="#">Forgot Password?</a>
-                            </div>
+                            <ul class="list-inline">
+                                <li>
+                                    <label class="checkbox weight-300">
+                                        <input type="checkbox" name="checkbox-inline" checked="checked">
+                                        <i></i> Keep me logged in
+                                    </label>
+                                </li>
+                                <li class="pull-right">
+                                        <label>
+                                            <input type="radio" ng-model="model.usertype" value="user">
+                                            user
+                                        </label>
+                                </li>
+                                <li class="pull-right">
+                                        <label>
+                                            <input type="radio" ng-model="model.usertype" value="admin">
+                                            admin
+                                        </label>
+                                </li>
+                            </ul>
 
-                            <label class="checkbox weight-300">
-                                <input type="checkbox" name="checkbox-inline" checked="checked">
-                                <i></i> Keep me logged in
-                            </label>
 
                         </fieldset>
 

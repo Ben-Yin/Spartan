@@ -62,6 +62,9 @@
         vm.login=login;
         vm.logout=logout;
 
+        function init() {
+
+        }
         function logout() {
             UserService
                 .logout()
@@ -77,22 +80,25 @@
                 return;
             }
             console.log(user)
-            UserService
-                .login(user)
-                .then(
-                    function (res) {
-                        var user=res.data;
-                        $rootScope.currentUser=user;
-                        // console.log("login controller",user)
-                        // console.log("$rootScope.currentUser",$rootScope.currentUser)
-                        // console.log("vm.user",vm.user)
-                        vm.user=user;
-                        // console.log("vm.user",vm.user)
-                        $location.path("/index");
-                    },function (err) {
-                        vm.error="Username or password is Wrong";
-                    }
-                )
+            if(vm.usertype=='user'){
+                UserService
+                    .login(user)
+                    .then(
+                        function (res) {
+                            var user=res.data;
+                            $rootScope.currentUser=user;
+                            // console.log("login controller",user)
+                            // console.log("$rootScope.currentUser",$rootScope.currentUser)
+                            // console.log("vm.user",vm.user)
+                            vm.user=user;
+                            // console.log("vm.user",vm.user)
+                            $location.path("/index");
+                        },function (err) {
+                            vm.error="Username or password is Wrong";
+                        }
+                    )
+            }
+
         }
 
     }

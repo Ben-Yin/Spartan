@@ -12,8 +12,6 @@
         vm.coachId=$routeParams.coachId;
         vm.getFormattedDate = getFormattedDate;
         vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
-        vm.likeTraining=likeTraining;
-        vm.storeCourse=storeCourse;
         vm.logout=logout;
 
         function init() {
@@ -59,90 +57,15 @@
         }
         function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
-            console.log(date);
+            // console.log(date);
             return date.toDateString();
         }
-        function setLikeIcon(training) {
-            if (vm.user && training.likes.indexOf(vm.user._id) != -1) {
-                training.likeIcon = "icon-large icon-thumbs-up";
-            } else {
-                training.likeIcon = "icon-large icon-thumbs-up-alt";
-            }
-        }
-        function setHeartIcon(training) {
-            if (vm.user && vm.user.storecourse.indexOf(training._id) != -1) {
-                training.heartIcon = "icon-heart icon-large";
-            } else {
-                training.heartIcon = "icon-heart-empty icon-large";
-            }
-        }
+
         function getYouTubeEmbedUrl(videoId) {
             // console.log(widgetUrl)
             var url = "https://www.youtube.com/embed/"+videoId;
             // console.log(videoId)
             return $sce.trustAsResourceUrl(url);
-        }
-        function likeTraining(userId, training) {
-
-            var userIndex = training.likes.indexOf(userId);
-            // console.log(userIndex,training._id)
-
-            if (userIndex != -1) {
-                training.likes.splice(userIndex, 1);
-                TrainingService
-                    .updateTraining(training._id, training)
-                    .success(
-                        function (status) {
-                            // console.log("after update",training);
-                            training.likeIcon = "icon-large icon-thumbs-up-alt";
-                        }
-                    );
-
-
-            } else {
-                training.likes.push(userId);
-                TrainingService
-                    .updateTraining(training._id,training)
-                    .success(
-                        function (status) {
-                            // console.log("after update",training);
-                            training.likeIcon = "icon-large icon-thumbs-up";
-                        }
-                    );
-            }
-        }
-        function storeCourse(userId,training) {
-            UserService
-                .getUserById(userId)
-                .success(
-                    function (user) {
-                        console.log(user)
-                        var trainingIndex = user.storecourse.indexOf(training._id);
-                        if (trainingIndex != -1) {
-                            user.storeCourse.splice(training._id, 1);
-                            UserService
-                                .updateUser(user._id, user)
-                                .success(
-                                    function (status) {
-                                        // console.log("after update",training);
-                                        training.heartIcon = "icon-heart-empty icon-large";
-                                    }
-                                );
-
-
-                        } else {
-                            user.storecourse.push(training._id);
-                            UserService
-                                .updateUser(user._id,user)
-                                .success(
-                                    function (status) {
-                                        training.heartIcon = "icon-heart icon-large";
-                                    }
-                                );
-                        }
-                    }
-                )
-
         }
     }
     function EditTrainingController($routeParams,$rootScope, $location,TrainingService,UserService) {
@@ -433,19 +356,20 @@
                     console.log(key)
                     var api_key=key;
                     console.log("api_key",api_key);
+                    content = {
+                        params: {
+                            key: api_key,
+                            type: 'video',
+                            maxResult: 12,
+                            pageToken: vm.nextPage ? vm.nextPage : "",
+                            part: "id,snippet",
+                            fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle,nextPageToken,prevPageToken',
+                            q: searchText
+                        }
+                    };
                 });
 
-            content = {
-                params: {
-                    key: "AIzaSyCE6iQJ7JkSdDLDEfzsIFu9dDddnYMSXS0",
-                    type: 'video',
-                    maxResult: 12,
-                    pageToken: vm.nextPage ? vm.nextPage : "",
-                    part: "id,snippet",
-                    fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle,nextPageToken,prevPageToken',
-                    q: searchText
-                }
-            };
+
             // console.log(content);
             TrainingService
                 .searchYoutube(content)
