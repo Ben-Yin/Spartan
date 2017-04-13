@@ -16,10 +16,14 @@ module.exports = function () {
         updatePost: updatePost,
         deletePost: deletePost,
         addCommentForPost: addCommentForPost,
+        findAllPosts:findAllPosts,
         countPostByUserId: countPostByUserId
     };
     return api;
 
+    function findAllPosts() {
+        return PostModel.find();
+    }
     function createPost(post) {
         return PostModel.create(post);
     }

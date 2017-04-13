@@ -7,6 +7,16 @@
                 .when("/", {
                     redirectTo: '/index'
                 })
+                .when("/admin", {
+                    templateUrl: "/views/admin/admin.view.client.html",
+                    controller:"AdminController",
+                    controllerAs:"model",
+                    css: ['style_v1.css','style_v2.css'],
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
                 .when("/index", {
                     templateUrl: "/views/home/templates/index.view.client.html",
                     controller:"HomeController",
@@ -132,6 +142,14 @@
                         checkCoachLoggedin: checkCoachLoggedin
                     }
                 })
+                .when("/training/:trainingId/edit", {
+                    templateUrl: "/views/training/templates/training.edit.view.client.html",
+                    controller: "EditTrainingController",
+                    controllerAs: "model",
+                    resolve: {
+                        checkCoachLoggedin: checkCoachLoggedin
+                    }
+                })
                 .when("/training/:trainingId", {
                     templateUrl: "/views/training/templates/video.view.client.html",
                     controller: "VideoController",
@@ -140,6 +158,15 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
+                .when("/training/coach/:coachId", {
+                    templateUrl: "/views/training/templates/coach.training.list.view.client.html",
+                    controller: "CourseListController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
+
                 .when("/user/:userId/following", {
                     templateUrl: "/views/user/templates/user-list.view.client.html",
                     controller: "UserFollowingController",
@@ -196,6 +223,22 @@
         return deferred.promise;
     }
 
+    function checkAdminLoggedIn($q, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/api/loggedin').success(function(user) {
+            // console.log("checkLoggedin",user);
+            $rootScope.errorMessage = null;
+            if (user !== '0'&& user.usertype=='Admin') {
+                user.loggedin=true;
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url('/index');
+            }
+        });
+        return deferred.promise;
+    }
     function getLoggedIn($q, $http, $rootScope, $timeout) {
 
         var deferred = $q.defer();

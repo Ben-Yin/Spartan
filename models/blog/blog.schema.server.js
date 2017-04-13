@@ -5,6 +5,7 @@ module.exports = function () {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
         },
+        bloggerName:String,
         title: String,
         titleImageUrl: String,
         intro: String,

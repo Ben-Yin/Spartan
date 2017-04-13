@@ -13,6 +13,7 @@ module.exports=function () {
         title:String,
         videoUrl:String,
         source:String,
+        coachName:String,
         likes:[{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'

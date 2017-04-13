@@ -1,6 +1,5 @@
 module.exports = function () {
     var userModel = require("./user/user.model.server")();
-    var adminModel = require("./admin/admin.model.server")();
     var blogModel = require("./blog/blog.model.server")();
     var commentModel = require("./comment/comment.model.server")();
     var postModel = require("./post/post.model.server")();
@@ -28,7 +27,6 @@ module.exports = function () {
 
     var model = {
         UserModel: userModel,
-        AdminModel: adminModel,
         BlogModel: blogModel,
         CommentModel: commentModel,
         PostModel: postModel,

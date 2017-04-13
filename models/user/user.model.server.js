@@ -18,6 +18,7 @@ module.exports = function () {
         findUserByUsername: findUserByUsername,
         updateAvatar:updateAvatar,
         updatePassword:updatePassword,
+        findAllUsers:findAllUsers,
         countFollowerById: countFollowerById
     };
     return api;
@@ -41,6 +42,9 @@ module.exports = function () {
         return UserModel.findOne({'google.id': googleId});
     }
 
+    function findAllUsers() {
+        return UserModel.find();
+    }
     function createUser(user) {
         user.avatar="https://image.freepik.com/free-vector/variety-of-user-avatars_23-2147542131.jpg";
         user.loggedin=true;

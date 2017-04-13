@@ -1,0 +1,365 @@
+﻿
+<div class="row">
+
+    <!-- tabs -->
+    <div class="col-md-3 col-sm-3">
+        <ul class="nav nav-tabs nav-stacked nav-alternate">
+            <li class="active">
+                <a href="#dashboard" data-toggle="tab" showtab="">
+                    DASHBOARD
+                </a>
+            </li>
+            <li>
+                <a href="#user" data-toggle="tab" showtab="">
+                    User List
+                </a>
+            </li>
+            <li>
+                <a href="#blog" data-toggle="tab" showtab="">
+                    Blog List
+                </a>
+            </li>
+            <li>
+                <a href="#post" data-toggle="tab" showtab="">
+                    Post List
+                </a>
+            </li>
+            <li>
+                <a href="#training" data-toggle="tab" showtab="">
+                    Training List
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- tabs content -->
+    <div class="col-md-9 col-sm-9">
+        <div class="tab-content tab-stacked nav-alternate">
+            <div id="dashboard" class="tab-pane active">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a href="#dashboard" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa fa-laptop"></i>Dashboard</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box blue-bg">
+                            <i class="fa fa-cloud-download"></i>
+                            <div class="count">6.674</div>
+                            <div class="title">Download</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box brown-bg">
+                            <i class="fa fa-shopping-cart"></i>
+                            <div class="count">7.538</div>
+                            <div class="title">Purchased</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box dark-bg">
+                            <i class="fa fa-thumbs-o-up"></i>
+                            <div class="count">4.362</div>
+                            <div class="title">Order</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box green-bg">
+                            <i class="fa fa-cubes"></i>
+                            <div class="count">1.426</div>
+                            <div class="title">Stock</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                </div>
+
+
+            </div>
+
+
+            <div id="user" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-users"></i> Spartan User</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa fa-users"></i>User List</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="main-content">
+
+                    <div class="btn-toolbar list-toolbar">
+                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New User</button>
+                        <div class="btn-group">
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>User Type</th>
+                            <th>News Service</th>
+                            <th style="width: 3.5em;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="user in model.users">
+                            <td>{{user.index}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.usertype}}</td>
+                            <td>{{user.news}}</td>
+                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <footer>
+                        <hr>
+
+
+                        <div style="clear:both;"></div>
+                    </footer>
+                </div>
+            </div>
+
+            <div id="post" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa  fa-pencil-square-o"></i> Spartan Posts</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa  fa-pencil-square-o"></i>Post List</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="main-content">
+
+                    <div class="btn-toolbar list-toolbar">
+                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New Post</button>
+                        <div class="btn-group">
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Poster</th>
+                            <th>Image Url</th>
+                            <th style="width: 3.5em;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="post in model.posts">
+                            <td>{{post.index}}</td>
+                            <td>{{post.posterName}}</td>
+                            <td>{{post.imageUrl}}</td>
+                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <footer>
+                        <hr>
+
+
+                        <div style="clear:both;"></div>
+                    </footer>
+                </div>
+            </div>
+
+            <div id="blog" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa   fa-paw"></i> Spartan Blogs</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa   fa-paw"></i>Blog List</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="main-content">
+
+                    <div class="btn-toolbar list-toolbar">
+                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New Blog</button>
+                        <div class="btn-group">
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tittle</th>
+                            <th>Blogger</th>
+                            <th>Category</th>
+                            <th style="width: 3.5em;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="blog in model.blogs">
+                            <td>{{blog.index}}</td>
+                            <td>{{blog.title}}</td>
+                            <td>{{blog.bloggerName}}</td>
+                            <td>{{blog.category}}</td>
+                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <footer>
+                        <hr>
+
+
+                        <div style="clear:both;"></div>
+                    </footer>
+                </div>
+            </div>
+
+            <div id="training" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa  fa-caret-square-o-left"></i> Spartan Training</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa  fa-caret-square-o-left"></i>Training List</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="main-content">
+
+                    <div class="btn-toolbar list-toolbar">
+                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New Training</button>
+                        <div class="btn-group">
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tittle</th>
+                            <th>Coach</th>
+                            <th>Source</th>
+                            <th style="width: 3.5em;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="training in model.trainings">
+                            <td>{{training.index}}</td>
+                            <td>{{training.title}}</td>
+                            <td>{{training.coachName}}</td>
+                            <td>{{training.source}}</td>
+                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <footer>
+                        <hr>
+
+
+                        <div style="clear:both;"></div>
+                    </footer>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

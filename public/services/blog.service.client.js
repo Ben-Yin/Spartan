@@ -14,10 +14,14 @@
             "findBlogByConditions": findBlogByConditions,
             "updateBlog": updateBlog,
             "deleteBlog": deleteBlog,
-            "addCommentForBlog": addCommentForBlog
+            "addCommentForBlog": addCommentForBlog,
+            "findAllBlogs":findAllBlogs
         };
         return api;
 
+        function findAllBlogs() {
+            return $http.get("/api/find/blogs");
+        }
         function createBlog(userId, blog) {
             return $http.post("/api/user/"+userId+"/blog", blog);
         }
