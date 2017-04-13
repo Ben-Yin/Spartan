@@ -112,12 +112,17 @@ module.exports = function (app, model) {
             )
             .then(
                 function (status) {
+                    res.sendStatus(200);
+                },
+                function (err) {
                     res.sendStatus(500);
-                },function (err) {
-                    res.sendStatus(500);
-                    console.log(err);
                 }
             )
+            .catch(
+                function (err) {
+                    res.sendStatus(500);
+                }
+            );
     }
 
 
