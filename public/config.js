@@ -11,7 +11,10 @@
                     templateUrl: "/views/admin/admin.view.client.html",
                     controller:"AdminController",
                     controllerAs:"model",
-                    css: ['style_v1.css','style_v2.css']
+                    css: ['style_v1.css','style_v2.css'],
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
 
                 })
                 .when("/index", {

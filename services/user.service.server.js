@@ -48,7 +48,7 @@ module.exports = function (app, model) {
     }
     function authorized (req, res, next) {
         if (!req.isAuthenticated()) {
-            res.send(401);
+            res.sendStatus(401);
         } else {
             next();
         }

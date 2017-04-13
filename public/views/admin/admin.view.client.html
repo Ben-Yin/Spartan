@@ -1,36 +1,4 @@
-﻿<div id="header" class="sticky header-md clearfix">
-
-    <load-script type="text/javascript-lazy" src="./js/scripts.js"></load-script>
-    <!-- TOP NAV -->
-    <header id="topNav">
-        <div class="container">
-
-            <!-- Mobile Menu Button -->
-            <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
-                <i class="fa fa-bars"></i>
-            </button>
-
-            <!-- BUTTONS -->
-            <ul class="pull-right nav nav-pills nav-second-main">
-                <li ng-hide="model.user.loggedin" class="dropdown active"><a ng-href="#/login">LOGOUT</a></li>
-            </ul>
-            <!-- /BUTTONS -->
-
-
-            <!-- Logo -->
-            <a class="logo pull-left" href="index.html">
-                <img src="./images/logo_light.png" alt="" />
-            </a>
-            <ul class="nav nav-pills nav-second-main">
-                <li class="dropdown active"><h3>ADMIN PANEL</h3></li>
-            </ul>
-
-
-        </div>
-    </header>
-    <!-- /Top Nav -->
-
-</div>
+﻿
 <div class="row">
 
     <!-- tabs -->
@@ -231,7 +199,6 @@
 
 
                             <div class="margiv-top10">
-                                <a ng-click="model.createUser(model.singleuser)" ng-show="model.createuser" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
                                 <a ng-click="model.updateUser(model.singleuser)" ng-hide="model.createuser" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
                                 <a ng-click="model.deleteUser(model.singleuser)" ng-hide="model.createuser" class="btn btn-danger"><i class="fa fa-check"></i> Unregister User</a>
                             </div>

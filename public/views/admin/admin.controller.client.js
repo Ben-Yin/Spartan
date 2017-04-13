@@ -3,23 +3,44 @@
     angular
         .module("Spartan")
         .controller("AdminController", AdminController);
-    function AdminController($location,UserService,$rootScope) {
+    function AdminController($location,UserService,$rootScope,$window) {
         var vm=this;
         vm.turnToUserProfile=turnToUserProfile;
         vm.updateUser=updateUser;
+        vm.deleteUser=deleteUser;
+        vm.createUser=createUser;
         vm.logout=logout;
 
         function init(){
             vm.user=$rootScope.currentUser;
-            vm.createuser=true;
             setAllUsers();
         }
 
         init();
 
+        function createUser(user) {
+            UserService
+                .register(user)
+                .then(function (res) {
+                    var user=res.data;
+                    vm.singleuser=user
+                })
+
+        }
         function turnToUserProfile(user) {
+            console.log("turn to user",user)
             vm.singleuser=user;
-            vm.createuser=false;
+        }
+
+        function deleteUser(userId) {
+            UserService
+                .deleteUser(userId)
+                .success(
+                    function (status) {
+                        console.log(status)
+                    }
+                )
+            setAllUsers();
         }
         function updateUser(updateUser) {
             UserService.updateUser(updateUser._id,updateUser)
@@ -27,10 +48,10 @@
                     function (user) {
                         $window.alert("Update success!")
                         console.log("aa",user.config.data)
-                        $rootScope.currentUser=user.config.data;
+                        vm.singleuser=user.config.data;
                     }
                 );
-            setAllUsers()
+            setAllUsers();
         }
         function setAllUsers() {
             UserService.findAllUsers()
@@ -42,7 +63,7 @@
                             index+=1;
                         }
                         vm.users=users;
-                        console.log(users);
+                        console.log("setAll",users);
                     }
                 )
         }

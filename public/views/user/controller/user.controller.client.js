@@ -80,7 +80,6 @@
                 return;
             }
             console.log(user)
-            if(vm.usertype=='user'){
                 UserService
                     .login(user)
                     .then(
@@ -92,12 +91,16 @@
                             // console.log("vm.user",vm.user)
                             vm.user=user;
                             // console.log("vm.user",vm.user)
-                            $location.path("/index");
+                            if(user.usertype=="Admin"){
+                                $location.path("/admin");
+                            }else {
+                                $location.path("/index");
+                            }
+
                         },function (err) {
                             vm.error="Username or password is Wrong";
                         }
                     )
-            }
 
         }
 
