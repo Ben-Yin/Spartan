@@ -21,27 +21,20 @@
         function init() {
             vm.user = $rootScope.currentUser;
             vm.defaultSorting = "trending";
-            if ($location.url().startsWith("/post/my") && vm.user) {
+            if ($location.url().startsWith("/post/my")) {
                 vm.posterId = $routeParams.userId;
                 UserService
                     .getUserById(vm.posterId)
                     .success(
                         function (user) {
+                            vm.poster = user;
                             vm.pageType = {
                                 heading: user.username+"'s Post"
                             };
-                            if (user._id != vm.user._id) {
-                                vm.pageType.showFollow = true;
-                            }
-                            if (vm.user.following.indexOf(user._id) != -1) {
-                                vm.pageType.followBtn = "btn btn-info active pull-right";
-                                vm.pageType.followText = "Following";
-                            } else {
-                                vm.pageType.followBtn = "btn btn-info pull-right";
-                                vm.pageType.followText = "Follow";
-                            }
+                            setFollow(user._id);
+                            setFollowerNum(user._id);
                             PostService
-                                .findPostByUserId(vm.user._id)
+                                .findPostByUserId(user._id)
                                 .success(
                                     function (posts) {
                                         vm.posts = posts;
@@ -136,29 +129,23 @@
         }
 
         function followPoster(userId) {
+            if (!vm.user) {
+                $location.url("/register");
+            }
             var posterIndex = vm.user.following.indexOf(userId);
-            console.log(vm.user.following);
             if (posterIndex != -1) {
                 vm.user.following.splice(posterIndex, 1);
-                UserService
-                    .updateUser(vm.user._id, vm.user)
-                    .success(
-                        function () {
-                            vm.pageType.followBtn = "btn btn-info pull-right";
-                            vm.pageType.followText = "Follow";
-                        }
-                    )
+
             } else {
                 vm.user.following.push(userId);
-                UserService
-                    .updateUser(vm.user._id, vm.user)
-                    .success(
-                        function () {
-                            vm.pageType.followBtn = "btn btn-info active pull-right";
-                            vm.pageType.followText = "Following";
-                        }
-                    );
             }
+            UserService
+                .updateUser(vm.user._id, vm.user)
+                .success(
+                    function () {
+                        setFollow(userId);
+                    }
+                );
         }
 
         function deletePost(postId) {
@@ -232,6 +219,29 @@
             } else {
                 post.heartIcon = "icon-heart-empty icon-large";
             }
+        }
+
+        function setFollow(userId) {
+            if (vm.user && userId != vm.user._id) {
+                vm.pageType.showFollow = true;
+                if (vm.user.following.indexOf(userId) != -1) {
+                    vm.pageType.followBtn = "btn btn-info active pull-right";
+                    vm.pageType.followText = "Following";
+                } else {
+                    vm.pageType.followBtn = "btn btn-info pull-right";
+                    vm.pageType.followText = "Follow";
+                }
+            }
+        }
+
+        function setFollowerNum(userId) {
+            UserService
+                .countFollowerById(userId)
+                .success(
+                    function (res) {
+                        vm.poster.followerNum = res.followerNum;
+                    }
+                );
         }
 
         function getTrustUrl(WidgetUrl) {

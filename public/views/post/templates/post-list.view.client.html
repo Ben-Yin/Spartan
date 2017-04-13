@@ -1,7 +1,7 @@
-<ng-include src="'./views/header/header.view.client.html'"></ng-include>
+
 <!-- wrapper -->
 <div id="wrapper">
-
+    <ng-include src="'./views/header/header.view.client.html'"></ng-include>
     <section class="page-header dark page-header-xs">
         <div class="container">
 
@@ -47,13 +47,28 @@
 
 
             <div class="row">
-                <h1>{{model.pageType.heading}}
-                    <button ng-class="model.pageType.followBtn"
-                            type="button"
-                            ng-click="model.followPoster(model.posterId)"
-                            ng-show="model.pageType.showFollow">{{model.pageType.followText}}
-                    </button>
-                </h1>
+                <div class="col-md-6 col-sm-6 col-xs-6  bold">
+                    <h1>{{model.pageType.heading}}</h1>
+                </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 text-center bold">
+                        <a ng-href="#/user/{{model.posterId}}/following">
+                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">{{model.poster.following.length}}</h2>
+                            <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">Following</h4>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 text-center bold">
+                        <a ng-href="#/user/{{model.posterId}}/follower">
+                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">{{model.poster.followerNum}}</h2>
+                            <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">Follower</h4>
+                        </a>
+                    </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 margin-top-10">
+                        <button ng-class="model.pageType.followBtn"
+                                type="button"
+                                ng-click="model.followPoster(model.posterId)"
+                                ng-show="model.pageType.showFollow">{{model.pageType.followText}}
+                        </button>
+                </div>
 
 
             </div>

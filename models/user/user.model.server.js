@@ -18,7 +18,8 @@ module.exports = function () {
         findUserByUsername: findUserByUsername,
         updateAvatar:updateAvatar,
         updatePassword:updatePassword,
-        findAllUsers:findAllUsers
+        findAllUsers:findAllUsers,
+        countFollowerById: countFollowerById
     };
     return api;
 
@@ -99,5 +100,9 @@ module.exports = function () {
     function findUserByUsername(username) {
         return UserModel
             .findOne({username: username});
+    }
+
+    function countFollowerById(userId) {
+        return UserModel.count({following:userId});
     }
 };

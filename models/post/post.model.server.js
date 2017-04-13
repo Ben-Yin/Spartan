@@ -16,7 +16,8 @@ module.exports = function () {
         updatePost: updatePost,
         deletePost: deletePost,
         addCommentForPost: addCommentForPost,
-        findAllPosts:findAllPosts
+        findAllPosts:findAllPosts,
+        countPostByUserId: countPostByUserId
     };
     return api;
 
@@ -72,5 +73,9 @@ module.exports = function () {
                 post.comments.push(comment);
                 post.save();
             });
+    }
+
+    function countPostByUserId(userId) {
+        return PostModel.count({_poster: userId});
     }
 };

@@ -12,7 +12,9 @@ module.exports = function () {
         updateBlog: updateBlog,
         deleteBlog: deleteBlog,
         addCommentForBlog: addCommentForBlog,
-        findAllBlogs:findAllBlogs
+        findAllBlogs:findAllBlogs,
+        countBlogByUserId: countBlogByUserId
+
     };
     return api;
 
@@ -66,5 +68,9 @@ module.exports = function () {
                 blog.comments.push(comment);
                 blog.save();
             });
+    }
+
+    function countBlogByUserId(userId) {
+        return BlogModel.count({_blogger: userId});
     }
 };

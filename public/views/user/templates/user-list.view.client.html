@@ -1,0 +1,104 @@
+<!-- wrapper -->
+<div id="wrapper">
+    <ng-include src="'./views/header/header.view.client.html'"></ng-include>
+    <section class="page-header">
+        <div class="container">
+
+            <h1>{{model.title}}</h1>
+
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a ng-href="#">Home</a></li>
+                <li class="active">{{model.title}}</li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
+    <!-- /PAGE HEADER -->
+
+
+    <!-- -->
+    <section>
+        <div class="container">
+
+            <div class="row">
+
+                <!-- LEFT COLUMNS -->
+                <div class="col-md-9 col-sm-9 col-md-push-3 col-sm-push-3">
+
+                    <div class="row" ng-repeat="user in model.userList"><!-- item -->
+                        <div class="col-md-2"><!-- company logo -->
+                            <img ng-src="{{user.avatar}}" class="img-responsive" alt="user avatar">
+                        </div>
+                        <div class="col-md-10"><!-- company detail -->
+                            <a ng-href="#/user/{{user._id}}/follower">
+                                <h4 class="margin-bottom-10">{{user.username}}</h4>
+                            </a>
+                            <button type="button"
+                                    ng-class="user.follow.followBtn"
+                                    ng-click="model.followUser(user)"
+                                    ng-show="user.follow.showFollow">{{user.follow.text}}
+                            </button>
+                            <ul class="list-inline">
+                                <li><i class="icon-envelope text-success"></i>
+                                    <a class="text-success"
+                                       ng-href="mailto:{{user.mail}}">{{user.mail}}</a>
+                                </li>
+                                <li><i class="icon-mobile-phone"></i> <span
+                                        class="text-warning">{{user.phone}}</span></li>
+                            </ul>
+                            <p>{{user.selfIntro}}</p>
+                            <p ng-hide="user.selfIntro">He(She) didn't leave any introduction about him(her)self.</p>
+                        </div>
+                    </div><!-- /item -->
+
+                    <hr/>
+
+                </div>
+                <!-- /LEFT COLUMNS -->
+
+                <!-- RIGHT COLUMNS -->
+                <div class="col-md-3 col-sm-3 col-md-pull-9 col-sm-pull-9">
+                    <div class="thumbnail text-center">
+                        <img ng-src="{{model.reqUser.avatar}}" ng-show="model.user.avatar"/>
+                        <h2 class="size-18 margin-top-10 margin-bottom-0">{{model.reqUser.username}}</h2>
+                        <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">{{model.reqUser.usertype}}</h3>
+                    </div>
+
+                    <hr/>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
+                            <a ng-click="model.setFollowing()">
+                                <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">
+                                    {{model.followings.length}}
+                                </h2>
+                                <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">Following</h3>
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
+                            <a ng-click="model.setFollower()">
+                                <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">
+                                    {{model.followers.length}}
+                                </h2>
+                                <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">Follower</h3>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /RIGHT COLUMNS -->
+
+            </div>
+
+        </div>
+    </section>
+    <!-- / -->
+    <ng-include src="'./views/footer/footer.view.client.html'"></ng-include>
+</div>
+<!-- /wrapper -->
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>
+
