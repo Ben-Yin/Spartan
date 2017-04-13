@@ -1,0 +1,116 @@
+﻿<div id="header" class="sticky header-md clearfix">
+
+    <load-script type="text/javascript-lazy" src="./js/scripts.js"></load-script>
+    <!-- TOP NAV -->
+    <header id="topNav">
+        <div class="container">
+
+            <!-- Mobile Menu Button -->
+            <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- BUTTONS -->
+            <ul class="pull-right nav nav-pills nav-second-main">
+                <li ng-hide="model.user.loggedin" class="dropdown active"><a ng-href="#/login">LOGOUT</a></li>
+            </ul>
+            <!-- /BUTTONS -->
+
+
+            <!-- Logo -->
+            <a class="logo pull-left" href="index.html">
+                <img src="./images/logo_light.png" alt="" />
+            </a>
+            <ul class="nav nav-pills nav-second-main">
+                <li class="dropdown active"><h3>ADMIN PANEL</h3></li>
+            </ul>
+
+
+        </div>
+    </header>
+    <!-- /Top Nav -->
+
+</div>
+<div class="row">
+
+    <!-- tabs -->
+    <div class="col-md-3 col-sm-3">
+        <ul class="nav nav-tabs nav-stacked nav-alternate">
+            <li class="active">
+                <a href="#dashboard" data-toggle="tab" showtab="">
+                    DASHBOARD
+                </a>
+            </li>
+            <li>
+                <a href="#membership" data-toggle="tab" showtab="">
+                    MEMBERSHIP MANAGEMENT
+                </a>
+            </li>
+            <li>
+                <a href="#coach" data-toggle="tab" showtab="">
+                    COACH MANAGEMENT
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- tabs content -->
+    <div class="col-md-9 col-sm-9">
+        <div class="tab-content tab-stacked nav-alternate">
+            <div id="dashboard" class="tab-pane active">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box blue-bg">
+                            <i class="fa fa-cloud-download"></i>
+                            <div class="count">6.674</div>
+                            <div class="title">Download</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box brown-bg">
+                            <i class="fa fa-shopping-cart"></i>
+                            <div class="count">7.538</div>
+                            <div class="title">Purchased</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box dark-bg">
+                            <i class="fa fa-thumbs-o-up"></i>
+                            <div class="count">4.362</div>
+                            <div class="title">Order</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box green-bg">
+                            <i class="fa fa-cubes"></i>
+                            <div class="count">1.426</div>
+                            <div class="title">Stock</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                </div>
+
+
+            </div>
+
+            <div id="membership" class="tab-pane">
+                <h4>Aaaaaaaaaaaaa</h4>
+                <p>Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc.</p>
+            </div>
+
+            <div id="coach" class="tab-pane">
+                <h4>Alternate Stacked 3</h4>
+                <p>Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa.</p>
+            </div>
+        </div>
+    </div>
+
+</div>

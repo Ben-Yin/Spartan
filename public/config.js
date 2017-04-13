@@ -7,6 +7,11 @@
                 .when("/", {
                     redirectTo: '/index'
                 })
+                .when("/admin", {
+                    templateUrl: "/views/admin/admin.view.client.html",
+                    css: ['style_v1.css','style_v2.css']
+
+                })
                 .when("/index", {
                     templateUrl: "/views/home/templates/index.view.client.html",
                     controller:"HomeController",
