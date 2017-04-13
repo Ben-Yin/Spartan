@@ -14,6 +14,21 @@
                     User List
                 </a>
             </li>
+            <li>
+                <a href="#blog" data-toggle="tab" showtab="">
+                    Blog List
+                </a>
+            </li>
+            <li>
+                <a href="#post" data-toggle="tab" showtab="">
+                    Post List
+                </a>
+            </li>
+            <li>
+                <a href="#training" data-toggle="tab" showtab="">
+                    Training List
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -138,78 +153,75 @@
                 </div>
             </div>
 
-            <div id="user-profile" class="tab-pane">
+            <div id="training" class="tab-pane">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h3 class="page-header"><i class="fa fa-users"></i> Profile</h3>
+                        <h3 class="page-header"><i class="fa  fa-caret-square-o-left"></i> Spartan Training</h3>
                         <ol class="breadcrumb">
-                            <li><i class="fa fa-home"></i><a href="#dashboard" data-toggle="tab" showtab="">Home</a></li>
-                            <li><i class="fa fa-users"></i><a href="#user" data-toggle="tab" showtab="">User List</a></li>
-                            <li><i class="fa fa-user"></i>User Profile</li>
+                            <li><i class="fa fa-home"></i><a ng-href="#/adming" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa  fa-caret-square-o-left"></i>Training List</li>
                         </ol>
                     </div>
                 </div>
-                    <!-- PERSONAL INFO TAB -->
-                    <div class="tab-pane fade in active" id="info">
-                        <form role="form" action="#" method="post">
-                            <div class="form-group">
-                                <label class="control-label">Username</label>
-                                <input ng-model="model.singleuser.username" type="text" placeholder="Username" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">First Name</label>
-                                <input ng-model="model.singleuser.firstname" type="text" placeholder="First Name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Last Name</label>
-                                <input ng-model="model.singleuser.lastname" type="text" placeholder="Last Name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">email</label>
-                                <input ng-model="model.singleuser.email" type="text" placeholder="email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Phone</label>
-                                <input ng-model="model.singleuser.phone" type="text" placeholder="Phone Number" class="form-control">
-                            </div>
-                            <div class="sky-form">
+                <div class="main-content">
 
-                                <table class="table table-bordered table-striped">
-                                    <tbody>
-                                    <tr>
-                                        <td>I agree to the <a>Terms of Service</a></td>
-                                        <td>
-                                            <label class="checkbox nomargin">
-                                                <input ng-model="model.singleuser.service" type="checkbox" name="checkbox" checked="checked"><i></i> Yes
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>I want to receive news and  special offers</td>
-                                        <td>
-                                            <label class="checkbox nomargin">
-                                                <input ng-model="model.singleuser.news" type="checkbox" name="checkbox" checked=""><i></i> Yes
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-
-
-                            <div class="margiv-top10">
-                                <a ng-click="model.updateUser(model.singleuser)" ng-hide="model.createuser" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
-                                <a ng-click="model.deleteUser(model.singleuser)" ng-hide="model.createuser" class="btn btn-danger"><i class="fa fa-check"></i> Unregister User</a>
-                            </div>
-                        </form>
+                    <div class="btn-toolbar list-toolbar">
+                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New Training</button>
+                        <div class="btn-group">
+                        </div>
                     </div>
-                    <!-- /PERSONAL INFO TAB -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tittle</th>
+                            <th>Coach</th>
+                            <th>Source</th>
+                            <th style="width: 3.5em;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="training in model.trainings">
+                            <td>{{training.index}}</td>
+                            <td>{{training.title}}</td>
+                            <td>{{training.coachName}}</td>
+                            <td>{{training.source}}</td>
+                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
 
 
+                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
+                    <footer>
+                        <hr>
+
+
+                        <div style="clear:both;"></div>
+                    </footer>
                 </div>
+            </div>
+
             </div>
         </div>
     </div>

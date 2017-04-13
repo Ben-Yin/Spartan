@@ -3,67 +3,44 @@
     angular
         .module("Spartan")
         .controller("AdminController", AdminController);
-    function AdminController($location,UserService,$rootScope,$window) {
+    function AdminController($location,UserService,$rootScope,$window,TrainingService,BlogService,PostService) {
         var vm=this;
-        vm.turnToUserProfile=turnToUserProfile;
-        vm.updateUser=updateUser;
-        vm.deleteUser=deleteUser;
-        vm.createUser=createUser;
         vm.logout=logout;
 
         function init(){
             vm.user=$rootScope.currentUser;
             setAllUsers();
+            setAllTrainings();
+            console.log(vm.trainings)
         }
 
         init();
 
-        function createUser(user) {
-            UserService
-                .register(user)
-                .then(function (res) {
-                    var user=res.data;
-                    vm.singleuser=user
-                })
-
-        }
-        function turnToUserProfile(user) {
-            console.log("turn to user",user)
-            vm.singleuser=user;
-        }
-
-        function deleteUser(userId) {
-            UserService
-                .deleteUser(userId)
+        function setAllTrainings() {
+            TrainingService.findAllTrainings()
                 .success(
-                    function (status) {
-                        console.log(status)
+                    function (trainings) {
+                        console.log("find",trainings)
+                        var index=1;
+                        for(var i in trainings){
+                            trainings[i].index=index;
+                            index+=1;
+                        }
+                        vm.trainings=trainings;
                     }
                 )
-            setAllUsers();
-        }
-        function updateUser(updateUser) {
-            UserService.updateUser(updateUser._id,updateUser)
-                .then(
-                    function (user) {
-                        $window.alert("Update success!")
-                        console.log("aa",user.config.data)
-                        vm.singleuser=user.config.data;
-                    }
-                );
-            setAllUsers();
         }
         function setAllUsers() {
             UserService.findAllUsers()
                 .success(
                     function (users) {
-                        var index=1
+                        var index=1;
                         for (var i in users){
                             users[i].index=index;
                             index+=1;
                         }
                         vm.users=users;
-                        console.log("setAll",users);
+                        // console.log("setAll",users);
                     }
                 )
         }

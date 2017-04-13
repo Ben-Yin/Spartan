@@ -15,10 +15,14 @@ module.exports=function () {
         updateTraining:updateTraining,
         deleteTraining:deleteTraining,
         addCommentForTraining:addCommentForTraining,
-        findTrainingByVideoId:findTrainingByVideoId
+        findTrainingByVideoId:findTrainingByVideoId,
+        findAllTrainings:findAllTrainings
     };
     return api;
 
+    function findAllTrainings() {
+        return TrainingModel.find({});
+    }
     function createTraining(newTraning) {
         // console.log("training model",newTraning);
         return TrainingModel.create(newTraning)

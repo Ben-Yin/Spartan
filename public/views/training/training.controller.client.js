@@ -266,6 +266,7 @@
             var id = urlParts[urlParts.length - 1];
             training.videoUrl=id;
             training.source="Spartan College";
+            training.coachName=vm.user.username;
             // console.log("controller",training);
             TrainingService
                 .createTraining(vm.user._id,training)
@@ -329,7 +330,8 @@
                                     likes:[user._id],
                                     source:"Youtube",
                                     title:data.snippet.title,
-                                    description:data.snippet.description+"This video is recommended by Spartan Coach"
+                                    description:data.snippet.description+"This video is recommended by Spartan Coach",
+                                    coachName:user.username
                                 }
                                 TrainingService.createTraining(user._id,newTraining)
                                     .success(
