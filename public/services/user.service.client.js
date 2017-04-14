@@ -63,7 +63,6 @@
         }
         
         function getUserFollowing(userId) {
-            console.log(userId);
             return $http.get("/api/user/"+userId+"/following");
         }
 

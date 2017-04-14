@@ -10,6 +10,7 @@ module.exports=function () {
     var api={
         createTraining:createTraining,
         findTrainingById:findTrainingById,
+        findTrainingByIds:findTrainingByIds,
         findTrainingByCoachId:findTrainingByCoachId,
         findTrainingByConditions:findTrainingByConditions,
         updateTraining:updateTraining,
@@ -30,6 +31,10 @@ module.exports=function () {
 
     function findTrainingById(trainingId) {
         return TrainingModel.findById(trainingId);
+    }
+
+    function findTrainingByIds(trainingIds) {
+        return TrainingModel.find({_id:{$in:trainingIds}});
     }
     function findTrainingByVideoId(videoId) {
         return TrainingModel.findOne({"videoUrl":videoId});

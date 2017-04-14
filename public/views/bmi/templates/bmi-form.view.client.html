@@ -1,0 +1,108 @@
+<ng-include src="'./views/header/header.view.client.html'"></ng-include>
+<!-- wrapper -->
+<div id="wrapper">
+
+    <section class="page-header dark page-header-xs">
+        <div class="container">
+
+            <!-- breadcrumbs -->
+            <ol class="breadcrumb">
+                <li><a ng-href="#">Home</a></li>
+                <li class="active">BMI</li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
+    <!-- /PAGE HEADER -->
+
+
+    <!-- -->
+    <section>
+        <div class="container container-width-60">
+            <div class="text-center">
+                <h1>BMI Calculator</h1>
+            </div>
+            <form class="fancy-form">
+                <div class="form-group">
+                    <label>Weight</label>
+                    <input class="form-control"
+                           type="number"
+                           ng-model="model.bmi.weight.value"
+                           placeholder="your weight(kg or lb)">
+                    <select class="form-control"
+                            ng-model="model.bmi.weight.unit">
+                        <option ng-selected="model.bmi.weight.unit=='kg'">kg</option>
+                        <option ng-selected="model.bmi.weight.unit=='lb'">lb</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Height</label>
+                    <input class="form-control"
+                           type="number"
+                           ng-model="model.bmi.height.value"
+                           placeholder="your height(cm or in)">
+                    <select class="form-control"
+                            ng-model="model.bmi.height.unit">
+                        <option ng-selected="model.bmi.height.unit=='cm'">cm</option>
+                        <option ng-selected="model.bmi.height.unit=='in'">in</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select class="form-control"
+                            ng-model="model.bmi.sex">
+                        <option ng-selected="model.bmi.sex=='Female'">Female</option>
+                        <option ng-selected="model.bmi.sex=='Male'">Male</option>
+                        <option ng-selected="model.bmi.sex=='Other'">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input class="form-control"
+                           type="number"
+                           ng-model="model.bmi.age"
+                           placeholder="your age">
+                </div>
+                <div class="alert alert-danger" ng-show="model.alertMessage">
+                    {{model.alertMessage}}
+                </div>
+                <button type="button"
+                        class="btn btn-block btn-success btn-margin"
+                        ng-click="model.calculateBMI(model.bmi)">
+                    <i class="fa fa-check"></i>Calculate BMI
+                </button>
+            </form>
+
+        </div>
+    </section>
+        <section>
+        <div class="container container-width-60"
+             ng-show="model.result"
+             id="result">
+            <h1 class="text-center">BMI Result</h1>
+            <div ng-class="model.bmiClass">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><strong>BMI:</strong> {{model.result.bmi.value}}</h2>
+                </div>
+                <div class="panel-body">
+                    <strong>Status: </strong>{{model.result.bmi.status}}
+                </div>
+                <div class="panel-body">
+                    <strong>Risk: </strong>{{model.result.bmi.risk}}
+                </div>
+                <div class="panel-body">
+                    <strong>Ideal Weight: </strong>{{model.result.ideal_weight}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / -->
+
+    <ng-include src="'./views/footer/footer.view.client.html'"></ng-include>
+
+</div>
+<!-- /wrapper -->
+
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>

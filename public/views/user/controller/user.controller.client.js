@@ -107,16 +107,69 @@
 
     }
     
-    function ProfileController($location,$rootScope,UserService) {
+    function ProfileController($location,$rootScope,UserService,BlogService,TrainingService) {
         var vm=this
         vm.logout=logout;
-        var vm=this;
+        vm.setFollowerNum = setFollowerNum;
 
         function init() {
-            vm.user=$rootScope.currentUser;
-            console.log(vm.user)
+            vm.user = $rootScope.currentUser;
+            var maxNum = 6;
+            UserService
+                .countFollowerById(vm.user._id)
+                .success(
+                    function (res) {
+                        vm.user.followerNum = res.followerNum;
+                    }
+                );
+            UserService
+                .getUserFollowing(vm.user._id)
+                .success(
+                    function (followings) {
+                        if (followings.length > maxNum) {
+                            vm.following = followings.slice(0, maxNum);
+                        } else {
+                            vm.following = followings;
+                        }
+                    }
+                );
+            UserService
+                .getUserFollower(vm.user._id)
+                .success(
+                    function (followers) {
+                        if (followers.length > maxNum) {
+                            vm.followers = followers.slice(0, maxNum);
+                        } else {
+                            vm.followers = followers;
+                        }
+                    }
+                );
+            BlogService
+                .findBlogByConditions(null, null, "trending")
+                .success(
+                    function (blogs) {
+                        console.log(blogs);
+                        if (blogs.length > maxNum) {
+                            vm.blogs = blogs.slice(0, maxNum);
+                        } else {
+                            vm.blogs = blogs;
+                        }
+                    }
+                );
+            TrainingService
+                .findTrainingByUserId(vm.user._id)
+                .success(
+                    function (courses) {
+                        if (courses.length > maxNum) {
+                            vm.courses = courses.slice(0, maxNum);
+                        } else {
+                            vm.courses = courses;
+                        }
+                    }
+                );
         }
         init();
+
         function logout() {
             UserService
                 .logout()
@@ -124,7 +177,18 @@
                     function(response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
-                    })}
+                    })
+        }
+
+        function setFollowerNum(userId) {
+            UserService
+                .countFollowerById(userId)
+                .success(
+                    function (res) {
+                        vm.user.followerNum = res.followerNum;
+                    }
+                );
+        }
 
 
     }
