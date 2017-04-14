@@ -29,6 +29,16 @@
                     Training List
                 </a>
             </li>
+            <li>
+                <a href="#setting" data-toggle="tab" showtab="">
+                    Profile Setting
+                </a>
+            </li>
+            <li>
+                <a href="#pass" data-toggle="tab" showtab="">
+                    Password Setting
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -117,31 +127,14 @@
                             <td>{{user.username}}</td>
                             <td>{{user.usertype}}</td>
                             <td>{{user.news}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                            <td><a ng-href="#/admin/edit/user/{{user._id}}" ><i class="fa fa-pencil"></i></a>
                         </tr>
 
                         </tbody>
                     </table>
 
 
-                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Delete Confirmation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
 
                     <footer>
@@ -192,23 +185,7 @@
                     </table>
 
 
-                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Delete Confirmation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
 
                     <footer>
@@ -261,23 +238,7 @@
                     </table>
 
 
-                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Delete Confirmation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
 
                     <footer>
@@ -358,8 +319,86 @@
                 </div>
             </div>
 
+            <div id="setting" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa  fa-minus-square-o"></i> Change Admin Profile</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa   fa-minus-square-o"></i>Profile Setting</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <form role="form" action="#" method="post">
+                <div class="form-group">
+                    <label class="control-label">First Name</label>
+                    <input ng-model="model.user.firstname" type="text" placeholder="First Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Last Name</label>
+                    <input ng-model="model.user.lastname" type="text" placeholder="Last Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">email</label>
+                    <input ng-model="model.user.email" type="text" placeholder="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Phone</label>
+                    <input ng-model="model.user.phone" type="text" placeholder="Phone Number" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">About</label>
+                    <textarea ng-model="model.user.selfIntro" class="form-control" rows="3" placeholder="About Me..."></textarea>
+                </div>
+                <div class="margiv-top10">
+                    <a ng-click="model.update(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                </div>
+            </form>
+
+
+
+            </div>
+
+            <div id="pass" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-bell-slash-o"></i> Change Password</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa   fa-bell-slash-o"></i>Password Setting</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <form action="#" method="post">
+
+                    <div class="form-group">
+                        <label class="control-label">Current Password</label>
+                        <input ng-model="model.user.originPass" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">New Password</label>
+                        <input ng-model="model.user.newpass" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Re-type New Password</label>
+                        <input ng-model="model.user.newpassCheck" type="password" class="form-control">
+                    </div>
+
+                    <div class="margiv-top10">
+                        <a ng-click="model.updatePass(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
+                    </div>
+
+                </form>
+
+
+
+            </div>
+
             </div>
         </div>
     </div>
 
 </div>
+<ng-include src="'./views/footer/admin.footer.view.client.html'"></ng-include>

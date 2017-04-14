@@ -17,6 +17,15 @@
                     }
 
                 })
+                .when("/admin/edit/user/:userId", {
+                    templateUrl: "/views/admin/admin.update.user.view.client.html",
+                    controller:"AdminUserEditController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
                 .when("/index", {
                     templateUrl: "/views/home/templates/index.view.client.html",
                     controller:"HomeController",
