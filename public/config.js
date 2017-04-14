@@ -156,6 +156,14 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
+                .when("/bmi", {
+                    templateUrl: "/views/bmi/templates/bmi-form.view.client.html",
+                    controller: "BMIController",
+                    controllerAs: "model",
+                    resolve: {
+                        getLoggedIn: getLoggedIn
+                    }
+                })
                 .otherwise({
                     redirectTo: '/index'
                 });

@@ -5,6 +5,7 @@ module.exports = function (app, model) {
     app.get("/api/google_api", getApiKey);
     app.post("/api/coach/:coachId/training",createTraining);
     app.get("/api/training/:trainingId", findTrainingById);
+    app.get("/api/user/:userId/training", findTrainingByUserId);
     app.get("/api/coach/:coachId/training", findTrainingByCoachId);
     app.get("/api/training", findTrainingByConditions);
     app.put("/api/training/:trainingId", updateTraining);
@@ -23,6 +24,26 @@ module.exports = function (app, model) {
                     res.sendStatus(500);
                 }
             )
+    }
+
+    function findTrainingByUserId(req, res) {
+        var userId = req.params.userId;
+        model.UserModel.findUserById(userId)
+            .then(
+                function (user) {
+                    return model.TrainingModel.findTrainingByIds(user.storecourse);
+                }
+            )
+            .then(
+                function (courses) {
+                    res.json(courses);
+                }
+            )
+            .catch(
+                function () {
+                    res.sendStatus(500);
+                }
+            );
     }
 
     function findTrainingByVideoId(req,res) {

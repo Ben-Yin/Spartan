@@ -19,19 +19,20 @@
                 </div>
 
                 <!-- completed -->
-                <div class="margin-bottom-30">
-                    <label>88% completed profile</label>
-                    <div class="progress progress-xxs">
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;"></div>
-                    </div>
-                </div>
+
+                <!--<div class="margin-bottom-30">-->
+                    <!--<label>88% completed profile</label>-->
+                    <!--<div class="progress progress-xxs">-->
+                        <!--<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <!-- /completed -->
 
                 <!-- SIDE NAV -->
                 <ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
                     <li class="list-group-item active"><a ng-href="#/profile"><i class="fa fa-eye"></i> PROFILE</a></li>
-                    <li class="list-group-item"><a ng-href="#/profile/comment"><i class="fa fa-comments-o"></i> COMMENTS</a></li>
-                    <li class="list-group-item"><a ng-href="#/profile/history"><i class="fa fa-history"></i> HISTORY</a></li>
+                    <li class="list-group-item"><a ng-href="#/blog/my/{{model.user._id}}"><i class="fa fa-book"></i> MY BLOG</a></li>
+                    <li class="list-group-item"><a ng-href="#/post/my/{{model.user._id}}"><i class="fa fa-history"></i> MY POST</a></li>
                     <li class="list-group-item"><a ng-href="#/profile/edit"><i class="fa fa-gears"></i> SETTINGS</a></li>
                 </ul>
                 <!-- /SIDE NAV -->
@@ -40,23 +41,22 @@
                 <!-- info -->
                 <div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
                     <div class="row margin-bottom-20">
-                        <div class="col-md-3 col-sm-3 col-xs-3 text-center bold">
-                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">12</h2>
-                            <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">BLOGS</h4>
-                        </div>
 
-                        <div class="col-md-3 col-sm-3 col-xs-3 text-center bold">
-                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">34</h2>
-                            <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">POSTS</h4>
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+                            <a ng-href="#/user/{{model.user._id}}/following">
+                                <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">{{model.user.following.length}}</h2>
+                                <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">Following</h4>
+                            </a>
                         </div>
-
-                        <div class="col-md-3 col-sm-3 col-xs-3 text-center bold">
-                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">32</h2>
-                            <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">Following</h4>
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+                            <a ng-href="#/user/{{model.user._id}}/follower">
+                                <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">{{model.user.followerNum}}</h2>
+                                <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">Follower</h4>
+                            </a>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-3 text-center bold">
-                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">32</h2>
-                            <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">Follower</h4>
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+                            <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">{{model.user.storecourse.length}}</h2>
+                            <h4 class="size-11 margin-top-0 margin-bottom-10 text-info">Courses</h4>
                         </div>
                     </div>
                     <!-- /info -->
@@ -112,81 +112,18 @@
 
                             <div class="box-inner">
                                 <h3>
-                                    <a class="pull-right size-11 text-warning" href="#">VIEW ALL</a>
-                                    POPULAR POSTS
+                                    <a class="pull-right size-11 text-warning" ng-href="#/training">VIEW ALL</a>
+                                    My Courses
                                 </h3>
                                 <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-
-                                    <!--<div class="clearfix margin-bottom-10">&lt;!&ndash; post item &ndash;&gt;-->
-                                        <!--<img class="thumbnail pull-left" src="assets/images/demo/people/300x300/b-min.jpg" width="60" height="60" alt="" />-->
-                                        <!--<h4 class="size-13 nomargin noborder nopadding"><a href="blog-single-default.html">Nullam Vitae Nibh Un Odiosters</a></h4>-->
-                                        <!--<span class="size-11 text-muted">June 29, 2015</span>-->
-                                    <!--</div>&lt;!&ndash; /post item &ndash;&gt;-->
-
-
+                                    <div ng-repeat="course in model.courses">
+                                        <a ng-href="#/training/{{course._id}}"><h3>{{course.title}}</h3></a>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="box-footer">
-                                <!-- INLINE SEARCH -->
-                                <div class="inline-search clearfix">
-                                    <form action="#" method="get" class="widget_search nomargin">
-                                        <input type="search" placeholder="Search Post..." name="s" class="serch-input">
-                                        <button type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        <div class="clear"></div>
-                                    </form>
-                                </div>
-                                <!-- /INLINE SEARCH -->
-
                             </div>
 
                         </div>
                         <!-- /POPULAR POSTS -->
-
-                        <!-- FRIENDS -->
-                        <div class="col-md-6 col-sm-6">
-
-                            <div class="box-inner">
-                                <h3>
-                                    <a class="pull-right size-11 text-warning" href="#">VIEW ALL</a>
-                                    FRIENDS
-                                </h3>
-                                <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-
-                                    <!--<div class="clearfix margin-bottom-10">&lt;!&ndash; squared item &ndash;&gt;-->
-                                        <!--<img class="thumbnail pull-left" src="assets/images/demo/people/300x300/1-min.jpg" width="40" height="40" alt="" />-->
-                                        <!--<h4 class="size-14 nomargin noborder nopadding bold"><a href="#">Joana Doe</a></h4>-->
-                                        <!--<span class="size-12 text-muted">Lorem ipsum dolor sit amet.</span>-->
-                                    <!--</div>&lt;!&ndash; /squared item &ndash;&gt;-->
-
-
-                                </div>
-                            </div>
-
-                            <div class="box-footer">
-                                <!-- INLINE SEARCH -->
-                                <div class="inline-search clearfix">
-                                    <form action="#" method="get" class="widget_search nomargin">
-                                        <input type="search" placeholder="Search Friend..." name="s" class="serch-input">
-                                        <button type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        <div class="clear"></div>
-                                    </form>
-                                </div>
-                                <!-- /INLINE SEARCH -->
-
-                            </div>
-
-                        </div>
-                        <!-- /FRIENDS -->
-
-                    </div>
-
-
-                    <div class="row margin-top-30">
 
                         <!-- BlLOGS -->
                         <div class="col-md-6 col-sm-6">
@@ -194,82 +131,64 @@
                             <div class="box-inner">
                                 <h3>
                                     <a class="pull-right size-11 text-warning" href="#">VIEW ALL</a>
-                                    DISCUSSIONS
+                                    Trending Blogs
                                 </h3>
                                 <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-
+                                    <div ng-repeat="blog in model.blogs">
+                                        <a ng-href="#/blog/{{blog._id}}"><h3>{{blog.title}}</h3></a>
+                                    </div>
 
                                 </div>
-                            </div>
-
-                            <div class="box-footer">
-                                <!-- INLINE SEARCH -->
-                                <div class="inline-search clearfix">
-                                    <form action="#" method="get" class="widget_search nomargin">
-                                        <input type="search" placeholder="Search Discussion..." name="s" class="serch-input">
-                                        <button type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        <div class="clear"></div>
-                                    </form>
-                                </div>
-                                <!-- /INLINE SEARCH -->
-
                             </div>
 
                         </div>
-                        <!-- /DISCUSSIONS -->
+                        <!-- /BLOGS -->
 
-                        <!-- NOTIFICATIONS -->
+
+                    </div>
+
+
+                    <div class="row margin-top-30">
+                        <!-- FOLLOWING -->
+                        <div class="col-md-6 col-sm-6">
+
+                            <div class="box-inner">
+                                <h3>
+                                    <a class="pull-right size-11 text-warning" ng-href="#/user/{{model.user._id}}/following">VIEW ALL</a>
+                                    My Following
+                                </h3>
+                                <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
+                                    <div ng-repeat="following in model.following">
+                                        <a ng-href="#/user/{{following._id}}/following"><h3>{{following.username}}</h3></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /FOLLOWING -->
+
+                        <!-- FOLLOWER -->
                         <div class="col-md-6 col-sm-6">
 
                             <div class="box-inner">
                                 <h3>
                                     <a class="pull-right size-11 text-warning" href="#">VIEW ALL</a>
-                                    FAORITE
+                                    My Followers
                                 </h3>
                                 <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-
-
+                                    <div ng-repeat="follower in model.followers">
+                                        <a ng-href="#/user/{{follower._id}}/following"><h3>{{follower.username}}</h3></a>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="box-footer">
-                                <!-- INLINE SEARCH -->
-                                <div class="inline-search clearfix">
-                                    <form action="#" method="get" class="widget_search nomargin">
-                                        <input type="search" placeholder="Search notification..." name="s" class="serch-input">
-                                        <button type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        <div class="clear"></div>
-                                    </form>
-                                </div>
-                                <!-- /INLINE SEARCH -->
-
                             </div>
 
                         </div>
-                        <!-- /NOTIFICATIONS -->
+                        <!-- /FOLLOWER -->
 
                     </div>
 
 
                 </div>
-
-
-                <form method="post" action="#" class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
-                    <div class="box-inner">
-                        <h4 class="uppercase">LEAVE A MESSAGE TO <strong>FELICIA DOE</strong></h4>
-
-                        <textarea required class="form-control word-count" data-maxlength="100" rows="5" placeholder="Type your message here..."></textarea>
-                        <div class="text-muted text-right margin-top-3 size-12 margin-bottom-10">
-                            <span>0/100</span> Words
-                        </div>
-
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> SEND MESSAGE</button>
-                    </div>
-                </form>
 
             </div>
 

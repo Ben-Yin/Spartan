@@ -15,6 +15,7 @@
             "getApiKey":getApiKey,
             "createTraining":createTraining,
             "findTrainingById":findTrainingById,
+            "findTrainingByUserId":findTrainingByUserId,
             "findTrainingByCoachId":findTrainingByCoachId,
             "findTrainingByConditions":findTrainingByConditions,
             "updateTraining":updateTraining,
@@ -47,6 +48,9 @@
         }
         function findTrainingById(trainingId) {
             return $http.get("/api/training/"+trainingId);
+        }
+        function findTrainingByUserId(userId) {
+            return $http.get("/api/user/"+userId+"/training");
         }
         function getApiKey() {
             return $http.get("/api/google_api")

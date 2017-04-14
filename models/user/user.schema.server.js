@@ -7,13 +7,25 @@ module.exports = function () {
         lastname: String,
         email: String,
         phone: String,
-        gender: {
+        sex: {
             type: String,
             enum: ['Male', 'Female', 'Other']
         },
         age: Number,
-        weight: Number,
-        height: Number,
+        weight: {
+            value: Number,
+            unit: {
+                type: String,
+                enum: ['kg', 'lb']
+            }
+        },
+        height: {
+            value: Number,
+            unit: {
+                type: String,
+                enum: ['cm', 'in']
+            }
+        },
         avatar:String,
         usertype:String,
         selfIntro:String,
