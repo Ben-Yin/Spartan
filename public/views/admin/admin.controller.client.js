@@ -4,7 +4,35 @@
         .module("Spartan")
         .controller("AdminController", AdminController)
         .controller("AdminUserEditController",AdminUserEditController)
-    ;
+        .controller("AdminUserNewController",AdminUserNewController);
+    function AdminUserNewController($location,UserService,$rootScope) {
+        var vm=this;
+        vm.create=create;
+        vm.logout=logout;
+        function init(){
+            vm.user=$rootScope.currentUser;
+
+        }
+        init();
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    })}
+        function create(user) {
+            if(user.username!=null &&user.usertype!=null){
+                UserService
+                    .create(user)
+                    .then(function (res) {
+                        $location.path("/admin")
+                    })
+
+
+        }
+    }}
     function AdminUserEditController($location,$rootScope,UserService,$window,$routeParams) {
         var vm=this;
         vm.logout=logout;
@@ -97,6 +125,8 @@
         vm.logout=logout;
         vm.update=update;
         vm.updatePass=updatePass;
+        vm.newUser=newUser;
+
         function init(){
             vm.user=$rootScope.currentUser;
             setAllUsers();
@@ -107,6 +137,10 @@
 
         init();
 
+        function newUser() {
+            console.log("aa")
+            $location.url("/admin/new/user");
+        }
         function updatePass(pass) {
             // console.log(pass)
             var originPass=pass.originPass;

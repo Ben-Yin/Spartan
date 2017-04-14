@@ -18,8 +18,17 @@
 
                 })
                 .when("/admin/edit/user/:userId", {
-                    templateUrl: "/views/admin/admin.update.user.view.client.html",
-                    controller:"AdminUserEditController",
+                templateUrl: "/views/admin/admin.update.user.view.client.html",
+                controller:"AdminUserEditController",
+                controllerAs:"model",
+                resolve: {
+                    checkAdminLoggedIn: checkAdminLoggedIn
+                }
+
+            })
+                .when("/admin/new/user", {
+                    templateUrl: "/views/admin/admin.new.user.view.client.html",
+                    controller:"AdminUserNewController",
                     controllerAs:"model",
                     resolve: {
                         checkAdminLoggedIn: checkAdminLoggedIn

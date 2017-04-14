@@ -1,0 +1,67 @@
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <h1>Add User</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="#/admin">Admin Panel</a></li>
+            <li class="active">Add User</li>
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+<section>
+<div class="container">
+
+
+
+        <form role="form" action="#" method="post">
+            <div class="form-group">
+                <label class="control-label">User Name</label>
+                <input ng-model="model.editUser.username" type="text" placeholder="Usert Name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Password</label>
+                <input ng-model="model.editUser.password" type="password" placeholder="Password" class="form-control">
+            </div>
+            <div class="form-group">
+                <div class="row"></div>
+                <label class="control-label">User Type</label>
+                <select ng-model="model.editUser.usertype">
+                    <option ng-selected="model.editUser.usertype=='MemberShip'">MemberShip</option>
+                    <option ng-selected="model.editUser.usertype=='Coach'">Coach</option>
+                    <option ng-selected="model.editUser.usertype=='Admin'">Admin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">First Name</label>
+                <input ng-model="model.editUser.firstname" type="text" placeholder="First Name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input ng-model="model.editUser.lastname" type="text" placeholder="Last Name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">email</label>
+                <input ng-model="model.editUser.email" type="text" placeholder="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phone</label>
+                <input ng-model="model.editUser.phone" type="text" placeholder="Phone Number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">About</label>
+                <textarea ng-model="model.editUser.selfIntro" class="form-control" rows="3" placeholder="About Me..."></textarea>
+            </div>
+            <div class="margiv-top10">
+                <a ng-click="model.create(model.editUser)" class="btn btn-primary"><i class="fa fa-check"></i> Create User </a>
+                <a ng-href="#/admin" class="btn btn-default">Cancel </a>
+            </div>
+        </form>
+
+
+
+</div>
+
+</section>
