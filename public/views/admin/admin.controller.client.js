@@ -316,6 +316,7 @@
         vm.deleteBlog=deleteBlog;
         vm.deleteTraining=deleteTraining;
         vm.searchUser=searchUser;
+        vm.setAllUsers=setAllUsers;
 
         function init(){
             vm.user=$rootScope.currentUser;
@@ -326,7 +327,19 @@
         }
 
         init();
+
         function searchUser(text) {
+            UserService.findUsersByUsername(text)
+                .success(
+                    function (users) {
+                        var index=1;
+                        for (var i in users){
+                            users[i].index=index;
+                            index+=1;
+                        }
+                        vm.users=users;
+                    }
+                )
 
         }
         function deleteTraining(trainingId) {

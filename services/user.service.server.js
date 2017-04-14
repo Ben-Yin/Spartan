@@ -21,16 +21,30 @@ module.exports = function (app, model) {
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     app.post  ('/api/admin/user',auth, createUser);
     app.get   ('/api/loggedin',loggedin);
-    app.get   ('/api/user/:userId', findUserById);
+    app.get   ('/api/user/:userId', auth,findUserById);
     app.get   ('/api/admin/find',auth, findAllUsers);
     app.put   ('/api/user/:userId',auth, updateUser);
     app.put('/api/user/pass/:userId', auth, updatePass);
     app.delete('/api/user/:userId',auth, deleteUser);
     app.get('/api/admin/find/',findAllUsers);
-    app.get('/api/user/:userId/following', findUserFollowing);
-    app.get('/api/user/:userId/follower', findUserFollower);
-    app.get('/api/user/:userId/followerNum', CountUserFollower);
+    app.get('/api/user/:userId/following', auth,findUserFollowing);
+    app.get('/api/user/:userId/follower',auth, findUserFollower);
+    app.get('/api/user/:userId/followerNum',auth, CountUserFollower);
+    app.get("/api/find/users/by/:username",auth,findUsersByUsername);
 
+    function findUsersByUsername(req,res) {
+        var username=req.params.username;
+        console.log(username)
+        model.UserModel.findUsersByUsername(username)
+            .then(
+                function (users) {
+                    res.json(users);
+                },function (err) {
+                    res.sendStatus(500);
+                    console.log(err);
+                }
+            )
+    }
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);

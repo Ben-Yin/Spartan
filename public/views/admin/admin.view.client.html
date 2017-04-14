@@ -108,7 +108,7 @@
 
                     </div>
                         <div class="inline-search clearfix col-xs-6">
-                            <form action="" method="get" class="widget_search ng-pristine ng-valid">
+                            <form class="widget_search ng-pristine ng-valid">
                                 <input type="search" ng-model="model.userword" placeholder="Start Searching..." id="s" name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
                                 <button ng-click="model.searchUser(model.userword)">
                                     <i class="fa fa-search"></i>
@@ -116,7 +116,7 @@
                             </form>
                         </div>
                         <div class="col-xs-2">
-                            <button class="btn btn-info" ng-click="model.clearUsrSearch()">Clear
+                            <button class="btn btn-info" ng-click="model.setAllUsers()">Clear
                             </button>
                         </div>
                     </div>

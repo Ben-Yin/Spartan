@@ -23,10 +23,14 @@
             "getUserFollowing": getUserFollowing,
             "getUserFollower": getUserFollower,
             "countFollowerById": countFollowerById,
-            "create":create
+            "create":create,
+            "findUsersByUsername":findUsersByUsername
         };
         return api;
 
+        function findUsersByUsername(username) {
+            return $http.get("/api/find/users/by/"+username);
+        }
         function create(user) {
             return $http.post("/api/admin/user", user);
         }
