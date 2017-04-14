@@ -27,7 +27,10 @@ module.exports = function () {
             }
         },
         avatar:String,
-        usertype:String,
+        usertype:{
+            type: String,
+            enum: ["Membership", "Coach", "Admin"]
+        },
         selfIntro:String,
         loggedin:{type:Boolean,default:false},
         service:Boolean,

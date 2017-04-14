@@ -5,11 +5,6 @@
     <header id="topNav">
         <div class="container">
 
-            <!-- Mobile Menu Button -->
-            <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
-                <i class="fa fa-bars"></i>
-            </button>
-
             <!-- BUTTONS -->
             <ul class="pull-right nav nav-pills nav-second-main">
                 <li ng-show="model.user.loggedin" class="text-welcome">Welcome to Spartan, <strong>{{model.user.username}}</strong></li>
@@ -54,43 +49,28 @@
                         </li>
                     -->
                     <ul id="topMain" class="nav nav-pills nav-main">
-                        <li class="dropdown"><!-- HOME -->
+                        <li><!-- HOME -->
                             <a  ng-href="#/index">HOME</a>
                         </li>
-                        <li class="dropdown"><!-- PAGES -->
+                        <li><!-- PAGES -->
                             <a  ng-href="#/training">
                                 TRAINING
                             </a>
                         </li>
-                        <li class="dropdown"><!-- POST -->
+                        <li><!-- POST -->
                             <a ng-href="#/bmi">
                                 BMI
                             </a>
                         </li>
-                        <li class="dropdown"><!-- POST -->
+                        <li><!-- POST -->
                             <a ng-href="#/post">
                                 POST
                             </a>
                         </li>
-                        <li class="dropdown"><!-- BLOG -->
+                        <li><!-- BLOG -->
                             <a ng-href="#/blog">
                                BLOG
                             </a>
-                        </li>
-                        <li class="dropdown"><!-- SHOP -->
-                            <a class="dropdown-toggle" href="#">
-                                SHOP
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#">
-                                        template
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">template</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
 
