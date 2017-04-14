@@ -171,7 +171,6 @@
     function AdminPostNewController($rootScope) {
         var vm = this;
         vm.logout = logout;
-
         function init() {
             vm.user = $rootScope.currentUser;
         }
@@ -285,11 +284,11 @@
         function update(user) {
             var updateUser=vm.editUser;
             // console.log(updateUser,$rootScope.currentUser._id)
-            UserService.updateUser(vm.editUserId,updateUser)
+            UserService.updateUser(updateUser._id,updateUser)
                 .then(
                     function (user) {
                         $window.alert("Update success!")
-                        console.log("aa",user.config.data)
+                        $location.url("/admin");
                     }
                 )
         }

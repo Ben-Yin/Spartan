@@ -197,6 +197,7 @@ module.exports = function (app, model) {
         var userId = req.body.userId;
         var content = req.body.content;
         var posterName=req.body.posterName;
+        var userType=req.body.usertype;
         if(req.file !=undefined) {
             var post = {
                 "_poster": userId,
@@ -211,14 +212,23 @@ module.exports = function (app, model) {
                 .createPost(post)
                 .then(
                     function (post) {
-                        res.redirect("/#/post");
+                        if(userType=='Admin'){
+                            res.redirect("/#/admin");
+                        }else{
+                            res.redirect("/#/post");
+                        }
+
                     }, function (err) {
                         console.log(err);
                         res.sendStatus(500);
                     }
                 );
         } else{
-            res.redirect("/#/post/new");
+            if(userType=='Admin'){
+                res.redirect("/#/admin");
+            }else{
+                res.redirect("/#/post");
+            }
         }
     }
 };
