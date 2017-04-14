@@ -169,9 +169,9 @@
                                     <div>
                                         <ul class="list-inline">
                                             <li>
-                                                <a ng-click="model.likeTrainingInYoutube(model.user, data)" class="btn btn-reveal btn-default">
+                                                <a ng-click="model.likeTrainingInYoutube(model.user, data)" ng-show="model.user.usertype=='Coach'" class="btn btn-reveal btn-default">
                                                     <i class="fa fa-thumbs-up "></i>
-                                                    <span class="pull-right">Recomment it to Spartan</span></a>
+                                                    <span class="pull-right">Recommend it to Spartan</span></a>
                                             </li>
                                             <li>
                                                 <a href="https://www.youtube.com/watch?v={{data.id.videoId}}" class="btn btn-reveal btn-default">

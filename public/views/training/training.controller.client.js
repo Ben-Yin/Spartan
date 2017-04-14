@@ -317,10 +317,6 @@
         init();
 
         function likeTrainingInYoutube(user,data) {
-            if(angular.isUndefined(user)){
-                $window.alert("Please register a account!");
-                return;
-            }
             if(user.usertype='Coach'){
                 // console.log(data.id.videoId)
                 TrainingService
