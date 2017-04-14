@@ -6,11 +6,11 @@
         .module("Spartan")
         .controller("HomeController",HomeController);
 
-    function HomeController($location,$rootScope,UserService,BlogService,PostService) {
+    function HomeController($sce,$location,$rootScope,UserService,BlogService,PostService,TrainingService) {
         var vm=this;
         vm.getFormattedDate = getFormattedDate;
         vm.logout=logout;
-
+        vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
         var months = ["Jan.","Feb.","Mar.","Apr.","May","Jun.","Jul.","Aug","Sep.","Oct.","Nov,","Dec."];
         function init() {
             vm.user = $rootScope.currentUser;
@@ -38,10 +38,26 @@
                             vm.posts = posts;
                         }
                     }
+                )
+            TrainingService
+                .findTrainingByConditions(null, null, "trending")
+                .success(
+                    function (trainings) {
+                        if (trainings.length > 2) {
+                            vm.trainings = trainings.slice(0, 2);
+                        } else {
+                            vm.trainings = trainings;
+                        }
+                    }
                 );
         }
         init();
-
+        function getYouTubeEmbedUrl(videoId) {
+            // console.log(widgetUrl)
+            var url = "https://www.youtube.com/embed/"+videoId;
+            // console.log(url)
+            return $sce.trustAsResourceUrl(url);
+        }
         function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
              return {
