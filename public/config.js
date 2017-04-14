@@ -11,11 +11,7 @@
                 .when("/admin", {
                     templateUrl: "/views/admin/admin.view.client.html",
                     controller:"AdminController",
-                    controllerAs:"model",
-                    css: ['style_v1.css','style_v2.css'],
-                    resolve: {
-                        checkAdminLoggedIn: checkAdminLoggedIn
-                    }
+                    controllerAs:"model"
 
                 })
                 .when("/admin/edit/user/:userId", {

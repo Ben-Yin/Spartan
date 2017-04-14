@@ -61,42 +61,30 @@
                         </ol>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box blue-bg">
-                            <i class="fa fa-cloud-download"></i>
-                            <div class="count">6.674</div>
-                            <div class="title">Download</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                <div class="bs-glyphicons ">
+                <ul class="glyphicons-list list-unstyled clearfix">
 
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box brown-bg">
-                            <i class="fa fa-shopping-cart"></i>
-                            <div class="count">7.538</div>
-                            <div class="title">Purchased</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                    <li>
+                        <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+                        <span class="glyphicon-class"><strong>{{model.userAmount}}</strong> Users </span>
+                    </li>
 
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box dark-bg">
-                            <i class="fa fa-thumbs-o-up"></i>
-                            <div class="count">4.362</div>
-                            <div class="title">Order</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                    <li>
+                        <i class="glyphicon glyphicon-camera" aria-hidden="true"></i>
+                        <span class="glyphicon-class"> <strong>{{model.postAmount}}</strong> Posts</span>
+                    </li>
+                    <li>
+                        <i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>
+                        <span class="glyphicon-class"><strong>{{model.blogAmount}}</strong> Blog</span>
+                    </li>
 
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box green-bg">
-                            <i class="fa fa-cubes"></i>
-                            <div class="count">1.426</div>
-                            <div class="title">Stock</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                    <li>
+                        <i class="glyphicon glyphicon-film" aria-hidden="true"></i>
+                        <span class="glyphicon-class"><strong>{{model.trainingAmount}}</strong> Trainings</span>
+                    </li>
+                </ul>
 
                 </div>
-
-
             </div>
 
 
@@ -112,9 +100,24 @@
                 </div>
                 <div class="main-content">
 
-                    <div class="btn-toolbar list-toolbar">
+                    <div class="row">
+                    <div class="btn-toolbar list-toolbar col-xs-4">
                         <button class="btn btn-primary" ng-click="model.newUser()"><i class="fa fa-plus"></i> New User</button>
                         <div class="btn-group">
+                        </div>
+
+                    </div>
+                        <div class="inline-search clearfix col-xs-6">
+                            <form action="" method="get" class="widget_search ng-pristine ng-valid">
+                                <input type="search" ng-model="model.userword" placeholder="Start Searching..." id="s" name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
+                                <button ng-click="model.searchUser(model.userword)">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-info" ng-click="model.clearUsrSearch()">Clear
+                            </button>
                         </div>
                     </div>
                     <table class="table">
