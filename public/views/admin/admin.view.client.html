@@ -177,7 +177,6 @@
                             <td>{{post.index}}</td>
                             <td>{{post.posterName}}</td>
                             <td>{{post.imageUrl}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
                                 <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
 
@@ -230,7 +229,7 @@
                             <td>{{blog.title}}</td>
                             <td>{{blog.bloggerName}}</td>
                             <td>{{blog.category}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                            <td><a ng-href="#/admin/edit/blog/{{blog._id}}"><i class="fa fa-pencil"></i></a>
                                 <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
 
@@ -283,7 +282,7 @@
                             <td>{{training.title}}</td>
                             <td>{{training.coachName}}</td>
                             <td>{{training.source}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
+                            <td><a  ng-href="#/admin/edit/training/{{training._id}}"><i class="fa fa-pencil"></i></a>
                                 <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
 

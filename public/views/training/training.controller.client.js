@@ -79,6 +79,9 @@
                 .findTrainingById(vm.trainingId)
                 .success(
                     function (training) {
+                        if (vm.user._id != training._coach) {
+                            $location.url("/training");
+                        }
                         training.videoUrl="https://youtu.be/"+training.videoUrl;
                         vm.training=training;
                     }

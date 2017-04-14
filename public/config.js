@@ -27,6 +27,24 @@
                 }
 
             })
+                .when("/admin/edit/blog/:blogId", {
+                    templateUrl: "/views/admin/admin.update.blog.view.client.html",
+                    controller:"AdminBlogEditController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
+                .when("/admin/edit/training/:trainingId", {
+                    templateUrl: "/views/admin/admin.update.training.view.client.html",
+                    controller:"AdminTrainingEditController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
                 .when("/admin/new/user", {
                     templateUrl: "/views/admin/admin.new.user.view.client.html",
                     controller:"AdminUserNewController",

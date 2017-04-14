@@ -7,7 +7,97 @@
         .controller("AdminUserNewController",AdminUserNewController)
         .controller('AdminPostNewController',AdminPostNewController)
         .controller("AdminBlogNewController",AdminBlogNewController)
-        .controller("AdminTrainingNewController",AdminTrainingNewController);
+        .controller("AdminTrainingNewController",AdminTrainingNewController)
+        .controller("AdminBlogEditController",AdminBlogEditController)
+        .controller("AdminTrainingEditController",AdminTrainingEditController);
+
+    function AdminBlogEditController($routeParams, $location, $rootScope, BlogService) {
+        var vm = this;
+        vm.updateBlog = updateBlog;
+        vm.blogId = $routeParams.blogId;
+        vm.logout=logout;
+        vm.user = $rootScope.currentUser;
+
+        function init() {
+            BlogService
+                .findBlogById(vm.blogId)
+                .success(function (blog) {
+                    vm.blog = blog;
+                    vm.title = vm.blog.title;
+                });
+        }
+        init();
+
+        function updateBlog(blog) {
+            BlogService
+                .updateBlog(vm.blogId, blog)
+                .success(function (status) {
+                    $location.url("/admin");
+                });
+        }
+
+        function deleteBlog(blogId) {
+            BlogService
+                .deleteBlog(blogId)
+                .success(function (status) {
+                    $location.url("/admin");
+                });
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+    }
+    function AdminTrainingEditController($routeParams,$rootScope, $location,TrainingService,UserService) {
+        var vm=this;
+        vm.updateTraining=updateTraining;
+        vm.logout = logout;
+        vm.trainingId = $routeParams.trainingId;
+        function init() {
+            vm.user=$rootScope.currentUser;
+            TrainingService
+                .findTrainingById(vm.trainingId)
+                .success(
+                    function (training) {
+                        training.videoUrl="https://youtu.be/"+training.videoUrl;
+                        vm.training=training;
+                    }
+                )
+        }
+        init();
+
+        function updateTraining(training) {
+            var urlParts = training.videoUrl.split('/');
+            var id = urlParts[urlParts.length - 1];
+            training.videoUrl=id;
+            // console.log("controller",training);
+            console.log(training._coach)
+            TrainingService
+                .updateTraining(training._id,training)
+                .success(
+                    function (training) {
+                        // console.log("create success!")
+                        $location.url("/admin");
+                    }
+                )
+
+        }
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+    }
     
     function AdminTrainingNewController($routeParams, $rootScope, $location,TrainingService,UserService) {
         var vm=this;
