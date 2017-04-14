@@ -22,10 +22,14 @@
             "deleteUser": deleteUser,
             "getUserFollowing": getUserFollowing,
             "getUserFollower": getUserFollower,
-            "countFollowerById": countFollowerById
+            "countFollowerById": countFollowerById,
+            "create":create
         };
         return api;
 
+        function create(user) {
+            return $http.post("/api/admin/user", user);
+        }
         function deleteUser(userId) {
             return $http.delete("/api/user/"+userId);
         }

@@ -7,6 +7,7 @@
                 .when("/", {
                     redirectTo: '/index'
                 })
+
                 .when("/admin", {
                     templateUrl: "/views/admin/admin.view.client.html",
                     controller:"AdminController",
@@ -17,6 +18,67 @@
                     }
 
                 })
+                .when("/admin/edit/user/:userId", {
+                templateUrl: "/views/admin/admin.update.user.view.client.html",
+                controller:"AdminUserEditController",
+                controllerAs:"model",
+                resolve: {
+                    checkAdminLoggedIn: checkAdminLoggedIn
+                }
+
+            })
+                .when("/admin/edit/blog/:blogId", {
+                    templateUrl: "/views/admin/admin.update.blog.view.client.html",
+                    controller:"AdminBlogEditController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
+                .when("/admin/edit/training/:trainingId", {
+                    templateUrl: "/views/admin/admin.update.training.view.client.html",
+                    controller:"AdminTrainingEditController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
+                .when("/admin/new/user", {
+                    templateUrl: "/views/admin/admin.new.user.view.client.html",
+                    controller:"AdminUserNewController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
+                .when("/admin/new/post", {
+                    templateUrl: "/views/admin/admin.new.post.view.client.html",
+                    controller:"AdminPostNewController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+                })
+                .when("/admin/new/blog", {
+                    templateUrl: "/views/admin/admin.new.blog.view.client.html",
+                    controller:"AdminBlogNewController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+                })
+                .when("/admin/new/training", {
+                    templateUrl: "/views/admin/admin.new.training.view.client.html",
+                    controller:"AdminTrainingNewController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+                })
+
                 .when("/index", {
                     templateUrl: "/views/home/templates/index.view.client.html",
                     controller:"HomeController",
