@@ -312,6 +312,10 @@
         vm.newPost=newPost;
         vm.newBlog=newBlog;
         vm.newTraining=newTraining;
+        vm.deleteUser=deleteUser;
+        vm.deletePost=deletePost;
+        vm.deleteBlog=deleteBlog;
+        vm.deleteTraining=deleteTraining;
 
         function init(){
             vm.user=$rootScope.currentUser;
@@ -322,7 +326,38 @@
         }
 
         init();
-
+        function deleteTraining(trainingId) {
+            TrainingService.deleteTraining
+                .success(
+                    function (status) {
+                        setAllTrainings();
+                    }
+                )
+        }
+        function deletePost(postId) {
+            PostService.deletePost(postId)
+                .success(
+                    function (status) {
+                        setAllPosts();
+                    }
+                )
+        }
+        function deleteBlog(blogId) {
+            BlogService.deleteBlog(blogId)
+                .success(
+                    function (status) {
+                        setAllBlogs();
+                    }
+                )
+        }
+        function deleteUser(userId) {
+            UserService.deleteUser(userId)
+                .success(
+                    function (status) {
+                        setAllUsers();
+                    }
+                )
+        }
         function newTraining() {
             $location.url("/admin/new/training");
         }
