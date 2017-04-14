@@ -15,10 +15,14 @@
             "updateBlog": updateBlog,
             "deleteBlog": deleteBlog,
             "addCommentForBlog": addCommentForBlog,
-            "findAllBlogs":findAllBlogs
+            "findAllBlogs":findAllBlogs,
+            "findBlogsByBlogger":findBlogsByBlogger
         };
         return api;
 
+        function findBlogsByBlogger(blogger) {
+            return $http.get("/api/find/blogs/by/"+blogger)
+        }
         function findAllBlogs() {
             return $http.get("/api/find/blogs");
         }

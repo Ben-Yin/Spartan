@@ -19,7 +19,8 @@ module.exports = function () {
         updateAvatar:updateAvatar,
         updatePassword:updatePassword,
         findAllUsers:findAllUsers,
-        countFollowerById: countFollowerById
+        countFollowerById: countFollowerById,
+        findUsersByUsername:findUsersByUsername
     };
     return api;
 
@@ -99,10 +100,12 @@ module.exports = function () {
     }
 
     function findUserByUsername(username) {
-        return UserModel
-            .findOne({username: username});
+        return UserModel.findOne({username: username});
     }
 
+    function findUsersByUsername(username) {
+        return UserModel.find({username:username});
+    }
     function countFollowerById(userId) {
         return UserModel.count({following:userId});
     }

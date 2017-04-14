@@ -316,7 +316,13 @@
         vm.deleteBlog=deleteBlog;
         vm.deleteTraining=deleteTraining;
         vm.searchUser=searchUser;
-
+        vm.setAllUsers=setAllUsers;
+        vm.searchPost=searchPost;
+        vm.setAllPosts=setAllPosts;
+        vm.searchBlog=searchBlog;
+        vm.setAllBlogs=setAllBlogs;
+        vm.searchTraining=searchTraining;
+        vm.setAllTrainings=setAllTrainings;
         function init(){
             vm.user=$rootScope.currentUser;
             setAllUsers();
@@ -326,11 +332,61 @@
         }
 
         init();
+
+        function searchTraining(text) {
+            TrainingService.findTrainingByCoachName(text)
+                .success(
+                    function (trainings) {
+                        var index=1;
+                        for(var i in trainings){
+                            trainings[i].index=index;
+                            index+=1;
+                        }
+                        vm.trainings=trainings;
+                    }
+                )
+        }
+        function searchBlog(text) {
+            BlogService.findBlogsByBlogger(text)
+                .success(function (blogs) {
+                        var index=1;
+                        for(var i in blogs){
+                            blogs[i].index=index;
+                            index+=1;
+                        }
+                        vm.blogs=blogs;
+                }
+                )
+        }
+        function searchPost(text) {
+            PostService.findPostByPoster(text)
+                .success(
+                    function (posts) {
+                        var index=1;
+                        for(var i in posts){
+                            posts[i].index=index;
+                            index+=1;
+                        }
+                        vm.posts=posts;
+                    }
+                )
+        }
         function searchUser(text) {
+            UserService.findUsersByUsername(text)
+                .success(
+                    function (users) {
+                        var index=1;
+                        for (var i in users){
+                            users[i].index=index;
+                            index+=1;
+                        }
+                        vm.users=users;
+                    }
+                )
 
         }
         function deleteTraining(trainingId) {
-            TrainingService.deleteTraining
+            TrainingService.deleteTraining(trainingId)
                 .success(
                     function (status) {
                         setAllTrainings();

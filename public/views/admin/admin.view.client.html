@@ -108,15 +108,15 @@
 
                     </div>
                         <div class="inline-search clearfix col-xs-6">
-                            <form action="" method="get" class="widget_search ng-pristine ng-valid">
-                                <input type="search" ng-model="model.userword" placeholder="Start Searching..." id="s" name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
+                            <form class="widget_search ng-pristine ng-valid">
+                                <input type="search" ng-model="model.userword" placeholder="Search By Username" id="s" name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
                                 <button ng-click="model.searchUser(model.userword)">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </form>
                         </div>
                         <div class="col-xs-2">
-                            <button class="btn btn-info" ng-click="model.clearUsrSearch()">Clear
+                            <button class="btn btn-info" ng-click="model.setAllUsers()">Clear
                             </button>
                         </div>
                     </div>
@@ -158,11 +158,26 @@
                 </div>
                 <div class="main-content">
 
-                    <div class="btn-toolbar list-toolbar">
+                    <div class="row">
+                    <div class="btn-toolbar list-toolbar col-xs-4">
                         <button class="btn btn-primary" ng-click="model.newPost()"><i class="fa fa-plus"></i> New Post</button>
                         <div class="btn-group">
                         </div>
                     </div>
+
+                <div class="inline-search clearfix col-xs-6">
+                    <form class="widget_search ng-pristine ng-valid">
+                        <input type="search" ng-model="model.postword" placeholder="Start By Poster"  name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
+                        <button ng-click="model.searchPost(model.postword)">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-info" ng-click="model.setAllPosts()">Clear
+                    </button>
+                </div>
+                </div>
                     <table class="table">
                         <thead>
                         <tr>
@@ -183,8 +198,7 @@
                         </tbody>
                     </table>
 
-                </div>
-            </div>
+            </div></div>
 
             <div id="blog" class="tab-pane">
                 <div class="row">
@@ -197,12 +211,24 @@
                     </div>
                 </div>
                 <div class="main-content">
-
-                    <div class="btn-toolbar list-toolbar">
+                <div class="row">
+                    <div class="btn-toolbar list-toolbar col-xs-4">
                         <button class="btn btn-primary" ng-click="model.newBlog()"><i class="fa fa-plus"></i> New Blog</button>
                         <div class="btn-group">
                         </div>
+                    </div><div class="inline-search clearfix col-xs-6">
+                    <form class="widget_search ng-pristine ng-valid">
+                        <input type="search" ng-model="model.blogword" placeholder="Start By Blogger"  name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
+                        <button ng-click="model.searchBlog(model.blogword)">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                    <div class="col-xs-2">
+                        <button class="btn btn-info" ng-click="model.setAllBlogs()">Clear
+                        </button>
                     </div>
+                </div>
                     <table class="table">
                         <thead>
                         <tr>
@@ -240,12 +266,25 @@
                     </div>
                 </div>
                 <div class="main-content">
-
-                    <div class="btn-toolbar list-toolbar">
+                <div class="row">
+                    <div class="btn-toolbar list-toolbar col-xs-4" >
                         <button class="btn btn-primary" ng-click="model.newTraining()"><i class="fa fa-plus"></i> New Training</button>
                         <div class="btn-group">
                         </div>
                     </div>
+                    <div class="inline-search clearfix col-xs-6">
+                        <form class="widget_search ng-pristine ng-valid">
+                            <input type="search" ng-model="model.trainingword" placeholder="Start By Blogger"  name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
+                            <button ng-click="model.searchTraining(model.trainingword)">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-xs-2">
+                        <button class="btn btn-info" ng-click="model.setAllTrainings()">Clear
+                        </button>
+                    </div>
+                </div>
                     <table class="table">
                         <thead>
                         <tr>

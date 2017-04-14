@@ -17,10 +17,14 @@ module.exports = function () {
         deletePost: deletePost,
         addCommentForPost: addCommentForPost,
         findAllPosts:findAllPosts,
-        countPostByUserId: countPostByUserId
+        countPostByUserId: countPostByUserId,
+        findPostByPoster:findPostByPoster
     };
     return api;
 
+    function findPostByPoster(poster) {
+        return PostModel.find({posterName:poster});
+    }
     function findAllPosts() {
         return PostModel.find();
     }

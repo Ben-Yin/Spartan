@@ -17,10 +17,14 @@ module.exports=function () {
         deleteTraining:deleteTraining,
         addCommentForTraining:addCommentForTraining,
         findTrainingByVideoId:findTrainingByVideoId,
-        findAllTrainings:findAllTrainings
+        findAllTrainings:findAllTrainings,
+        findTrainingByCoachName:findTrainingByCoachName
     };
     return api;
 
+    function findTrainingByCoachName(coach) {
+        return TrainingModel.find({coachName:coach});
+    }
     function findAllTrainings() {
         return TrainingModel.find({});
     }

@@ -6,7 +6,8 @@
         .controller("RegisterController", RegisterController)
         .controller("ProfileController",ProfileController)
         .controller("ProfileEditController",ProfileEditController)
-        .controller("UserFollowingController", UserFollowingController);
+        .controller("UserFollowingController", UserFollowingController)
+        .controller("UserFavoriteController",UserFavoriteController);
     function RegisterController($location,UserService,$rootScope) {
         var vm=this;
         vm.register=register;
@@ -385,6 +386,61 @@
                         $rootScope.currentUser = null;
                         $location.url("/");
                     })}
+    }
+    function UserFavoriteController($sce,$routeParams,$rootScope, $location,TrainingService,UserService) {
+
+        var vm=this;
+        vm.coachId=$rootScope.currentUser._id;
+        vm.getFormattedDate = getFormattedDate;
+        vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
+        vm.logout=logout;
+
+        function init() {
+            vm.user = $rootScope.currentUser;
+            var favorites=vm.user.storecourse;
+            vm.spartanTraining=[];
+            for (var i in favorites){
+                TrainingService.findTrainingById(favorites[i])
+                    .success(
+                        function (training) {
+                            vm.spartanTraining.push(training)
+                        }
+                    )
+            }
+
+
+        };
+        init();
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+        function setCoachForTraining(training) {
+            UserService
+                .getUserById(training._coach)
+                .success(
+                    function (user) {
+                        training.coachName = user.username;
+                    }
+                )
+        }
+        function getFormattedDate(dateStr) {
+            var date = new Date(dateStr);
+            // console.log(date);
+            return date.toDateString();
+        }
+
+        function getYouTubeEmbedUrl(videoId) {
+            // console.log(widgetUrl)
+            var url = "https://www.youtube.com/embed/"+videoId;
+            // console.log(videoId)
+            return $sce.trustAsResourceUrl(url);
+        }
     }
 
 
