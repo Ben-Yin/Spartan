@@ -10,6 +10,19 @@ module.exports = function (app, model) {
     app.delete("/api/blog/:blogId", deleteBlog);
     app.post("/api/blog/:blogId/comment", addCommentForBlog);
     app.get("/api/find/blogs",findAllBlogs);
+    app.get("/api/find/blogs/by/:blogger",findBlogsByBlogger);
+    function findBlogsByBlogger(req,res) {
+        var blogger=req.params.blogger;
+        model.BlogModel.findBlogsByBlogger(blogger)
+            .then(
+                function (blogs) {
+                    res.json(blogs);
+                },function (err) {
+                    res.sendStatus(500);
+                    console.log(err);
+                }
+            )
+    }
 
     function findAllBlogs(req,res) {
         model.BlogModel.findAllBlogs()

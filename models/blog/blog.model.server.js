@@ -13,11 +13,15 @@ module.exports = function () {
         deleteBlog: deleteBlog,
         addCommentForBlog: addCommentForBlog,
         findAllBlogs:findAllBlogs,
-        countBlogByUserId: countBlogByUserId
+        countBlogByUserId: countBlogByUserId,
+        findBlogsByBlogger:findBlogsByBlogger
 
     };
     return api;
 
+    function findBlogsByBlogger(blogger) {
+        return BlogModel.find({bloggerName:blogger});
+    }
     function findAllBlogs() {
         return BlogModel.find();
     }

@@ -319,6 +319,8 @@
         vm.setAllUsers=setAllUsers;
         vm.searchPost=searchPost;
         vm.setAllPosts=setAllPosts;
+        vm.searchBlog=searchBlog;
+        vm.setAllBlogs=setAllBlogs;
         function init(){
             vm.user=$rootScope.currentUser;
             setAllUsers();
@@ -329,6 +331,18 @@
 
         init();
 
+        function searchBlog(text) {
+            BlogService.findBlogsByBlogger(text)
+                .success(function (blogs) {
+                        var index=1;
+                        for(var i in blogs){
+                            blogs[i].index=index;
+                            index+=1;
+                        }
+                        vm.blogs=blogs;
+                }
+                )
+        }
         function searchPost(text) {
             PostService.findPostByPoster(text)
                 .success(
