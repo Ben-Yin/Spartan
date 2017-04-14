@@ -43,9 +43,6 @@
                 .findCommentByBlogId(vm.blogId)
                 .success(function (comments) {
                     vm.comments = comments;
-                    for (var i in vm.comments) {
-                        setCommenter(vm.comments[i]);
-                    }
                 });
         }
         init();
@@ -54,6 +51,7 @@
             comment._post = vm.blogId;
             if (vm.user) {
                 comment._user = vm.user._id;
+                comment.commenterName = vm.user.username;
             } else {
                 comment._user = null;
             }
@@ -64,9 +62,6 @@
                         .findCommentByBlogId(vm.blogId)
                         .success(function (comments) {
                             vm.comments = comments;
-                            for (var i in vm.comments) {
-                                setCommenter(vm.comments[i]);
-                            }
                         });
                     vm.comment = null;
                 });
@@ -105,21 +100,6 @@
             } else {
                 $location.url("/blog");
             }
-        }
-
-        function setCommenter(comment) {
-            UserService
-                .getUserById(comment._user)
-                .success(
-                    function (user) {
-                        comment.commenter = user.username;
-                    }
-                )
-                .error(
-                    function () {
-                        comment.commenter = "Visitor";
-                    }
-                )
         }
 
         function deleteBlog(blogId) {

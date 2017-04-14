@@ -116,13 +116,6 @@
             vm.user = $rootScope.currentUser;
             var maxNum = 6;
             UserService
-                .countFollowerById(vm.user._id)
-                .success(
-                    function (res) {
-                        vm.user.followerNum = res.followerNum;
-                    }
-                );
-            UserService
                 .getUserFollowing(vm.user._id)
                 .success(
                     function (followings) {
@@ -148,7 +141,6 @@
                 .findBlogByConditions(null, null, "trending")
                 .success(
                     function (blogs) {
-                        console.log(blogs);
                         if (blogs.length > maxNum) {
                             vm.blogs = blogs.slice(0, maxNum);
                         } else {
