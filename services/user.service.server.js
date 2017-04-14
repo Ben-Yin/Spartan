@@ -200,7 +200,7 @@ module.exports = function (app, model) {
                                     id:    profile.id,
                                     token: token
                                 },
-                                usertype:"Membership",
+                                usertype:"MemberShip",
                                 service:true
                             };
                             return model.UserModel.createUser(newFacebookUser);
@@ -254,7 +254,7 @@ module.exports = function (app, model) {
                                 id:    profile.id,
                                 token: token
                             },
-                            usertype:"Membership",
+                            usertype:"MemberShip",
                             service:true
                         };
                         return model.UserModel.createUser(newGoogleUser);
@@ -305,7 +305,7 @@ module.exports = function (app, model) {
                                 id:    profile.id,
                                 token: token
                             },
-                            usertype:"Membership",
+                            usertype:"MemberShip",
                             service:true
                         };
                         return model.UserModel.createUser(newGitHubUser);
