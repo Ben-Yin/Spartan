@@ -16,10 +16,14 @@
             "updatePost": updatePost,
             "deletePost": deletePost,
             "addCommentForPost": addCommentForPost,
-            'findAllPosts':findAllPosts
+            'findAllPosts':findAllPosts,
+            "findPostByPoster":findPostByPoster
         };
         return api;
 
+        function findPostByPoster(name) {
+            return $http.get("/api/find/posts/by/"+name);
+        }
         function findAllPosts() {
             return $http.get("/api/find/posts");
         }

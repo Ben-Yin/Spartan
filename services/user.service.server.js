@@ -34,7 +34,7 @@ module.exports = function (app, model) {
 
     function findUsersByUsername(req,res) {
         var username=req.params.username;
-        console.log(username)
+        // console.log(username)
         model.UserModel.findUsersByUsername(username)
             .then(
                 function (users) {

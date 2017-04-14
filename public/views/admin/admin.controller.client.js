@@ -317,7 +317,8 @@
         vm.deleteTraining=deleteTraining;
         vm.searchUser=searchUser;
         vm.setAllUsers=setAllUsers;
-
+        vm.searchPost=searchPost;
+        vm.setAllPosts=setAllPosts;
         function init(){
             vm.user=$rootScope.currentUser;
             setAllUsers();
@@ -328,6 +329,19 @@
 
         init();
 
+        function searchPost(text) {
+            PostService.findPostByPoster(text)
+                .success(
+                    function (posts) {
+                        var index=1;
+                        for(var i in posts){
+                            posts[i].index=index;
+                            index+=1;
+                        }
+                        vm.posts=posts;
+                    }
+                )
+        }
         function searchUser(text) {
             UserService.findUsersByUsername(text)
                 .success(

@@ -15,6 +15,17 @@ module.exports = function (app, model) {
     app.post("/api/post/:postId/comment", addCommentForPost);
     app.post("/api/upload/post", upload.single('uploadImage'), uploadImage);
     app.get("/api/find/posts",findAllPosts);
+    app.get("/api/find/posts/by/:poster",findPostByPoster);
+    function findPostByPoster(req,res) {
+        var poster=req.params.poster;
+        model.PostModel.findPostByPoster(poster)
+            .then(function (posts) {
+                res.json(posts)
+            },function (err) {
+                res.sendStatus(500);
+                console.log(err)
+            })
+    }
     function findAllPosts(req,res) {
         model.PostModel.findAllPosts()
             .then(
