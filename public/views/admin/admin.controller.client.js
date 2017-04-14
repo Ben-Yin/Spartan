@@ -315,6 +315,7 @@
         vm.deletePost=deletePost;
         vm.deleteBlog=deleteBlog;
         vm.deleteTraining=deleteTraining;
+        vm.searchUser=searchUser;
 
         function init(){
             vm.user=$rootScope.currentUser;
@@ -325,6 +326,9 @@
         }
 
         init();
+        function searchUser(text) {
+
+        }
         function deleteTraining(trainingId) {
             TrainingService.deleteTraining
                 .success(
@@ -419,7 +423,7 @@
                             index+=1;
                         }
                         vm.blogs=blogs;
-                        console.log(blogs);
+                        vm.blogAmount=blogs.length;
                     }
                 )
         }
@@ -434,7 +438,7 @@
                             index+=1;
                         }
                         vm.posts=posts;
-                        // console.log(posts)
+                        vm.postAmount=posts.length;
                     }
                 )
         }
@@ -449,6 +453,7 @@
                             index+=1;
                         }
                         vm.trainings=trainings;
+                        vm.trainingAmount=trainings.length;
                     }
                 )
         }
@@ -462,7 +467,7 @@
                             index+=1;
                         }
                         vm.users=users;
-                        // console.log("setAll",users);
+                        vm.userAmount=users.length;
                     }
                 )
         }

@@ -185,7 +185,9 @@ module.exports = function (app, model) {
                                 facebook: {
                                     id:    profile.id,
                                     token: token
-                                }
+                                },
+                                usertype:"Membership",
+                                service:true
                             };
                             return model.UserModel.createUser(newFacebookUser);
                         }
@@ -237,7 +239,9 @@ module.exports = function (app, model) {
                             google: {
                                 id:    profile.id,
                                 token: token
-                            }
+                            },
+                            usertype:"Membership",
+                            service:true
                         };
                         return model.UserModel.createUser(newGoogleUser);
                     }
@@ -286,7 +290,9 @@ module.exports = function (app, model) {
                             github: {
                                 id:    profile.id,
                                 token: token
-                            }
+                            },
+                            usertype:"Membership",
+                            service:true
                         };
                         return model.UserModel.createUser(newGitHubUser);
                     }
