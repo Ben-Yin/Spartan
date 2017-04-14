@@ -35,6 +35,15 @@
                     }
 
                 })
+                .when("/admin/new/post", {
+                    templateUrl: "/views/admin/admin.new.post.view.client.html",
+                    controller:"AdminPostNewController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+
+                })
                 .when("/index", {
                     templateUrl: "/views/home/templates/index.view.client.html",
                     controller:"HomeController",
