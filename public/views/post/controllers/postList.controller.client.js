@@ -135,11 +135,11 @@
             var posterIndex = vm.user.following.indexOf(userId);
             if (posterIndex != -1) {
                 vm.user.following.splice(posterIndex, 1);
-                vm.followerNum -= 1;
+                vm.poster.followerNum -= 1;
 
             } else {
                 vm.user.following.push(userId);
-                vm.followerNum += 1;
+                vm.poster.followerNum += 1;
             }
             UserService
                 .updateUser(vm.user._id, vm.user)

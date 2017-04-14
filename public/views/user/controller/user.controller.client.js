@@ -109,57 +109,80 @@
     }
     
     function ProfileController($location,$rootScope,UserService,BlogService,TrainingService) {
-        var vm=this
+        var vm=this;
         vm.logout=logout;
         vm.setFollowerNum = setFollowerNum;
 
         function init() {
             vm.user = $rootScope.currentUser;
             var maxNum = 6;
-            UserService
-                .getUserFollowing(vm.user._id)
-                .success(
-                    function (followings) {
-                        if (followings.length > maxNum) {
-                            vm.following = followings.slice(0, maxNum);
-                        } else {
-                            vm.following = followings;
+            if (vm.user.usertype == "MemberShip") {
+                UserService
+                    .getUserFollowing(vm.user._id)
+                    .success(
+                        function (followings) {
+                            if (followings.length > maxNum) {
+                                vm.following = followings.slice(0, maxNum);
+                            } else {
+                                vm.following = followings;
+                            }
                         }
-                    }
-                );
-            UserService
-                .getUserFollower(vm.user._id)
-                .success(
-                    function (followers) {
-                        if (followers.length > maxNum) {
-                            vm.followers = followers.slice(0, maxNum);
-                        } else {
-                            vm.followers = followers;
+                    );
+                UserService
+                    .getUserFollower(vm.user._id)
+                    .success(
+                        function (followers) {
+                            if (followers.length > maxNum) {
+                                vm.followers = followers.slice(0, maxNum);
+                            } else {
+                                vm.followers = followers;
+                            }
+                            vm.followerNum = vm.followers.length;
                         }
-                    }
-                );
-            BlogService
-                .findBlogByConditions(null, null, "trending")
-                .success(
-                    function (blogs) {
-                        if (blogs.length > maxNum) {
-                            vm.blogs = blogs.slice(0, maxNum);
-                        } else {
-                            vm.blogs = blogs;
+                    );
+                BlogService
+                    .findBlogByConditions(null, null, "trending")
+                    .success(
+                        function (blogs) {
+                            if (blogs.length > maxNum) {
+                                vm.blogs = blogs.slice(0, maxNum);
+                            } else {
+                                vm.blogs = blogs;
+                            }
                         }
-                    }
-                );
-            TrainingService
-                .findTrainingByUserId(vm.user._id)
-                .success(
-                    function (courses) {
-                        if (courses.length > maxNum) {
-                            vm.courses = courses.slice(0, maxNum);
-                        } else {
-                            vm.courses = courses;
+                    );
+                TrainingService
+                    .findTrainingByUserId(vm.user._id)
+                    .success(
+                        function (courses) {
+                            if (courses.length > maxNum) {
+                                vm.courses = courses.slice(0, maxNum);
+                            } else {
+                                vm.courses = courses;
+                            }
                         }
-                    }
-                );
+                    );
+            } else if (vm.user.usertype == "Coach") {
+                UserService
+                    .countFollowerById(vm.user._id)
+                    .success(
+                        function (res) {
+                            vm.followerNum = res.followerNum;
+                        }
+                    )
+                TrainingService
+                    .findTrainingByCoachId(vm.user._id)
+                    .success(
+                        function (courses) {
+                            if (courses.length > maxNum) {
+                                vm.courses = courses.slice(0, maxNum);
+                            } else {
+                                vm.courses = courses;
+                            }
+                        }
+                    );
+            }
+
         }
         init();
 
