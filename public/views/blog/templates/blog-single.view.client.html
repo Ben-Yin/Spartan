@@ -15,7 +15,7 @@
             <ol class="breadcrumb">
                 <li><a ng-href="#">Home</a></li>
                 <li><a ng-href="#/blog">Blog</a></li>
-                <li class="active">{{model.title}}</li>
+                <li class="active">{{model.blog.title}}</li>
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -94,7 +94,7 @@
                     <!-- comment item -->
                     <div class="comment-item" ng-repeat="comment in model.comments">
                         <div class="media-body">
-                            <h4 class="media-heading bold">{{comment.commenter}}</h4>
+                            <h4 class="media-heading bold">{{comment.commenterName}}</h4>
                             <small class="block">{{model.getFormattedDate(comment.commentDate)}}</small>
                             {{comment.content}}
                         </div>

@@ -8,6 +8,7 @@ module.exports = function () {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user'
         },
+        commenterName: String,
         _post: {
             type: mongoose.Schema.Types.ObjectId
         },

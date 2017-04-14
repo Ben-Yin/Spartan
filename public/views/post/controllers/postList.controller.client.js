@@ -61,7 +61,6 @@
                             vm.posts = posts;
 
                             for (var i in vm.posts) {
-                                setPosterForPost(vm.posts[i]);
                                 setHeartIcon(vm.posts[i]);
                                 setCommentView(vm.posts[i]);
                             }
@@ -114,6 +113,7 @@
             };
             if (vm.user) {
                 comment._user = vm.user._id;
+                comment.commenterName = vm.user.username;
             } else {
                 comment._user = null;
             }
@@ -135,9 +135,11 @@
             var posterIndex = vm.user.following.indexOf(userId);
             if (posterIndex != -1) {
                 vm.user.following.splice(posterIndex, 1);
+                vm.followerNum -= 1;
 
             } else {
                 vm.user.following.push(userId);
+                vm.followerNum += 1;
             }
             UserService
                 .updateUser(vm.user._id, vm.user)
@@ -157,15 +159,6 @@
                     }
                 )
         }
-        function setPosterForPost(post) {
-            UserService
-                .getUserById(post._poster)
-                .success(
-                    function (user) {
-                        post.posterName = user.username;
-                    }
-                );
-        }
 
         function searchPosts(keyword) {
             setPostsByConditions(keyword, vm.defaultSorting);
@@ -176,9 +169,6 @@
                 .findCommentByBlogId(post._id)
                 .success(function (comments) {
                     post.commentsView = comments;
-                    for (var i in post.commentsView) {
-                        setCommenter(post.commentsView[i]);
-                    }
                 });
         }
 
@@ -189,28 +179,12 @@
                     function (posts) {
                         vm.posts = posts;
                         for (var i in vm.posts) {
-                            setPosterForPost(vm.posts[i]);
                             setHeartIcon(vm.posts[i]);
                             setCommentView(vm.posts[i]);
                         }
 
                     }
                 );
-        }
-
-        function setCommenter(comment) {
-            UserService
-                .getUserById(comment._user)
-                .success(
-                    function (user) {
-                        comment.commenter = user.username;
-                    }
-                )
-                .error(
-                    function () {
-                        comment.commenter = "Visitor";
-                    }
-                )
         }
 
         function setHeartIcon(post) {
