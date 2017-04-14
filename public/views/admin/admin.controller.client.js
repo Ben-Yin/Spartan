@@ -321,6 +321,8 @@
         vm.setAllPosts=setAllPosts;
         vm.searchBlog=searchBlog;
         vm.setAllBlogs=setAllBlogs;
+        vm.searchTraining=searchTraining;
+        vm.setAllTrainings=setAllTrainings;
         function init(){
             vm.user=$rootScope.currentUser;
             setAllUsers();
@@ -331,6 +333,19 @@
 
         init();
 
+        function searchTraining(text) {
+            TrainingService.findTrainingByCoachName(text)
+                .success(
+                    function (trainings) {
+                        var index=1;
+                        for(var i in trainings){
+                            trainings[i].index=index;
+                            index+=1;
+                        }
+                        vm.trainings=trainings;
+                    }
+                )
+        }
         function searchBlog(text) {
             BlogService.findBlogsByBlogger(text)
                 .success(function (blogs) {

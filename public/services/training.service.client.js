@@ -22,9 +22,13 @@
             "deleteTraining":deleteTraining,
             "addCommentForTraining":addCommentForTraining,
             "findTrainingByVideoId":findTrainingByVideoId,
-            "findAllTrainings":findAllTrainings
+            "findAllTrainings":findAllTrainings,
+            "findTrainingByCoachName":findTrainingByCoachName
         }
         return api;
+        function findTrainingByCoachName(coach) {
+            return $http.get("/api/find/trainings/by/"+coach);
+        }
         function findAllTrainings() {
             return $http.get("/api/find/training")
         }

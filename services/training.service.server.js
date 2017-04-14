@@ -13,6 +13,20 @@ module.exports = function (app, model) {
     app.post("/api/training/:trainingId/comment", addCommentForTraining);
     app.get("/api/video/:videoId",findTrainingByVideoId);
     app.get("/api/find/training",findAllTrainings);
+    app.get("/api/find/trainings/by/:coach",findTrainingByCoachName);
+    function findTrainingByCoachName(req,res) {
+        var coachName=req.params.coach;
+        model.TrainingModel.findTrainingByCoachName(coachName)
+            .then(
+                function (trainings) {
+                    res.json(trainings);
+                },
+                function (err) {
+                    res.sendStatus(500);
+                    console.log(err);
+                }
+            )
+    }
 
     function findAllTrainings(req,res) {
         model.TrainingModel.findAllTrainings()
