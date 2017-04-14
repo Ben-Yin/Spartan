@@ -330,7 +330,7 @@
 
         }
         function deleteTraining(trainingId) {
-            TrainingService.deleteTraining
+            TrainingService.deleteTraining(trainingId)
                 .success(
                     function (status) {
                         setAllTrainings();

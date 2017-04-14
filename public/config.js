@@ -11,7 +11,10 @@
                 .when("/admin", {
                     templateUrl: "/views/admin/admin.view.client.html",
                     controller:"AdminController",
-                    controllerAs:"model"
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
 
                 })
                 .when("/admin/edit/user/:userId", {
@@ -241,6 +244,14 @@
                         getLoggedIn: getLoggedIn
                     }
                 })
+                .when("/my/favorite", {
+                    templateUrl: "/views/user/templates/favorite.training.list.view.client.html",
+                    controller: "UserFavoriteController",
+                    controllerAs: "model",
+                    resolve: {
+                        checkLoggedin: checkLoggedin
+                    }
+                })
                 .when("/bmi", {
                     templateUrl: "/views/bmi/templates/bmi-form.view.client.html",
                     controller: "BMIController",
@@ -259,7 +270,7 @@
     function checkLoggedin($q, $http, $location, $rootScope) {
         var deferred = $q.defer();
         $http.get('/api/loggedin').success(function(user) {
-            console.log("checkLoggedin",user);
+            // console.log("checkLoggedin",user);
             $rootScope.errorMessage = null;
             if (user !== '0') {
                 user.loggedin=true;
@@ -275,7 +286,7 @@
     function checkCoachLoggedin($q, $http, $location, $rootScope) {
         var deferred = $q.defer();
         $http.get('/api/loggedin').success(function(user) {
-            console.log("checkLoggedin",user);
+            // console.log("checkLoggedin",user);
             $rootScope.errorMessage = null;
             if (user !== '0'&& user.usertype=='Coach') {
                 user.loggedin=true;

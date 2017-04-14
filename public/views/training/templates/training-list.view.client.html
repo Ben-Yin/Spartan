@@ -11,7 +11,7 @@
             <ol class="breadcrumb">
                 <li><a ng-href="#/index">Home</a></li>
                 <li role="presentation" ng-hide="model.user.usertype"><a  ng-href="#/register">Register</a></li>
-                <li role="presentation" ng-show="model.user.usertype"><a  ng-href="#/training/favorites/{{model.user._id}}">My Favorites</a></li>
+                <li role="presentation" ng-show="model.user.usertype"><a  ng-href="#/my/favorite">My Favorites</a></li>
                 <li role="presentation" ng-show="model.user.usertype=='Coach'"><a ng-href="#/training/coach/{{model.user._id}}">My Upload Course</a></li>
                 <li role="presentation" ng-show="model.user.usertype=='Coach'"><a ng-href="#/training/new">New Course</a></li>
             </ol><!-- /breadcrumbs -->
@@ -32,7 +32,7 @@
 
                     <!-- INLINE SEARCH -->
                     <div class="inline-search clearfix margin-bottom-30">
-                        <form action="" method="get" class="widget_search">
+                        <form class="widget_search">
                             <input type="search"
                                    ng-model="model.keyword"
                                    placeholder="Start Searching..."

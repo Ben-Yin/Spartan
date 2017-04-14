@@ -4,16 +4,12 @@
 
     <section class="page-header page-header-xs">
         <div class="container">
-            <a  ng-hide="model.user.usertype=='Coach'" ng-href="#/training"><h1>Enjoy your study in Spartan College!</h1></a>
-            <a  ng-show="model.user.usertype=='Coach'" ng-href="#/training"><h1>BE A CLOUD-COACH</h1></a>
+            <a  ng-href="#/training"><h1>My Favorite Course</h1></a>
             <!-- breadcrumbs -->
 
             <ol class="breadcrumb">
                 <li><a ng-href="#/index">Home</a></li>
-                <li role="presentation" ng-hide="model.user.usertype"><a  ng-href="#/register">Register</a></li>
-                <li role="presentation" ng-show="model.user.usertype"><a  ng-href="#/training/favorites/{{model.user._id}}">My Favorites</a></li>
-                <li role="presentation" ng-show="model.user.usertype=='Coach'"><a ng-href="#/training/coach/{{model.user._id}}">My Upload Course</a></li>
-                <li role="presentation" ng-show="model.user.usertype=='Coach'"><a ng-href="#/training/new">New Course</a></li>
+                <li role="presentation" ><a ng-href="#/Profile">My Profile</a></li>
             </ol><!-- /breadcrumbs -->
 
         </div>
@@ -27,7 +23,6 @@
         <div class="container">
 
 
-                <h2>{{model.coachName}}'s Courses</h2>
                 <!-- POST ITEM -->
                 <div class="blog-post-item row" ng-repeat="training in model.spartanTraining">
                     <!-- .blog-post-item-inverse = image right side [left on RTL] -->
