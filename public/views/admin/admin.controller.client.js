@@ -5,7 +5,79 @@
         .controller("AdminController", AdminController)
         .controller("AdminUserEditController",AdminUserEditController)
         .controller("AdminUserNewController",AdminUserNewController)
-        .controller('AdminPostNewController',AdminPostNewController);
+        .controller('AdminPostNewController',AdminPostNewController)
+        .controller("AdminBlogNewController",AdminBlogNewController)
+        .controller("AdminTrainingNewController",AdminTrainingNewController);
+    
+    function AdminTrainingNewController($routeParams, $rootScope, $location,TrainingService,UserService) {
+        var vm=this;
+        vm.createTraining=createTraining;
+        vm.logout = logout;
+        function init() {
+            vm.user=$rootScope.currentUser;
+        }
+        init();
+
+        function createTraining(training) {
+            var urlParts = training.videoUrl.split('/');
+            var id = urlParts[urlParts.length - 1];
+            training.videoUrl=id;
+            training.source="Spartan College";
+            training.coachName=vm.user.username;
+            // console.log("controller",training);
+            TrainingService
+                .createTraining(vm.user._id,training)
+                .success(
+                    function (training) {
+                        // console.log("create success!")
+                        $location.url("/admin");
+                    }
+                )
+
+        }
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+    }
+
+
+    function AdminBlogNewController($routeParams, $rootScope, $location, BlogService) {
+        var vm = this;
+        vm.createBlog = createBlog;
+        vm.logout = logout;
+
+        function init() {
+            vm.user = $rootScope.currentUser;
+        }
+        init();
+
+        function createBlog(blog) {
+            blog.bloggerName=vm.user.username;
+            BlogService
+                .createBlog(vm.user._id, blog)
+                .success(function (blog) {
+                    $location.url("/admin");
+                });
+        }
+
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+    }
+
     function AdminPostNewController($rootScope) {
         var vm = this;
         vm.logout = logout;
@@ -148,6 +220,8 @@
         vm.updatePass=updatePass;
         vm.newUser=newUser;
         vm.newPost=newPost;
+        vm.newBlog=newBlog;
+        vm.newTraining=newTraining;
 
         function init(){
             vm.user=$rootScope.currentUser;
@@ -159,6 +233,14 @@
 
         init();
 
+        function newTraining() {
+            $location.url("/admin/new/training");
+        }
+        function newBlog() {
+            // console.log("aa")
+            $location.url("/admin/new/blog");
+        }
+        
         function newUser() {
             // console.log("aa")
             $location.url("/admin/new/user");

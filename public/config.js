@@ -7,6 +7,7 @@
                 .when("/", {
                     redirectTo: '/index'
                 })
+
                 .when("/admin", {
                     templateUrl: "/views/admin/admin.view.client.html",
                     controller:"AdminController",
@@ -42,8 +43,24 @@
                     resolve: {
                         checkAdminLoggedIn: checkAdminLoggedIn
                     }
-
                 })
+                .when("/admin/new/blog", {
+                    templateUrl: "/views/admin/admin.new.blog.view.client.html",
+                    controller:"AdminBlogNewController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+                })
+                .when("/admin/new/training", {
+                    templateUrl: "/views/admin/admin.new.training.view.client.html",
+                    controller:"AdminTrainingNewController",
+                    controllerAs:"model",
+                    resolve: {
+                        checkAdminLoggedIn: checkAdminLoggedIn
+                    }
+                })
+
                 .when("/index", {
                     templateUrl: "/views/home/templates/index.view.client.html",
                     controller:"HomeController",
