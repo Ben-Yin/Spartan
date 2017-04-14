@@ -1,4 +1,10 @@
 ﻿
+<ng-include src="'./views/header/admin.header.view.client.html'"></ng-include>
+<div id="wrapper">
+
+
+
+<section>
 <div class="row">
 
     <!-- tabs -->
@@ -29,6 +35,16 @@
                     Training List
                 </a>
             </li>
+            <li>
+                <a href="#setting" data-toggle="tab" showtab="">
+                    Profile Setting
+                </a>
+            </li>
+            <li>
+                <a href="#pass" data-toggle="tab" showtab="">
+                    Password Setting
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -45,42 +61,30 @@
                         </ol>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box blue-bg">
-                            <i class="fa fa-cloud-download"></i>
-                            <div class="count">6.674</div>
-                            <div class="title">Download</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                <div class="bs-glyphicons ">
+                <ul class="glyphicons-list list-unstyled clearfix">
 
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box brown-bg">
-                            <i class="fa fa-shopping-cart"></i>
-                            <div class="count">7.538</div>
-                            <div class="title">Purchased</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                    <li>
+                        <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+                        <span class="glyphicon-class"><strong>{{model.userAmount}}</strong> Users </span>
+                    </li>
 
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box dark-bg">
-                            <i class="fa fa-thumbs-o-up"></i>
-                            <div class="count">4.362</div>
-                            <div class="title">Order</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                    <li>
+                        <i class="glyphicon glyphicon-camera" aria-hidden="true"></i>
+                        <span class="glyphicon-class"> <strong>{{model.postAmount}}</strong> Posts</span>
+                    </li>
+                    <li>
+                        <i class="glyphicon glyphicon-tasks" aria-hidden="true"></i>
+                        <span class="glyphicon-class"><strong>{{model.blogAmount}}</strong> Blog</span>
+                    </li>
 
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <div class="info-box green-bg">
-                            <i class="fa fa-cubes"></i>
-                            <div class="count">1.426</div>
-                            <div class="title">Stock</div>
-                        </div><!--/.info-box-->
-                    </div><!--/.col-->
+                    <li>
+                        <i class="glyphicon glyphicon-film" aria-hidden="true"></i>
+                        <span class="glyphicon-class"><strong>{{model.trainingAmount}}</strong> Trainings</span>
+                    </li>
+                </ul>
 
                 </div>
-
-
             </div>
 
 
@@ -96,9 +100,24 @@
                 </div>
                 <div class="main-content">
 
-                    <div class="btn-toolbar list-toolbar">
-                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New User</button>
+                    <div class="row">
+                    <div class="btn-toolbar list-toolbar col-xs-4">
+                        <button class="btn btn-primary" ng-click="model.newUser()"><i class="fa fa-plus"></i> New User</button>
                         <div class="btn-group">
+                        </div>
+
+                    </div>
+                        <div class="inline-search clearfix col-xs-6">
+                            <form action="" method="get" class="widget_search ng-pristine ng-valid">
+                                <input type="search" ng-model="model.userword" placeholder="Start Searching..." id="s" name="s" class="serch-input ng-pristine ng-valid ng-empty ng-touched">
+                                <button ng-click="model.searchUser(model.userword)">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-info" ng-click="model.clearUsrSearch()">Clear
+                            </button>
                         </div>
                     </div>
                     <table class="table">
@@ -117,39 +136,13 @@
                             <td>{{user.username}}</td>
                             <td>{{user.usertype}}</td>
                             <td>{{user.news}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                            <td><a ng-href="#/admin/edit/user/{{user._id}}" ><i class="fa fa-pencil"></i></a>
+                                <a ng-click="model.deleteUser(user._id)"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
 
                         </tbody>
                     </table>
 
-
-                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Delete Confirmation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <footer>
-                        <hr>
-
-
-                        <div style="clear:both;"></div>
-                    </footer>
                 </div>
             </div>
 
@@ -166,7 +159,7 @@
                 <div class="main-content">
 
                     <div class="btn-toolbar list-toolbar">
-                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New Post</button>
+                        <button class="btn btn-primary" ng-click="model.newPost()"><i class="fa fa-plus"></i> New Post</button>
                         <div class="btn-group">
                         </div>
                     </div>
@@ -184,39 +177,12 @@
                             <td>{{post.index}}</td>
                             <td>{{post.posterName}}</td>
                             <td>{{post.imageUrl}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                                <td><a ng-click="model.deletePost(post._id)"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
 
                         </tbody>
                     </table>
 
-
-                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Delete Confirmation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <footer>
-                        <hr>
-
-
-                        <div style="clear:both;"></div>
-                    </footer>
                 </div>
             </div>
 
@@ -233,7 +199,7 @@
                 <div class="main-content">
 
                     <div class="btn-toolbar list-toolbar">
-                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New Blog</button>
+                        <button class="btn btn-primary" ng-click="model.newBlog()"><i class="fa fa-plus"></i> New Blog</button>
                         <div class="btn-group">
                         </div>
                     </div>
@@ -253,39 +219,13 @@
                             <td>{{blog.title}}</td>
                             <td>{{blog.bloggerName}}</td>
                             <td>{{blog.category}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                            <td><a ng-href="#/admin/edit/blog/{{blog._id}}"><i class="fa fa-pencil"></i></a>
+                                <a ng-click="model.deleteBlog(blog._id)"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
 
                         </tbody>
                     </table>
 
-
-                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Delete Confirmation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <footer>
-                        <hr>
-
-
-                        <div style="clear:both;"></div>
-                    </footer>
                 </div>
             </div>
 
@@ -302,7 +242,7 @@
                 <div class="main-content">
 
                     <div class="btn-toolbar list-toolbar">
-                        <button class="btn btn-primary"><i class="fa fa-plus"></i> New Training</button>
+                        <button class="btn btn-primary" ng-click="model.newTraining()"><i class="fa fa-plus"></i> New Training</button>
                         <div class="btn-group">
                         </div>
                     </div>
@@ -322,44 +262,98 @@
                             <td>{{training.title}}</td>
                             <td>{{training.coachName}}</td>
                             <td>{{training.source}}</td>
-                            <td><a href="#user-profile" data-toggle="tab" showtab="" ng-click="model.turnToUserProfile(user)"><i class="fa fa-pencil"></i></a>
-                                <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a></td>
+                            <td><a  ng-href="#/admin/edit/training/{{training._id}}"><i class="fa fa-pencil"></i></a>
+                                <a ng-click="model.deleteTraining(training._id)"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
 
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <div id="setting" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa  fa-minus-square-o"></i> Change Admin Profile</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa   fa-minus-square-o"></i>Profile Setting</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <form role="form" action="#" method="post">
+                <div class="form-group">
+                    <label class="control-label">First Name</label>
+                    <input ng-model="model.user.firstname" type="text" placeholder="First Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Last Name</label>
+                    <input ng-model="model.user.lastname" type="text" placeholder="Last Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">email</label>
+                    <input ng-model="model.user.email" type="text" placeholder="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Phone</label>
+                    <input ng-model="model.user.phone" type="text" placeholder="Phone Number" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">About</label>
+                    <textarea ng-model="model.user.selfIntro" class="form-control" rows="3" placeholder="About Me..."></textarea>
+                </div>
+                <div class="margiv-top10">
+                    <a ng-click="model.update(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                </div>
+            </form>
 
 
-                    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h3 id="myModalLabel">Delete Confirmation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
+
+            </div>
+
+            <div id="pass" class="tab-pane">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-bell-slash-o"></i> Change Password</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a ng-href="#/admin" data-toggle="tab" showtab="">Home</a></li>
+                            <li><i class="fa   fa-bell-slash-o"></i>Password Setting</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <form action="#" method="post">
+
+                    <div class="form-group">
+                        <label class="control-label">Current Password</label>
+                        <input ng-model="model.user.originPass" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">New Password</label>
+                        <input ng-model="model.user.newpass" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Re-type New Password</label>
+                        <input ng-model="model.user.newpassCheck" type="password" class="form-control">
                     </div>
 
+                    <div class="margiv-top10">
+                        <a ng-click="model.updatePass(model.user)" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
+                    </div>
 
-                    <footer>
-                        <hr>
+                </form>
 
 
-                        <div style="clear:both;"></div>
-                    </footer>
-                </div>
+
             </div>
 
             </div>
         </div>
     </div>
 
+</section>
+
 </div>
+
+<ng-include src="'./views/footer/admin.footer.view.client.html'"></ng-include>

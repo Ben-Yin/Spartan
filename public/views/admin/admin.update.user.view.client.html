@@ -1,0 +1,191 @@
+
+<ng-include src="'./views/header/admin.header.view.client.html'"></ng-include>
+<div id="wrapper">
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <h1>Edit {{model.editUser.username}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="#/admin">Admin Panel</a></li>
+            <li class="active">Edit User</li>
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+<section>
+<div class="container">
+
+<ul class="nav nav-tabs nav-top-border">
+    <li class="active"><a showtab="" href="#info" data-toggle="tab" showtab="">Personal Info</a></li>
+    <li><a showtab="" href="#avatar" data-toggle="tab" showtab="">Avatar</a></li>
+    <li><a showtab="" href="#password" data-toggle="tab" showtab="">Password</a></li>
+    <li><a showtab="" href="#privacy" data-toggle="tab" showtab="">Privacy</a></li>
+    <li><a showtab="" href="#unregister" data-toggle="tab" showtab="">Unregister</a></li>
+</ul>
+
+<div class="tab-content margin-top-20">
+
+    <!-- PERSONAL INFO TAB -->
+    <div class="tab-pane fade in active" id="info">
+        <form role="form" action="#" method="post">
+            <div class="form-group">
+                <label class="control-label">First Name</label>
+                <input ng-model="model.editUser.firstname" type="text" placeholder="First Name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <input ng-model="model.editUser.lastname" type="text" placeholder="Last Name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">email</label>
+                <input ng-model="model.editUser.email" type="text" placeholder="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phone</label>
+                <input ng-model="model.editUser.phone" type="text" placeholder="Phone Number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">About</label>
+                <textarea ng-model="model.editUser.selfIntro" class="form-control" rows="3" placeholder="About Me..."></textarea>
+            </div>
+            <div class="margiv-top10">
+                <a ng-click="model.update(model.editUser)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                <a ng-href="#/admin" class="btn btn-default">Cancel </a>
+            </div>
+        </form>
+    </div>
+    <!-- /PERSONAL INFO TAB -->
+
+    <!-- AVATAR TAB -->
+    <div class="tab-pane fade" id="avatar">
+
+        <div class="row">
+
+            <div class="col-md-3 col-sm-4">
+
+                <div class="thumbnail">
+                    <img  ng-src="{{model.editUser.avatar}}" ng-show="model.editUser.avatar" />
+                    <img src="https://image.freepik.com/free-vector/variety-of-user-avatars_23-2147542131.jpg" ng-hide="model.editUser.avatar" />
+                </div>
+
+            </div>
+
+            <div class="col-md-9 col-sm-8" >
+                <form action="/api/upload"  method="post" enctype="multipart/form-data">
+                    <input  name="myFile"  type="file" class="form-control"/>
+                    <input  name="userId" value="{{model.editUser._id}}"   style="display:None"/>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save Change</button>
+                </form>
+                <div class="clearfix margin-top-20">
+                    <span class="label label-warning">NOTE! </span>
+                    <p>
+                        Please select file in JPG and PNG!
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <!-- /AVATAR TAB -->
+
+    <!-- PASSWORD TAB -->
+    <div class="tab-pane fade" id="password">
+
+        <form action="#" method="post">
+
+            <div class="form-group">
+                <label class="control-label">Current Password</label>
+                <input ng-model="model.editUser.originPass" type="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">New Password</label>
+                <input ng-model="model.editUser.newpass" type="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Re-type New Password</label>
+                <input ng-model="model.editUser.newpassCheck" type="password" class="form-control">
+            </div>
+
+            <div class="margiv-top10">
+                <a ng-click="model.updatePass(model.editUser)" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
+                <a ng-href="#/admin" class="btn btn-default">Cancel </a>
+            </div>
+
+        </form>
+
+    </div>
+    <!-- /PASSWORD TAB -->
+
+    <!-- PRIVACY TAB -->
+    <div class="tab-pane fade" id="unregister">
+
+
+        <form action="#" method="post">
+            <form action="#" method="post">
+
+                <div class="form-group">
+                    <label class="control-label">Enter your username
+                        ({{model.editUser.username}}) below to confirm you want to permanently delete it:
+                    </label>
+                    <input ng-model="model.editUser.confirmDelete" type="text" class="form-control">
+                </div>
+                <div class="margiv-top10">
+                    <a ng-click="model.delete(model.editUser)" class="btn btn-primary"><i class="fa fa-check"></i> Unregister User</a>
+                </div>
+
+            </form>
+
+        </form>
+
+    </div>
+    <!-- /PRIVACY TAB -->
+    <!-- Unregister -->
+    <div class="tab-pane fade" id="privacy">
+
+
+        <form action="#" method="post">
+            <div class="sky-form">
+
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <tr>
+                        <td>I agree to the <a>Terms of Service</a></td>
+                        <td>
+                            <label class="checkbox nomargin">
+                                <input ng-model="model.editUser.service" type="checkbox" name="checkbox" checked="checked"><i></i> Yes
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>I want to receive news and  special offers</td>
+                        <td>
+                            <label class="checkbox nomargin">
+                                <input ng-model="model.editUser.news" type="checkbox" name="checkbox" checked=""><i></i> Yes
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="margin-top-10">
+                <a ng-click="model.update(model.editUser)" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
+                <a ng-href="#/admin" class="btn btn-default">Cancel </a>
+            </div>
+
+        </form>
+
+    </div>
+    <!-- /Unregister -->
+</div>
+</div>
+</section>
+</div>
+
+<ng-include src="'./views/footer/admin.footer.view.client.html'"></ng-include>

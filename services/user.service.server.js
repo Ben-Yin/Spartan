@@ -19,10 +19,10 @@ module.exports = function (app, model) {
     app.post  ('/api/register',register);
     app.post  ('/api/logout',logout);
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-    // app.post  ('/api/user',auth, createUser);
+    app.post  ('/api/admin/user',auth, createUser);
     app.get   ('/api/loggedin',loggedin);
     app.get   ('/api/user/:userId', findUserById);
-    // app.get   ('/api/user',auth, findAllUsers);
+    app.get   ('/api/admin/find',auth, findAllUsers);
     app.put   ('/api/user/:userId',auth, updateUser);
     app.put('/api/user/pass/:userId', auth, updatePass);
     app.delete('/api/user/:userId',auth, deleteUser);
@@ -114,6 +114,19 @@ module.exports = function (app, model) {
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
+    function createUser(req,res) {
+        var newUser=req.body;
+        newUser.password=bcrypt.hashSync(newUser.password);
+        model.UserModel.createUser(newUser)
+            .then(
+                function (status) {
+                    res.sendStatus(200);
+                },function (err) {
+                    res.sendStatus(500);
+                    console.log(err);
+                }
+            )
+    }
     function register(req, res) {
         var newUser=req.body;
         model
@@ -172,7 +185,9 @@ module.exports = function (app, model) {
                                 facebook: {
                                     id:    profile.id,
                                     token: token
-                                }
+                                },
+                                usertype:"Membership",
+                                service:true
                             };
                             return model.UserModel.createUser(newFacebookUser);
                         }
@@ -224,7 +239,9 @@ module.exports = function (app, model) {
                             google: {
                                 id:    profile.id,
                                 token: token
-                            }
+                            },
+                            usertype:"Membership",
+                            service:true
                         };
                         return model.UserModel.createUser(newGoogleUser);
                     }
@@ -273,7 +290,9 @@ module.exports = function (app, model) {
                             github: {
                                 id:    profile.id,
                                 token: token
-                            }
+                            },
+                            usertype:"Membership",
+                            service:true
                         };
                         return model.UserModel.createUser(newGitHubUser);
                     }

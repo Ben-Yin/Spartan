@@ -79,6 +79,9 @@
                 .findTrainingById(vm.trainingId)
                 .success(
                     function (training) {
+                        if (vm.user._id != training._coach) {
+                            $location.url("/training");
+                        }
                         training.videoUrl="https://youtu.be/"+training.videoUrl;
                         vm.training=training;
                     }
@@ -353,25 +356,25 @@
 
         }
         function searchYoutube(searchText) {
-            TrainingService.getApiKey()
-                .success(function (key) {
-                    console.log(key)
-                    var api_key=key;
-                    console.log("api_key",api_key);
-                    content = {
-                        params: {
-                            key: api_key,
-                            type: 'video',
-                            maxResult: 12,
-                            pageToken: vm.nextPage ? vm.nextPage : "",
-                            part: "id,snippet",
-                            fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle,nextPageToken,prevPageToken',
-                            q: searchText
-                        }
-                    };
-                });
+            // TrainingService.getApiKey()
+            //     .success(function (key) {
+            //         console.log(key)
+            //         var api_key=key;
+            //         console.log("api_key",api_key);
+            //
+            //     });
 
-
+            content = {
+                params: {
+                    key: "AIzaSyCE6iQJ7JkSdDLDEfzsIFu9dDddnYMSXS0",
+                    type: 'video',
+                    maxResult: 12,
+                    pageToken: vm.nextPage ? vm.nextPage : "",
+                    part: "id,snippet",
+                    fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle,nextPageToken,prevPageToken',
+                    q: searchText
+                }
+            };
             // console.log(content);
             TrainingService
                 .searchYoutube(content)
@@ -444,7 +447,12 @@
                 .getUserById(training._coach)
                 .success(
                     function (user) {
-                        training.coachName = user.username;
+                        if(user==null){
+                            training.coachName = "Undefined";
+                        }
+                        else{
+                            training.coachName = user.username;
+                        }
                     }
                 )
         }
@@ -469,6 +477,7 @@
             return $sce.trustAsResourceUrl(url);
         }
         function searchTraining(keyword) {
+                console.log(keyword)
             setPopularTrainingByConditions(keyword,null,vm.defaultSorting);
             searchYoutube(keyword);
         }
