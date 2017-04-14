@@ -14,6 +14,18 @@ module.exports = function (app, model) {
     app.delete("/api/post/:postId", deletePost);
     app.post("/api/post/:postId/comment", addCommentForPost);
     app.post("/api/upload/post", upload.single('uploadImage'), uploadImage);
+    app.get("/api/find/posts",findAllPosts);
+    function findAllPosts(req,res) {
+        model.PostModel.findAllPosts()
+            .then(
+                function (posts) {
+                    res.json(posts);
+                },function (err) {
+                    res.sendStatus(500);
+                    console.log(err);
+                }
+            )
+    }
 
     function createPost(req, res) {
         var userId = req.params.userId;
@@ -184,13 +196,15 @@ module.exports = function (app, model) {
     function uploadImage(req, res) {
         var userId = req.body.userId;
         var content = req.body.content;
+        var posterName=req.body.posterName;
         if(req.file !=undefined) {
             var post = {
                 "_poster": userId,
                 "content": content,
                 "imageUrl": "/uploads/postImage/" + req.file.filename,
                 "likes": [],
-                "comments": []
+                "comments": [],
+                "posterName":posterName
             };
             model
                 .PostModel

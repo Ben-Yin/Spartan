@@ -4,7 +4,113 @@
         .module("Spartan")
         .controller("TrainingController",TrainingController)
         .controller("NewTrainingController",NewTrainingController)
-        .controller("VideoController",VideoController);
+        .controller("VideoController",VideoController)
+        .controller("EditTrainingController",EditTrainingController)
+        .controller("CourseListController",CourseListController);
+    function CourseListController($sce,$routeParams,$rootScope, $location,TrainingService,UserService) {
+        var vm=this;
+        vm.coachId=$routeParams.coachId;
+        vm.getFormattedDate = getFormattedDate;
+        vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
+        vm.logout=logout;
+
+        function init() {
+            vm.user = $rootScope.currentUser;
+            UserService.getUserById(vm.coachId)
+                .success(
+                    function (coach) {
+                        vm.coachName=coach.username;
+                        TrainingService.findTrainingByCoachId(vm.coachId)
+                            .success(
+                                function (trainings) {
+
+                                    console.log(trainings)
+                                    for(var i in trainings){
+                                        trainings.coachName=coach.username;
+                                    }
+                                    vm.spartanTraining=trainings;
+                                    console.log(vm.spartanTraining);
+
+                                }
+                            )
+                    }
+                )
+        };
+        init();
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+        function setCoachForTraining(training) {
+            UserService
+                .getUserById(training._coach)
+                .success(
+                    function (user) {
+                        training.coachName = user.username;
+                    }
+                )
+        }
+        function getFormattedDate(dateStr) {
+            var date = new Date(dateStr);
+            // console.log(date);
+            return date.toDateString();
+        }
+
+        function getYouTubeEmbedUrl(videoId) {
+            // console.log(widgetUrl)
+            var url = "https://www.youtube.com/embed/"+videoId;
+            // console.log(videoId)
+            return $sce.trustAsResourceUrl(url);
+        }
+    }
+    function EditTrainingController($routeParams,$rootScope, $location,TrainingService,UserService) {
+        var vm=this;
+        vm.updateTraining=updateTraining;
+        vm.logout = logout;
+        vm.trainingId = $routeParams.trainingId;
+        function init() {
+            vm.user=$rootScope.currentUser;
+            TrainingService
+                .findTrainingById(vm.trainingId)
+                .success(
+                    function (training) {
+                        training.videoUrl="https://youtu.be/"+training.videoUrl;
+                        vm.training=training;
+                    }
+                )
+        }
+        init();
+
+        function updateTraining(training) {
+            var urlParts = training.videoUrl.split('/');
+            var id = urlParts[urlParts.length - 1];
+            training.videoUrl=id;
+            // console.log("controller",training);
+            TrainingService
+                .updateTraining(vm.user._id,training)
+                .success(
+                    function (training) {
+                        // console.log("create success!")
+                        $location.url("/training/"+training._id);
+                    }
+                )
+
+        }
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function(response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    });
+        }
+    }
 
     function VideoController($sce,$routeParams,$rootScope, $location,TrainingService, UserService, CommentService) {
         var vm=this;
@@ -160,6 +266,7 @@
             var id = urlParts[urlParts.length - 1];
             training.videoUrl=id;
             training.source="Spartan College";
+            training.coachName=vm.user.username;
             // console.log("controller",training);
             TrainingService
                 .createTraining(vm.user._id,training)
@@ -191,9 +298,9 @@
         vm.sortByCategory = sortByCategory;
         vm.getFormattedDate = getFormattedDate;
         vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
-        vm.searchTraining = searchTraining;
         vm.likeTraining=likeTraining;
         vm.storeCourse=storeCourse;
+        vm.searchTraining = searchTraining;
         vm.youtubeData=[];
         vm.nextPage="";
         vm.youtubeSearchText="FITNESS"
@@ -207,11 +314,11 @@
         init();
 
         function likeTrainingInYoutube(user,data) {
-            // console.log(userId,data);
-            if(user.usertype!='Coach'){
-                $window.alert("This function is only for Coach!")
+            if(angular.isUndefined(user)){
+                $window.alert("Please register a account!");
+                return;
             }
-            else {
+            if(user.usertype='Coach'){
                 // console.log(data.id.videoId)
                 TrainingService
                     .findTrainingByVideoId(data.id.videoId)
@@ -223,7 +330,8 @@
                                     likes:[user._id],
                                     source:"Youtube",
                                     title:data.snippet.title,
-                                    description:data.snippet.description+"This video is recommended by Spartan Coach"
+                                    description:data.snippet.description+"This video is recommended by Spartan Coach",
+                                    coachName:user.username
                                 }
                                 TrainingService.createTraining(user._id,newTraining)
                                     .success(
@@ -239,6 +347,9 @@
                     )
 
             }
+            else {
+                $window.alert("Register as a coach!")
+            }
 
         }
         function searchYoutube(searchText) {
@@ -247,19 +358,20 @@
                     console.log(key)
                     var api_key=key;
                     console.log("api_key",api_key);
+                    content = {
+                        params: {
+                            key: api_key,
+                            type: 'video',
+                            maxResult: 12,
+                            pageToken: vm.nextPage ? vm.nextPage : "",
+                            part: "id,snippet",
+                            fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle,nextPageToken,prevPageToken',
+                            q: searchText
+                        }
+                    };
                 });
 
-            content = {
-                params: {
-                    key: "AIzaSyCE6iQJ7JkSdDLDEfzsIFu9dDddnYMSXS0",
-                    type: 'video',
-                    maxResult: 12,
-                    pageToken: vm.nextPage ? vm.nextPage : "",
-                    part: "id,snippet",
-                    fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle,nextPageToken,prevPageToken',
-                    q: searchText
-                }
-            };
+
             // console.log(content);
             TrainingService
                 .searchYoutube(content)

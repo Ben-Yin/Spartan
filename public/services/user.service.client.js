@@ -18,6 +18,7 @@
             "getUserById": getUserById,
             "updateUser": updateUser,
             "updatePass": updatePass,
+            "findAllUsers":findAllUsers,
             "deleteUser": deleteUser,
             "getUserFollowing": getUserFollowing,
             "getUserFollower": getUserFollower,
@@ -51,6 +52,11 @@
         function updatePass(userId, password) {
             return $http.put('/api/user/pass/' + userId, password);
         }
+
+        function findAllUsers() {
+            // console.log(type)
+            return $http.get("/api/admin/find/");
+        }
         
         function getUserFollowing(userId) {
             return $http.get("/api/user/"+userId+"/following");
@@ -62,6 +68,7 @@
 
         function countFollowerById(userId) {
             return $http.get("/api/user/"+userId+"/followerNum");
+
         }
     }
 })();

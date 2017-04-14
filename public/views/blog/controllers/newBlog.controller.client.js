@@ -20,6 +20,7 @@
 
         function createBlog(blog) {
             console.log("try create blog");
+            blog.bloggerName=vm.user.username;
             BlogService
                 .createBlog(vm.user._id, blog)
                 .success(function (blog) {

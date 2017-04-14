@@ -26,6 +26,7 @@ module.exports = function (app, model) {
     app.put   ('/api/user/:userId',auth, updateUser);
     app.put('/api/user/pass/:userId', auth, updatePass);
     app.delete('/api/user/:userId',auth, deleteUser);
+    app.get('/api/admin/find/',findAllUsers);
     app.get('/api/user/:userId/following', findUserFollowing);
     app.get('/api/user/:userId/follower', findUserFollower);
     app.get('/api/user/:userId/followerNum', CountUserFollower);
@@ -35,9 +36,21 @@ module.exports = function (app, model) {
     passport.deserializeUser(deserializeUser);
 
 
+    function findAllUsers(req,res) {
+        var type=req.query.type;
+        model.UserModel.findAllUsers()
+            .then(
+                function (users) {
+                    res.json(users)
+                },function (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                }
+            )
+    }
     function authorized (req, res, next) {
         if (!req.isAuthenticated()) {
-            res.send(401);
+            res.sendStatus(401);
         } else {
             next();
         }

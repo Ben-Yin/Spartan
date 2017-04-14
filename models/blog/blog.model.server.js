@@ -12,10 +12,15 @@ module.exports = function () {
         updateBlog: updateBlog,
         deleteBlog: deleteBlog,
         addCommentForBlog: addCommentForBlog,
+        findAllBlogs:findAllBlogs,
         countBlogByUserId: countBlogByUserId
+
     };
     return api;
 
+    function findAllBlogs() {
+        return BlogModel.find();
+    }
     function createBlog(blog) {
         return BlogModel.create(blog);
     }

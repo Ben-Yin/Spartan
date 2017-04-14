@@ -16,10 +16,14 @@ module.exports=function () {
         updateTraining:updateTraining,
         deleteTraining:deleteTraining,
         addCommentForTraining:addCommentForTraining,
-        findTrainingByVideoId:findTrainingByVideoId
+        findTrainingByVideoId:findTrainingByVideoId,
+        findAllTrainings:findAllTrainings
     };
     return api;
 
+    function findAllTrainings() {
+        return TrainingModel.find({});
+    }
     function createTraining(newTraning) {
         // console.log("training model",newTraning);
         return TrainingModel.create(newTraning)
@@ -36,7 +40,7 @@ module.exports=function () {
         return TrainingModel.findOne({"videoUrl":videoId});
     }
     function findTrainingByCoachId(coachId) {
-        return TrainingModel.findOne({"_coach":coachId}).sort({"createDate":-1});
+        return TrainingModel.find({"_coach":coachId}).sort({"createDate":-1});
     }
     function findTrainingByConditions(key,category,sorting) {
         var condition = {};
@@ -63,7 +67,7 @@ module.exports=function () {
     }
 
     function addCommentForTraining(trainingId,comment) {
-        console.log("add comment for training model")
+        // console.log("add comment for training model")
         return TrainingModel.findById(trainingId,function (err,training) {
             if(err) return handleError(err);
             training.comments.push(comment);

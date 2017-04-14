@@ -12,6 +12,19 @@ module.exports = function (app, model) {
     app.delete("/api/training/:trainingId", deleteTraining);
     app.post("/api/training/:trainingId/comment", addCommentForTraining);
     app.get("/api/video/:videoId",findTrainingByVideoId);
+    app.get("/api/find/training",findAllTrainings);
+
+    function findAllTrainings(req,res) {
+        model.TrainingModel.findAllTrainings()
+            .then(
+                function (trainings) {
+                    res.json(trainings);
+                },function (err) {
+                    res.sendStatus(500);
+                    console.log(1);
+                }
+            )
+    }
 
     function findTrainingById(req,res) {
         var trainingId=req.params.trainingId;

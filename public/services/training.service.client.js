@@ -21,9 +21,13 @@
             "updateTraining":updateTraining,
             "deleteTraining":deleteTraining,
             "addCommentForTraining":addCommentForTraining,
-            "findTrainingByVideoId":findTrainingByVideoId
+            "findTrainingByVideoId":findTrainingByVideoId,
+            "findAllTrainings":findAllTrainings
         }
         return api;
+        function findAllTrainings() {
+            return $http.get("/api/find/training")
+        }
         function addCommentForTraining(trainingId, comment) {
             return $http.post("/api/training/"+trainingId+"/comment", comment);
         }

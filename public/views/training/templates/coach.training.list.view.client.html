@@ -1,0 +1,84 @@
+<ng-include src="'./views/header/header.view.client.html'"></ng-include>
+<!-- wrapper -->
+<div id="wrapper">
+
+    <section class="page-header page-header-xs">
+        <div class="container">
+            <a  ng-hide="model.user.usertype=='Coach'" ng-href="#/training"><h1>Enjoy your study in Spartan College!</h1></a>
+            <a  ng-show="model.user.usertype=='Coach'" ng-href="#/training"><h1>BE A CLOUD-COACH</h1></a>
+            <!-- breadcrumbs -->
+
+            <ol class="breadcrumb">
+                <li><a ng-href="#/index">Home</a></li>
+                <li role="presentation" ng-hide="model.user.usertype"><a  ng-href="#/register">Register</a></li>
+                <li role="presentation" ng-show="model.user.usertype"><a  ng-href="#/training/favorites/{{model.user._id}}">My Favorites</a></li>
+                <li role="presentation" ng-show="model.user.usertype=='Coach'"><a ng-href="#/training/coach/{{model.user._id}}">My Upload Course</a></li>
+                <li role="presentation" ng-show="model.user.usertype=='Coach'"><a ng-href="#/training/new">New Course</a></li>
+            </ol><!-- /breadcrumbs -->
+
+        </div>
+    </section>
+
+
+
+    <!-- -->
+    <section>
+
+        <div class="container">
+
+
+                <h2>{{model.coachName}}'s Courses</h2>
+                <!-- POST ITEM -->
+                <div class="blog-post-item row" ng-repeat="training in model.spartanTraining">
+                    <!-- .blog-post-item-inverse = image right side [left on RTL] -->
+
+
+                    <!-- IMAGE -->
+                        <div class="margin-bottom-20  col-xs-6">
+                            <iframe src={{model.getYouTubeEmbedUrl(training.videoUrl)}} width="300"></iframe>
+                        </div>
+
+                    <div class="blog-item-small-content col-xs-6">
+
+                        <h2><a ng-href="#/training/{{training._id}}">{{training.title}}</a></h2>
+
+                        <ul class="blog-post-info list-inline">
+                            <li>
+                                <i class="fa fa-user"></i>
+                                <span class="font-lato"><a ng-href="#/training/coach/{{training._coach}}" >{{model.coachName}}</a></span>
+
+                            </li>
+                            <li>
+                                <i class="fa fa-clock-o"></i>
+                                <span class="font-lato">{{model.getFormattedDate(training.createDate)}}</span>
+
+                            </li>
+                            <li>
+                                <i class="fa fa-comment-o"></i>
+                                <span class="font-lato">{{training.comments.length}} Comments</span>
+                            </li>
+                        </ul>
+
+                        <p>{{training.description}}</p>
+
+                        <a ng-href="#/training/{{training._id}}" class="btn btn-reveal btn-default">
+                            <i class="fa fa-plus"></i>
+                            <span>View More</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+    </section>
+
+    <ng-include src="'./views/footer/footer.view.client.html'"></ng-include>
+</div>
+<!-- /wrapper -->
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>
