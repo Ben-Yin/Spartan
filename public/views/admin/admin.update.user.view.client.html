@@ -38,6 +38,15 @@
                 <label class="control-label">Last Name</label>
                 <input ng-model="model.editUser.lastname" type="text" placeholder="Last Name" class="form-control">
             </div>
+             <div class="form-group">
+                <div class="row"></div>
+                <label class="control-label">User Type</label>
+                <select ng-model="model.editUser.usertype">
+                    <option ng-selected="model.editUser.usertype=='MemberShip'">MemberShip</option>
+                    <option ng-selected="model.editUser.usertype=='Coach'">Coach</option>
+                    <option ng-selected="model.editUser.usertype=='Admin'">Admin</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label class="control-label">email</label>
                 <input ng-model="model.editUser.email" type="text" placeholder="email" class="form-control">
