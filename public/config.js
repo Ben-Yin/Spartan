@@ -326,7 +326,7 @@
             if (user !== '0') {
                 user.loggedin=true;
                 $rootScope.currentUser = user;
-                console.log("get user!!",user);
+
             }
             deferred.resolve();
         });

@@ -94,12 +94,13 @@
             var id = urlParts[urlParts.length - 1];
             training.videoUrl=id;
             // console.log("controller",training);
+            var updateTrainingId=training._id;
             TrainingService
-                .updateTraining(vm.user._id,training)
+                .updateTraining(updateTrainingId,training)
                 .success(
                     function (training) {
                         // console.log("create success!")
-                        $location.url("/training/"+training._id);
+                        $location.url("/training/"+updateTrainingId);
                     }
                 )
 
