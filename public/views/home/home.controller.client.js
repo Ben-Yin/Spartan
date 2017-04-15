@@ -29,11 +29,11 @@
                     }
                 );
             PostService
-                .findPostByConditions(null, "trending")
+                .findPostByConditions(null, "Date")
                 .success(
                     function (posts) {
-                        if (posts.length > 6) {
-                            vm.posts = posts.slice(0, 6);
+                        if (posts.length > 3) {
+                            vm.posts = posts.slice(0, 3);
                         } else {
                             vm.posts = posts;
                         }
@@ -60,10 +60,11 @@
         }
         function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
+            var year = date.getYear();
              return {
                 "date": date.getDate(),
                 "month": months[date.getMonth()],
-                "year": date.getYear()
+                "year": year+1900
             };
         }
 

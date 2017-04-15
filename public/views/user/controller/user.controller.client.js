@@ -4,18 +4,18 @@
         .module("Spartan")
         .controller("LoginController", LoginController)
         .controller("RegisterController", RegisterController)
-        .controller("ProfileController",ProfileController)
-        .controller("ProfileEditController",ProfileEditController)
+        .controller("ProfileController", ProfileController)
+        .controller("ProfileEditController", ProfileEditController)
         .controller("UserFollowingController", UserFollowingController)
-        .controller("UserFavoriteController",UserFavoriteController);
-    function RegisterController($location,UserService,$rootScope) {
-        var vm=this;
-        vm.register=register;
-        vm.logout=logout;
+        .controller("UserFavoriteController", UserFavoriteController);
+    function RegisterController($location, UserService, $rootScope) {
+        var vm = this;
+        vm.register = register;
+        vm.logout = logout;
 
-        function init(){
+        function init() {
 
-            vm.service={value:false}
+            vm.service = {value: false}
         }
 
         init();
@@ -23,99 +23,102 @@
             UserService
                 .logout()
                 .then(
-                    function(response) {
+                    function (response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
-                    })}
+                    })
+        }
+
         function register(user) {
-            if(user.username!=null &&user.usertype!=null){
-                if(vm.user.service){
-                    if (user.password ==user.passwordCheck && user.password){
+            if (user && user.username != null && user.usertype != null) {
+                if (vm.user.service) {
+                    if (user.password == user.passwordCheck && user.password) {
                         // console.log("input user",user)
-                        user.loggedin=true;
+                        user.loggedin = true;
                         UserService
                             .register(user)
-                            .then(function (res) {
-                                var user=res.data;
-                                $rootScope.currentUser=user;
-                                vm.user=user
-                                console.log("vm",vm.user)
+                            .success(function (res) {
+                                var user = res;
+                                $rootScope.currentUser = user;
+                                vm.user = user;
                                 $location.path("/profile")
                             })
+                            .error(
+                                function () {
+                                    vm.error = "Username exists! Please try another username"
+                                }
+                            )
                     }
-                    else{
-                        vm.error="Password doesn't match!"
+                    else {
+                        vm.error = "Password doesn't match!"
                     }
 
                 }
-                else{
-                    vm.error="Please agree to Terms of Service!"
+                else {
+                    vm.error = "Please agree to Terms of Service!"
                 }
             }
-            else
-            {
-                vm.error="Please fill in Username and select Usertype!"
+            else {
+                vm.error = "Please fill in Username and select Usertype!"
             }
 
         }
     }
-    function LoginController($location,$rootScope,UserService) {
-        var vm=this;
-        vm.login=login;
-        vm.logout=logout;
+
+    function LoginController($location, $rootScope, UserService) {
+        var vm = this;
+        vm.login = login;
+        vm.logout = logout;
 
         function init() {
 
         }
+
         function logout() {
             UserService
                 .logout()
                 .then(
-                    function(response) {
+                    function (response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
-                    })}
+                    })
+        }
 
         function login(user) {
             if (user == null) {
-                vm.error="Please fill the required fields";
+                vm.error = "Please fill the required fields";
                 return;
             }
-            console.log(user)
-                UserService
-                    .login(user)
-                    .then(
-                        function (res) {
-                            var user=res.data;
-                            $rootScope.currentUser=user;
-                            // console.log("login controller",user)
-                            // console.log("$rootScope.currentUser",$rootScope.currentUser)
-                            // console.log("vm.user",vm.user)
-                            vm.user=user;
-                            // console.log("vm.user",vm.user)
-                            if(user.usertype=="Admin"){
-                                $location.path("/admin");
-                            }else {
-                                $location.path("/index");
-                            }
-
-                        },function (err) {
-                            vm.error="Username or password is Wrong";
+            UserService
+                .login(user)
+                .then(
+                    function (res) {
+                        var user = res.data;
+                        $rootScope.currentUser = user;
+                        vm.user = user;
+                        if (user.usertype == "Admin") {
+                            $location.path("/admin");
+                        } else {
+                            $location.path("/index");
                         }
-                    )
+
+                    }, function (err) {
+                        vm.error = "Username or password is Wrong";
+                    }
+                )
 
         }
 
     }
-    
-    function ProfileController($location,$rootScope,UserService,BlogService,TrainingService) {
-        var vm=this;
-        vm.logout=logout;
+
+    function ProfileController($location, $rootScope, UserService, BlogService, TrainingService) {
+        var vm = this;
+        vm.logout = logout;
         vm.setFollowerNum = setFollowerNum;
 
         function init() {
             vm.user = $rootScope.currentUser;
-            var maxNum = 6;
+            var maxNum = 4;
             if (vm.user.usertype == "MemberShip") {
                 UserService
                     .getUserFollowing(vm.user._id)
@@ -184,13 +187,14 @@
             }
 
         }
+
         init();
 
         function logout() {
             UserService
                 .logout()
                 .then(
-                    function(response) {
+                    function (response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
                     })
@@ -208,29 +212,30 @@
 
 
     }
-    function ProfileEditController($location,$rootScope,UserService,$window) {
-        var vm=this;
-        vm.logout=logout;
-        vm.update=update;
-        vm.updatePass=updatePass;
-        vm.delete=deleteUser;
+
+    function ProfileEditController($location, $rootScope, UserService, $window) {
+        var vm = this;
+        vm.logout = logout;
+        vm.update = update;
+        vm.updatePass = updatePass;
+        vm.delete = deleteUser;
 
         function init() {
 
-            vm.user=$rootScope.currentUser;
-            console.log("init",vm.user.avatar)
+            vm.user = $rootScope.currentUser;
+            console.log("init", vm.user.avatar)
         }
+
         init();
         function deleteUser(user) {
             // console.log("delete user",user)
-            if(user.confirmDelete==user.username)
-            {
+            if (user.confirmDelete == user.username) {
                 UserService.deleteUser(user._id)
                     .success(function () {
                         UserService
                             .logout()
                             .then(
-                                function(response) {
+                                function (response) {
                                     $rootScope.currentUser = null;
                                     $location.url("/");
                                 })
@@ -238,56 +243,63 @@
                     .error(function () {
                         $window.alert('Unable to remove user');
                     });
-            }else{
+            } else {
                 $window.alert('Please re-enter the username!');
             }
 
         }
+
         function updatePass(pass) {
             console.log(pass)
-            var originPass=pass.originPass;
-            var newpass=pass.newpass;
-            var newpassCheck=pass.newpassCheck;
+            var originPass = pass.originPass;
+            var newpass = pass.newpass;
+            var newpassCheck = pass.newpassCheck;
 
-            var password={
-                originPass:originPass,
-                newpass:newpass,
-                encryptPass:vm.user.password
+            var password = {
+                originPass: originPass,
+                newpass: newpass,
+                encryptPass: vm.user.password
             }
-            if(newpass==newpassCheck && newpass){
-                UserService.updatePass($rootScope.currentUser._id,password)
+            if (newpass == newpassCheck && newpass) {
+                UserService.updatePass($rootScope.currentUser._id, password)
                     .then(
                         function (user) {
-                            if(user)
-                            {$window.alert("Update Password!")}
-                            else{$window.alert("Password Wrong!");}
+                            if (user) {
+                                $window.alert("Update Password!")
+                            }
+                            else {
+                                $window.alert("Password Wrong!");
+                            }
                         }
                     )
-            }else{
+            } else {
                 $window.alert("Password doesn't match!");
             }
 
         }
+
         function update(user) {
-            var updateUser=vm.user;
-            console.log(updateUser,$rootScope.currentUser._id)
-            UserService.updateUser($rootScope.currentUser._id,updateUser)
+            var updateUser = vm.user;
+            console.log(updateUser, $rootScope.currentUser._id)
+            UserService.updateUser($rootScope.currentUser._id, updateUser)
                 .then(
                     function (user) {
                         $window.alert("Update success!")
-                        console.log("aa",user.config.data)
-                        $rootScope.currentUser=user.config.data;
+                        console.log("aa", user.config.data)
+                        $rootScope.currentUser = user.config.data;
                     }
                 )
         }
+
         function logout() {
             UserService
                 .logout()
                 .then(
-                    function(response) {
+                    function (response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
-                    })}
+                    })
+        }
 
     }
 
@@ -324,16 +336,17 @@
                             setFollow(vm.followers[i]);
                         }
                         if ($location.url().indexOf("following") != -1) {
-                            vm.title = vm.reqUser.username+"'s following";
+                            vm.title = vm.reqUser.username + "'s following";
                             vm.userList = vm.followings;
                         } else {
-                            vm.title = vm.reqUser.username+"'s follower";
+                            vm.title = vm.reqUser.username + "'s follower";
                             vm.userList = vm.followers;
                         }
                         console.log(vm.userList);
                     }
                 )
         }
+
         init();
 
         function setFollowing() {
@@ -378,28 +391,31 @@
                 }
             }
         }
+
         function logout() {
             UserService
                 .logout()
                 .then(
-                    function(response) {
+                    function (response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
-                    })}
+                    })
+        }
     }
-    function UserFavoriteController($sce,$routeParams,$rootScope, $location,TrainingService,UserService) {
 
-        var vm=this;
-        vm.coachId=$rootScope.currentUser._id;
+    function UserFavoriteController($sce, $routeParams, $rootScope, $location, TrainingService, UserService) {
+
+        var vm = this;
+        vm.coachId = $rootScope.currentUser._id;
         vm.getFormattedDate = getFormattedDate;
-        vm.getYouTubeEmbedUrl=getYouTubeEmbedUrl;
-        vm.logout=logout;
+        vm.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+        vm.logout = logout;
 
         function init() {
             vm.user = $rootScope.currentUser;
-            var favorites=vm.user.storecourse;
-            vm.spartanTraining=[];
-            for (var i in favorites){
+            var favorites = vm.user.storecourse;
+            vm.spartanTraining = [];
+            for (var i in favorites) {
                 TrainingService.findTrainingById(favorites[i])
                     .success(
                         function (training) {
@@ -415,11 +431,12 @@
             UserService
                 .logout()
                 .then(
-                    function(response) {
+                    function (response) {
                         $rootScope.currentUser = null;
                         $location.url("/");
                     });
         }
+
         function setCoachForTraining(training) {
             UserService
                 .getUserById(training._coach)
@@ -429,6 +446,7 @@
                     }
                 )
         }
+
         function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
             // console.log(date);
@@ -437,12 +455,11 @@
 
         function getYouTubeEmbedUrl(videoId) {
             // console.log(widgetUrl)
-            var url = "https://www.youtube.com/embed/"+videoId;
+            var url = "https://www.youtube.com/embed/" + videoId;
             // console.log(videoId)
             return $sce.trustAsResourceUrl(url);
         }
     }
-
 
 
 })();
