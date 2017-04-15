@@ -27,9 +27,9 @@ module.exports = function (app, model) {
     app.put('/api/user/pass/:userId', auth, updatePass);
     app.delete('/api/user/:userId',auth, deleteUser);
     app.get('/api/admin/find/',findAllUsers);
-    app.get('/api/user/:userId/following', auth,findUserFollowing);
-    app.get('/api/user/:userId/follower',auth, findUserFollower);
-    app.get('/api/user/:userId/followerNum',auth, CountUserFollower);
+    app.get('/api/user/:userId/following',findUserFollowing);
+    app.get('/api/user/:userId/follower', findUserFollower);
+    app.get('/api/user/:userId/followerNum', CountUserFollower);
     app.get("/api/find/users/by/:username",auth,findUsersByUsername);
 
     function findUsersByUsername(req,res) {
