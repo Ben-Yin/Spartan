@@ -32,8 +32,8 @@
                 .findPostByConditions(null, "trending")
                 .success(
                     function (posts) {
-                        if (posts.length > 6) {
-                            vm.posts = posts.slice(0, 6);
+                        if (posts.length > 3) {
+                            vm.posts = posts.slice(0, 3);
                         } else {
                             vm.posts = posts;
                         }

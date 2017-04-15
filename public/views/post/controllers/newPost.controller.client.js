@@ -6,7 +6,7 @@
         .module("Spartan")
         .controller("NewPostController", NewPostController);
 
-    function NewPostController($rootScope) {
+    function NewPostController($rootScope, $location) {
         var vm = this;
         vm.logout = logout;
 
