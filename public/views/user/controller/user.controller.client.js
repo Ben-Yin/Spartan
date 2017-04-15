@@ -115,7 +115,7 @@
 
         function init() {
             vm.user = $rootScope.currentUser;
-            var maxNum = 6;
+            var maxNum = 4;
             if (vm.user.usertype == "MemberShip") {
                 UserService
                     .getUserFollowing(vm.user._id)
