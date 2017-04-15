@@ -29,7 +29,7 @@
                     }
                 );
             PostService
-                .findPostByConditions(null, "trending")
+                .findPostByConditions(null, "Date")
                 .success(
                     function (posts) {
                         if (posts.length > 3) {
@@ -60,10 +60,11 @@
         }
         function getFormattedDate(dateStr) {
             var date = new Date(dateStr);
+            var year = date.getYear();
              return {
                 "date": date.getDate(),
                 "month": months[date.getMonth()],
-                "year": date.getYear()
+                "year": year+1900
             };
         }
 
