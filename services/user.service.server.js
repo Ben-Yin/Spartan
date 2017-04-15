@@ -21,7 +21,7 @@ module.exports = function (app, model) {
     app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     app.post  ('/api/admin/user',auth, createUser);
     app.get   ('/api/loggedin',loggedin);
-    app.get   ('/api/user/:userId', auth,findUserById);
+    app.get   ('/api/user/:userId', findUserById);
     app.get   ('/api/admin/find',auth, findAllUsers);
     app.put   ('/api/user/:userId',auth, updateUser);
     app.put('/api/user/pass/:userId', auth, updatePass);
@@ -149,7 +149,7 @@ module.exports = function (app, model) {
             .then(
                 function (user) {
                     if(user){
-                        res.json(null)
+                        res.sendStatus(500);
                     }else{
                         newUser.password=bcrypt.hashSync(newUser.password);
                         model.UserModel.createUser(newUser)
@@ -461,7 +461,5 @@ module.exports = function (app, model) {
                 }
             );
     }
-
-
 
 };

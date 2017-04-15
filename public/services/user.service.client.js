@@ -62,7 +62,6 @@
         }
 
         function findAllUsers() {
-            // console.log(type)
             return $http.get("/api/admin/find/");
         }
         
