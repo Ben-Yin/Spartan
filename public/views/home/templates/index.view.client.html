@@ -134,8 +134,8 @@
 
     <!-- News -->
     <section id="news">
-        <div class="container container-width-60">
-
+        <div class="container">
+        <div class="row">
             <h2>Trending Articles</h2>
 
             <!-- news item -->
@@ -179,7 +179,7 @@
             </div>
             <!-- /news item -->
             <a ng-href="#/blog" class="btn btn-default btn-lg btn-block">MORE NEWS</a>
-        </div>
+        </div></div>
     </section>
     <!-- /News -->
 
@@ -293,15 +293,9 @@
             <a ng-href="#/training"> <h2>Video Presentations <span class="size-18">/ Get update from us!</span></h2></a>
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6" ng-repeat="training in model.trainings">
                     <div class="embed-responsive embed-responsive-16by9"><!-- VIMEO VIDEO -->
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/jDdKtWnFXFo"
-                                width="800" height="450"></iframe>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="embed-responsive embed-responsive-16by9"><!-- VIMEO VIDEO -->
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uiAywPQmrlM"
+                        <iframe class="embed-responsive-item" src={{model.getYouTubeEmbedUrl(training.videoUrl)}}
                                 width="800" height="450"></iframe>
                     </div>
                 </div>
