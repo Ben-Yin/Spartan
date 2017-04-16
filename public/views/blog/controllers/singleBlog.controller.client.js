@@ -54,6 +54,7 @@
                 comment.commenterName = vm.user.username;
             } else {
                 comment._user = null;
+                comment.commenterName = "Visitor";
             }
             BlogService
                 .addCommentForBlog(vm.blogId, comment)

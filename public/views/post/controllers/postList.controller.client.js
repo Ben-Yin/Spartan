@@ -116,6 +116,7 @@
                 comment.commenterName = vm.user.username;
             } else {
                 comment._user = null;
+                comment.commenterName = "Visitor";
             }
             PostService
                 .addCommentForPost(post._id, comment)
