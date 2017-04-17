@@ -39,13 +39,15 @@ module.exports = function () {
     function findPostByUserId(userId) {
         return PostModel
             .find({_poster: userId})
-            .sort({postDate: -1});
+            .sort({postDate: -1})
+            .exec();
     }
 
     function findPostByUserIds(userIds) {
         return PostModel
             .find({_poster: {$in: userIds}})
-            .sort({postDate: -1});
+            .sort({postDate: -1})
+            .exec();
     }
 
     function findPostByConditions(key, sorting) {
@@ -55,9 +57,9 @@ module.exports = function () {
         }
         var query = PostModel.find(condition);
         if (sorting == "trending") {
-            query = query.sort({"likes": -1});
+            query = query.sort({"likes": -1}).exec();
         } else if (sorting == "Date") {
-            query = query.sort({"postDate": -1});
+            query = query.sort({"postDate": -1}).exec();
         }
         return query;
     }

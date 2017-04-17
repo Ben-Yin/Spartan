@@ -219,6 +219,7 @@
         vm.update = update;
         vm.updatePass = updatePass;
         vm.delete = deleteUser;
+        vm.updateAvatar = updateAvatar;
 
         function init() {
 
@@ -280,7 +281,6 @@
 
         function update(user) {
             var updateUser = vm.user;
-            console.log(updateUser, $rootScope.currentUser._id)
             UserService.updateUser($rootScope.currentUser._id, updateUser)
                 .then(
                     function (user) {
@@ -289,6 +289,51 @@
                         $rootScope.currentUser = user.config.data;
                     }
                 )
+        }
+
+        function updateAvatar() {
+            const file = vm.upload;
+            if (file == null) {
+                return alert('No file selected.');
+            }
+            requestUpload(file);
+        }
+
+        function requestUpload(file) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', "/api/sign-s3?fileName=" + file.name + "&fileType=" + file.type);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        return upload(file, response.signedRequest, response.url);
+                    }
+                    else {
+                        alert('Could not get signed URL.');
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function upload(file, signedRequest, url) {
+            console.log(file);
+            const xhr = new XMLHttpRequest();
+            var status = 0;
+            xhr.open('PUT', signedRequest);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        status = xhr.status;
+                        vm.user.avatar = url;
+                        update(vm.user)
+                    }
+                    else {
+                        alert('Could not upload file.');
+                    }
+                }
+            };
+            return xhr.send(file);
         }
 
         function logout() {

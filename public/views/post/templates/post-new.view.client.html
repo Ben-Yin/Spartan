@@ -31,12 +31,17 @@
     <section>
         <div class="container container-width-60">
             <h1>New Post</h1>
-            <form class="fancy-form" action="/api/upload/post"  method="post" enctype="multipart/form-data">
+            <form class="fancy-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Post Photo</label>
                     <div class="fancy-file-upload fancy-file-primary">
                         <i class="icon-camera"></i>
-                        <input type="file" class="form-control" name="uploadImage" onchange="jQuery(this).next('input').val(this.value);"/>
+                        <input name="upload-file"
+                               file-model="model.upload"
+                               type="file"
+                               class="form-control"
+                               id="image-upload"
+                               onchange="jQuery(this).next('input').val(this.value);">
                         <input type="text" class="form-control" placeholder="no image selected" readonly="" />
                         <span class="button">Choose File</span>
                     </div>
@@ -44,15 +49,15 @@
 
                 <div class="form-group">
                     <textarea rows="5"
-                              name="content"
+                              ng-model="model.post.content"
                               class="form-control word-count"
                               data-maxlength="200"
                               data-info="textarea-words-info"
                               placeholder="Tell your friends how great you feel..."></textarea>
                 </div>
-                <input name="userId" value="{{model.user._id}}" style="display:None"/>
-                <input name="posterName" value="{{model.user.username}}" style="display:None"/>
-                <button type="submit" class="btn btn-block btn-success btn-margin"><i class="fa fa-check"></i>Post</button>
+                <button type="buttom"
+                        class="btn btn-block btn-success btn-margin"
+                        ng-click="model.uploadFile()"><i class="fa fa-check"></i>Post</button>
 
             </form>
         </div>

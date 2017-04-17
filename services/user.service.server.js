@@ -7,14 +7,11 @@ var bcrypt = require("bcrypt-nodejs");
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
-var multer = require('multer'); // npm install multer --save
-var upload = multer({ dest: __dirname+'/../public/uploads' });
 
 module.exports = function (app, model) {
     'use strict';
 
     var auth = authorized;
-    app.post ("/api/upload", upload.single('myFile'), uploadImage);
     app.post  ('/api/login',passport.authenticate('local'),login);
     app.post  ('/api/register',register);
     app.post  ('/api/logout',logout);
@@ -378,21 +375,7 @@ module.exports = function (app, model) {
 
 
     }
-    function uploadImage(req, res) {
-        var userId = req.body.userId;
-        if(req.file !=undefined){
-            var path = "/uploads/" + req.file.filename;
-            model.UserModel.updateAvatar(userId,path)
-                .then(function (user) {
-                    res.redirect("/#/profile");
-                },function (err) {
-                    res.redirect("/#/profile");
-                })}
-        else{
-            res.redirect("/#/profile");
-        }
-    }
-    
+
     function deleteUser(req,res) {
         var userId=req.params.userId;
         model.UserModel.deleteUser(userId)
