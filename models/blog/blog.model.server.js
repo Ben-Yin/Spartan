@@ -36,7 +36,8 @@ module.exports = function () {
     function findBlogByUserId(userId) {
         return BlogModel
             .find({"_blogger": userId})
-            .sort({"postDate": -1});
+            .sort({"postDate": -1})
+            .exec();
     }
 
     function findBlogByConditions(key, category, sorting) {
@@ -49,9 +50,9 @@ module.exports = function () {
         }
         var query = BlogModel.find(condition);
         if (sorting == "trending") {
-            query = query.sort({"likes": -1});
+            query = query.sort({"likes": -1}).exec();
         } else if (sorting == "Date") {
-            query = query.sort({"postDate": -1});
+            query = query.sort({"postDate": -1}).exec();
         }
         return query;
 
