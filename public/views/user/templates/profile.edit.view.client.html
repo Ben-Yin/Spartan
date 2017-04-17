@@ -68,10 +68,22 @@
                                     </div>
 
                                     <div class="col-md-9 col-sm-8" >
-                                            <form action="/api/upload"  method="post" enctype="multipart/form-data">
-                                                <input  name="myFile"  type="file" class="form-control"/>
-                                                <input  name="userId" value="{{model.user._id}}"   style="display:None"/>
-                                                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Save Change</button>
+                                            <form class="fancy-form"  enctype="multipart/form-data">
+                                                <div class="fancy-file-upload fancy-file-primary">
+                                                    <i class="icon-camera"></i>
+                                                    <input  name="myFile"
+                                                            file-model="model.upload"
+                                                            type="file"
+                                                            class="form-control"
+                                                            id="image-upload"
+                                                            onchange="jQuery(this).next('input').val(this.value);"/>
+                                                    <input type="text" class="form-control" placeholder="no image selected" readonly="" />
+                                                    <span class="button">Choose File</span>
+                                                </div>
+                                                <button type="button"
+                                                        class="btn btn-primary btn-block"
+                                                        ng-click="model.updateAvatar()"><i class="fa fa-check"></i> Save Change
+                                                </button>
                                             </form>
                                             <div class="clearfix margin-top-20">
                                                 <span class="label label-warning">NOTE! </span>

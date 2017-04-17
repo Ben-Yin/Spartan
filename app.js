@@ -8,5 +8,6 @@ module.exports = function (app) {
     require("./services/comment.service.server")(app, models);
     require("./services/post.service.server")(app, models);
     require("./services/training.service.server")(app, models);
+    require("./services/s3.service.server")(app);
 
 };
