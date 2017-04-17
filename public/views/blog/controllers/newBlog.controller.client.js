@@ -6,7 +6,7 @@
         .module("Spartan")
         .controller("NewBlogController", NewBlogController);
 
-    function NewBlogController($routeParams, $rootScope, $location, BlogService) {
+    function NewBlogController($routeParams, $rootScope, $location, BlogService, UserService) {
         var vm = this;
         vm.createBlog = createBlog;
         vm.logout = logout;

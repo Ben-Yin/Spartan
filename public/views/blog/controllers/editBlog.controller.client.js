@@ -6,11 +6,11 @@
         .module("Spartan")
         .controller("EditBlogController", EditBlogController);
 
-    function EditBlogController($routeParams, $location, $rootScope, BlogService) {
+    function EditBlogController($routeParams, $location, $rootScope, BlogService, UserService) {
         var vm = this;
         vm.updateBlog = updateBlog;
-        vm.blogId = $routeParams.blogId;
         vm.logout=logout;
+        vm.blogId = $routeParams.blogId;
         vm.user = $rootScope.currentUser;
 
         function init() {
