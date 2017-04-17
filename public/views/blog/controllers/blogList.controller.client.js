@@ -11,6 +11,7 @@
         vm.getBlogIntro = getBlogIntro;
         vm.getFormattedDate = getFormattedDate;
         vm.getSingleBlogUrl = getSingleBlogUrl;
+        vm.sortByTrend = sortByTrend;
         vm.sortByCategory = sortByCategory;
         vm.searchBlogs = searchBlogs;
         vm.logout=logout;
@@ -69,8 +70,12 @@
             $location.url("/blog/"+blog._id);
         }
 
+        function sortByTrend() {
+            setBlogsByConditions(null, null, vm.defaultSorting);
+        }
+
         function sortByCategory(category) {
-            setBlogsByconditions(null, category, vm.defaultSorting);
+            setBlogsByConditions(null, category, vm.defaultSorting);
         }
 
         function setBlogsByConditions(key, category, sorting) {
