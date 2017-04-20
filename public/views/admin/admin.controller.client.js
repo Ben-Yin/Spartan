@@ -213,6 +213,7 @@
                     if (xhr.status == 200) {
                         status = xhr.status;
                         vm.post.imageUrl = url;
+                        vm.post.posterName=vm.user.username;
                         PostService
                             .createPost(vm.user._id, vm.post)
                             .success(
