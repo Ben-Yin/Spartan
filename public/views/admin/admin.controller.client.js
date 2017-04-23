@@ -137,7 +137,7 @@
     }
 
 
-    function AdminBlogNewController($routeParams, $rootScope, $location, BlogService) {
+    function AdminBlogNewController($routeParams, $rootScope, $location, BlogService,PostService) {
         var vm = this;
         vm.createBlog = createBlog;
         vm.logout = logout;
@@ -168,14 +168,67 @@
         }
     }
 
-    function AdminPostNewController($rootScope) {
+    function AdminPostNewController($rootScope,PostService,$location) {
         var vm = this;
         vm.logout = logout;
+        vm.uploadFile = uploadFile;
+
         function init() {
             vm.user = $rootScope.currentUser;
         }
         init();
 
+        function uploadFile() {
+            const file = vm.upload;
+            if (file == null) {
+                return alert('No file selected.');
+            }
+            requestUpload(file);
+        }
+
+        function requestUpload(file) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', "/api/sign-s3?fileName=" + file.name + "&fileType=" + file.type);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        return upload(file, response.signedRequest, response.url);
+                    }
+                    else {
+                        alert('Could not get signed URL.');
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function upload(file, signedRequest, url) {
+            console.log(file);
+            const xhr = new XMLHttpRequest();
+            var status = 0;
+            xhr.open('PUT', signedRequest);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status == 200) {
+                        status = xhr.status;
+                        vm.post.imageUrl = url;
+                        vm.post.posterName=vm.user.username;
+                        PostService
+                            .createPost(vm.user._id, vm.post)
+                            .success(
+                                function () {
+                                    $location.url("/admin");
+                                }
+                            )
+                    }
+                    else {
+                        alert('Could not upload file.');
+                    }
+                }
+            };
+            return xhr.send(file);
+        }
 
         function logout() {
             UserService
@@ -241,12 +294,7 @@
             {
                 UserService.deleteUser(user._id)
                     .success(function () {
-                        UserService
-                            .logout()
-                            .then(
-                                function(response) {
-                                    $location.url("/admin");
-                                })
+                        $location.url("/admin");
                     })
                     .error(function () {
                         $window.alert('Unable to remove user');
@@ -288,7 +336,6 @@
                 .then(
                     function (user) {
                         $window.alert("Update success!")
-                        $location.url("/admin");
                     }
                 )
         }
