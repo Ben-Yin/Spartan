@@ -224,7 +224,13 @@
         function init() {
 
             vm.user = $rootScope.currentUser;
-            console.log("init", vm.user.avatar)
+            UserService
+                .countFollowerById(vm.user._id)
+                .success(
+                    function (res) {
+                        vm.followerNum = res.followerNum;
+                    }
+                )
         }
 
         init();
